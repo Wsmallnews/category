@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Wsmallnews\Category\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class CategoryCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'category';
 
     public $description = 'My command';
 
