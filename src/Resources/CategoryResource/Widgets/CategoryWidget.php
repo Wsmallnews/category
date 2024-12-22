@@ -2,19 +2,18 @@
 
 namespace Wsmallnews\Category\Resources\CategoryResource\Widgets;
 
-use Illuminate\Database\Eloquent\Model;
-use Wsmallnews\Category\Models\Category;
-use Filament\Notifications\Notification;
 use Filament\Forms\Components;
+use Filament\Notifications\Notification;
 use Filament\Tables\Columns;
 use Filament\Widgets\Concerns\InteractsWithPageTable;
+use Illuminate\Database\Eloquent\Model;
 use SolutionForest\FilamentTree\Actions\Action;
 use SolutionForest\FilamentTree\Actions\ActionGroup;
 use SolutionForest\FilamentTree\Actions\DeleteAction;
 use SolutionForest\FilamentTree\Actions\EditAction;
 use SolutionForest\FilamentTree\Actions\ViewAction;
 use SolutionForest\FilamentTree\Widgets\Tree as BaseWidget;
-use Wsmallnews\Category\Resources\CategoryResource\Pages\ListCategories;
+use Wsmallnews\Category\Models\Category;
 
 class CategoryWidget extends BaseWidget
 {
@@ -39,18 +38,17 @@ class CategoryWidget extends BaseWidget
     }
 
     // INFOLIST, CAN DELETE
-    public function getViewFormSchema(): array {
+    public function getViewFormSchema(): array
+    {
         return [
-            Columns\TextColumn::make('description')
+            Columns\TextColumn::make('description'),
         ];
     }
-
 
     protected function getTablePage(): string
     {
         return ListSnCategories::class;
     }
-
 
     // CUSTOMIZE ICON OF EACH RECORD, CAN DELETE
     // public function getTreeRecordIcon(?\Illuminate\Database\Eloquent\Model $record = null): ?string

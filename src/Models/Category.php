@@ -10,16 +10,16 @@ use Wsmallnews\Support\Models\SupportModel;
 
 class Category extends SupportModel
 {
-    use ModelTree, HasFactory;
+    use HasFactory;
+    use ModelTree;
 
     protected $table = 'sn_categories';
 
     protected $guarded = [];
 
     protected $casts = [
-        'status' => \Wsmallnews\Category\Enums\CategoryStatus::class
+        'status' => \Wsmallnews\Category\Enums\CategoryStatus::class,
     ];
-
 
     public function scopeNormal($query)
     {
@@ -30,8 +30,6 @@ class Category extends SupportModel
     {
         return $query->where('status', 'hidden');
     }
-
-
 
     public function category(): BelongsTo
     {

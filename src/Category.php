@@ -8,7 +8,6 @@ class Category
 {
     use CanSetResource;
 
-
     public static $image_directory;
 
     public static function setImageDirectory($image_directory)
@@ -20,6 +19,4 @@ class Category
     {
         return self::$image_directory ?: 'filaments/categories/' . date('Ymd');
     }
-
-
 }

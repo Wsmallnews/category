@@ -2,7 +2,6 @@
 
 namespace Wsmallnews\Category\Resources;
 
-use Filament\Forms;
 use Filament\Forms\Components;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -20,6 +19,7 @@ class CategoryTypeResource extends Resource
     protected static ?string $model = CategoryType::class;
 
     protected static ?string $navigationGroup = '分类管理';
+
     protected static ?string $navigationLabel = '类别管理';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -27,12 +27,12 @@ class CategoryTypeResource extends Resource
     protected static ?string $recordTitleAttribute = 'name';
 
     protected static ?string $modelLabel = '类别';
+
     protected static ?string $pluralModelLabel = '类别管理';
 
     protected static ?string $slug = '/categories/types';
 
     protected static ?int $navigationSort = 1;
-
 
     public static function form(Form $form): Form
     {
@@ -69,20 +69,19 @@ class CategoryTypeResource extends Resource
                             ->columnSpan(1),
                     ])
                     ->columns(2)
-                    ->columnSpan(['lg' => fn(?CategoryType $record) => $record === null ? 3 : 2]),
+                    ->columnSpan(['lg' => fn (?CategoryType $record) => $record === null ? 3 : 2]),
                 Components\Section::make()
                     ->schema([
                         Components\Placeholder::make('created_at')
                             ->label('创建时间')
-                            ->content(fn(CategoryType $record): ?string => $record->created_at?->diffForHumans()),
+                            ->content(fn (CategoryType $record): ?string => $record->created_at?->diffForHumans()),
                         Components\Placeholder::make('updated_at')
                             ->label('更新时间')
-                            ->content(fn(CategoryType $record): ?string => $record->updated_at?->diffForHumans())
+                            ->content(fn (CategoryType $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
                     ->columns(1)
                     ->columnSpan(['lg' => 1])
-                    ->hidden(fn(?CategoryType $record): bool => is_null($record))
-
+                    ->hidden(fn (?CategoryType $record): bool => is_null($record)),
 
                 // Components\Section::make()
                 //     ->schema([

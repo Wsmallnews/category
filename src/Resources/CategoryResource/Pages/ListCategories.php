@@ -2,11 +2,11 @@
 
 namespace Wsmallnews\Category\Resources\CategoryResource\Pages;
 
+use Filament\Actions;
+use Filament\Pages\Concerns\ExposesTableToWidgets;
+use Filament\Resources\Pages\ListRecords;
 use Wsmallnews\Category\Resources\CategoryResource;
 use Wsmallnews\Category\Resources\CategoryResource\Widgets\CategoryWidget;
-use Filament\Actions;
-use Filament\Resources\Pages\ListRecords;
-use Filament\Pages\Concerns\ExposesTableToWidgets;
 
 class ListCategories extends ListRecords
 {
@@ -21,11 +21,10 @@ class ListCategories extends ListRecords
         ];
     }
 
-
     protected function getHeaderWidgets(): array
     {
         return [
-            CategoryWidget::class
+            CategoryWidget::class,
         ];
     }
 }

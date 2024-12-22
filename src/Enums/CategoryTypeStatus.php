@@ -2,13 +2,12 @@
 
 namespace Wsmallnews\Category\Enums;
 
-use Filament\Support\Contracts\HasLabel;
 use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasLabel;
 use Wsmallnews\Support\Enums\Traits\EnumHelper;
 
-Enum CategoryTypeStatus :string implements HasColor, HasLabel
+enum CategoryTypeStatus: string implements HasColor, HasLabel
 {
-
     use EnumHelper;
 
     case Normal = 'normal';
@@ -30,5 +29,4 @@ Enum CategoryTypeStatus :string implements HasColor, HasLabel
             self::Disabled => 'danger',
         };
     }
-
 }

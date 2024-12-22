@@ -8,7 +8,6 @@ use Wsmallnews\Support\Models\SupportModel;
 
 class CategoryType extends SupportModel
 {
-
     use SoftDeletes;
 
     protected $table = 'sn_category_types';
@@ -16,9 +15,8 @@ class CategoryType extends SupportModel
     protected $guarded = [];
 
     protected $casts = [
-        'status' => \Wsmallnews\Category\Enums\CategoryTypeStatus::class
+        'status' => \Wsmallnews\Category\Enums\CategoryTypeStatus::class,
     ];
-
 
     public function scopeNormal($query)
     {
@@ -29,7 +27,6 @@ class CategoryType extends SupportModel
     {
         return $query->where('status', 'disabled');
     }
-
 
     public function categories(): HasMany
     {

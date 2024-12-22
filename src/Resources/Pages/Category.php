@@ -3,12 +3,11 @@
 namespace Wsmallnews\Category\Resources\Pages;
 
 use Filament\Actions\Action;
-use Filament\Forms;
 use Filament\Forms\Components;
+use Filament\Forms\Form;
 use Filament\Pages\Concerns\CanUseDatabaseTransactions;
 use Filament\Pages\Concerns\HasUnsavedDataChangesAlert;
 use Filament\Pages\Concerns\InteractsWithFormActions;
-use Filament\Forms\Form;
 use Filament\Pages\Page;
 use Filament\Support\Exceptions\Halt;
 use Illuminate\Database\Eloquent\Model;
@@ -21,15 +20,16 @@ use Wsmallnews\Support\Forms\Fields\TableRepeater;
 class Category extends Page
 {
     use CanUseDatabaseTransactions;
-    use InteractsWithFormActions;
     use HasUnsavedDataChangesAlert;
+    use InteractsWithFormActions;
 
     protected static ?string $navigationGroup = '分类管理';
+
     protected static ?string $navigationLabel = '分类管理';
+
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static string $view = 'sn-category::resources.pages.category';
-
 
     #[Locked]
     public Model | int | string | null $record;
@@ -51,7 +51,6 @@ class Category extends Page
     {
         return $this->record;
     }
-
 
     public function form(Form $form): Form
     {
@@ -132,12 +131,11 @@ class Category extends Page
                                 //             ->inline()
                                 //             ->required(),
                                 //     ])
-                            ])
+                            ]),
                     ])
                     ->columnSpan('full'),
             ]);
     }
-
 
     protected function fillForm(): void
     {
@@ -253,17 +251,15 @@ class Category extends Page
     public function getSaveFormAction(): Action
     {
         return Action::make('save')
-        ->label(__('filament-spatie-laravel-settings-plugin::pages/settings-page.form.actions.save.label'))
-        ->submit('save')
-        ->keyBindings(['mod+s']);
+            ->label(__('filament-spatie-laravel-settings-plugin::pages/settings-page.form.actions.save.label'))
+            ->submit('save')
+            ->keyBindings(['mod+s']);
     }
 
     public function getSubmitFormAction(): Action
     {
         return $this->getSaveFormAction();
     }
-
-
 
     /**
      * @return array<int | string, string | Form>
@@ -286,5 +282,4 @@ class Category extends Page
     {
         return null;
     }
-
 }

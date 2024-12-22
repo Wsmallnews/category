@@ -59,9 +59,7 @@ class CategoryServiceProvider extends PackageServiceProvider
 
     }
 
-    public function packageRegistered(): void
-    {
-    }
+    public function packageRegistered(): void {}
 
     public function packageBooted(): void
     {
@@ -89,7 +87,7 @@ class CategoryServiceProvider extends PackageServiceProvider
         }
 
         // Testing
-        Testable::mixin(new TestsCategory());
+        Testable::mixin(new TestsCategory);
     }
 
     protected function getAssetPackageName(): ?string

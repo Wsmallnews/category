@@ -8,7 +8,6 @@ use Wsmallnews\Category\Models\Category as CategoryModel;
 
 class Category extends Component
 {
-
     public int $parentId = 0;
 
     public int | string $pageName;
@@ -23,19 +22,14 @@ class Category extends Component
 
     public bool $loadChildren = false;
 
-    public function mount()
-    {
-
-    }
-
-
+    public function mount() {}
 
     public function render()
     {
         $categories = CategoryModel::query()->with(['children.children'])->where('parent_id', 0)->get();
 
         return view('sn-category::livewires.category', [
-            'categories' => $categories
+            'categories' => $categories,
         ])->title('分类列表');
     }
 }

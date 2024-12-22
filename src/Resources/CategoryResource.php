@@ -3,16 +3,13 @@
 namespace Wsmallnews\Category\Resources;
 
 use Awcodes\FilamentTableRepeater\Components\TableRepeater;
-use Filament\Forms;
+use CodeWithDennis\FilamentSelectTree\SelectTree;
 use Filament\Forms\Components;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use SolutionForest\FilamentTree\Forms\Components\Tree;
-use CodeWithDennis\FilamentSelectTree\SelectTree;
 use Wsmallnews\Category\Enums;
 use Wsmallnews\Category\Models\Category;
 use Wsmallnews\Category\Resources\CategoryResource\Pages;
@@ -25,6 +22,7 @@ class CategoryResource extends Resource
     protected static ?string $model = Category::class;
 
     protected static ?string $navigationGroup = '分类管理';
+
     protected static ?string $navigationLabel = '分类管理';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -32,6 +30,7 @@ class CategoryResource extends Resource
     protected static ?string $recordTitleAttribute = 'name';
 
     protected static ?string $modelLabel = '分类';
+
     protected static ?string $pluralModelLabel = '分类';
 
     protected static ?string $slug = '/categories';
@@ -47,8 +46,6 @@ class CategoryResource extends Resource
         //     // $query->bindings;
         //     // $query->time;
         // });
-
-
 
         return $form
             ->schema([
@@ -103,8 +100,6 @@ class CategoryResource extends Resource
                     ])
                     ->columnSpan('full'),
 
-
-
                 // SelectTree::make('parent_id')
                 //     ->label('上级')
                 //     ->relationship('category', 'name', 'parent_id', function ($query) {
@@ -113,8 +108,6 @@ class CategoryResource extends Resource
                 //     ->searchable()
                 //     ->parentNullValue(-1)
                 //     ->emptyLabel(__('Oops, no results have been found!')),
-
-
 
                 // Components\TextInput::make('name')->label('名称')
                 //     ->required(),
@@ -160,7 +153,6 @@ class CategoryResource extends Resource
         ];
     }
 
-
     /**
      * @return array<class-string<Widget>>
      */
@@ -170,7 +162,6 @@ class CategoryResource extends Resource
     //         // CategoryWidget::class
     //     ];
     // }
-
 
     public static function getPages(): array
     {
