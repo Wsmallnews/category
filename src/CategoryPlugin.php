@@ -4,17 +4,30 @@ namespace Wsmallnews\Category;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Wsmallnews\Category\Resources\CategoryResource;
+use Wsmallnews\Category\Resources\CategoryTypeResource;
+use Wsmallnews\Category\Resources\Pages\Category;
 
 class CategoryPlugin implements Plugin
 {
     public function getId(): string
     {
-        return 'category';
+        return 'sn_category';
     }
 
     public function register(Panel $panel): void
     {
-        //
+        $panel
+            ->resources([
+                CategoryTypeResource::class,
+                // CategoryResource::class,
+                // PostResource::class,
+                // CategoryResource::class,
+            ])
+            ->pages([
+                Category::class,
+                // Settings::class,
+            ]);
     }
 
     public function boot(Panel $panel): void

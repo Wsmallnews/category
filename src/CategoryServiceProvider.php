@@ -18,9 +18,9 @@ use Wsmallnews\Category\Testing\TestsCategory;
 
 class CategoryServiceProvider extends PackageServiceProvider
 {
-    public static string $name = 'category';
+    public static string $name = 'sn-category';
 
-    public static string $viewNamespace = 'category';
+    public static string $viewNamespace = 'sn-category';
 
     public function configurePackage(Package $package): void
     {
@@ -49,13 +49,14 @@ class CategoryServiceProvider extends PackageServiceProvider
             $package->hasMigrations($this->getMigrations());
         }
 
-        if (file_exists($package->basePath('/../resources/lang'))) {
-            $package->hasTranslations();
-        }
+        // if (file_exists($package->basePath('/../resources/lang'))) {
+        //     $package->hasTranslations();
+        // }
 
         if (file_exists($package->basePath('/../resources/views'))) {
             $package->hasViews(static::$viewNamespace);
         }
+
     }
 
     public function packageRegistered(): void
@@ -103,8 +104,8 @@ class CategoryServiceProvider extends PackageServiceProvider
     {
         return [
             // AlpineComponent::make('category', __DIR__ . '/../resources/dist/components/category.js'),
-            Css::make('category-styles', __DIR__ . '/../resources/dist/category.css'),
-            Js::make('category-scripts', __DIR__ . '/../resources/dist/category.js'),
+            // Css::make('category-styles', __DIR__ . '/../resources/dist/category.css'),
+            // Js::make('category-scripts', __DIR__ . '/../resources/dist/category.js'),
         ];
     }
 
@@ -148,7 +149,8 @@ class CategoryServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            'create_category_table',
+            'create_sn_categories_table',
+            'create_sn_category_types_table',
         ];
     }
 }
