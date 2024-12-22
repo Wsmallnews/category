@@ -25,7 +25,7 @@ class CategoryPlugin implements Plugin
                 // CategoryResource::class,
             ])
             ->pages([
-                Category::class,
+                // Category::class,
                 // Settings::class,
             ]);
     }

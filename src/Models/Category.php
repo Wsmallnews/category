@@ -5,13 +5,11 @@ namespace Wsmallnews\Category\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use SolutionForest\FilamentTree\Concern\ModelTree;
 use Wsmallnews\Support\Models\SupportModel;
 
 class Category extends SupportModel
 {
     use HasFactory;
-    use ModelTree;
 
     protected $table = 'sn_categories';
 
