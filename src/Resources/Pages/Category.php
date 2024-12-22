@@ -4,7 +4,6 @@ namespace Wsmallnews\Category\Resources\Pages;
 
 use Filament\Actions\Action;
 use Filament\Forms\Components;
-use Filament\Forms\Components\Component;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Pages\Concerns\CanUseDatabaseTransactions;
@@ -51,8 +50,6 @@ class Category extends Page
         $this->fillForm();
     }
 
-
-
     public function form(Form $form): Form
     {
         return $form
@@ -89,16 +86,15 @@ class Category extends Page
                     ])
                     ->columns(2),
                 Components\Section::make('分类设置')
-                    ->schema(fn(Get $get): array => [
+                    ->schema(fn (Get $get): array => [
                         $this->repeaterField($this->getFieldsTree($get('level')), relation_name: 'categories')->hiddenLabel(),
                     ])
                     // ->schema([
                     //     $this->repeaterField($this->getFieldsTree(3), relation_name: 'categories')->hiddenLabel(),
                     // ])
-                    ->columns(1)
+                    ->columns(1),
             ]);
     }
-
 
     public function fields(): array
     {
@@ -145,7 +141,7 @@ class Category extends Page
                         ->uploadingMessage('分类图片上传中...')
                         ->columnSpan(1),
                 ])
-                ->columns(2),
+                    ->columns(2),
 
                 Components\TextInput::make('description')
                     ->hiddenLabel()
@@ -157,19 +153,17 @@ class Category extends Page
                     ->options(Enums\CategoryStatus::class)
                     ->default(Enums\CategoryStatus::Normal->value)
                     ->inline()
-                    ->required()
+                    ->required(),
             ])
-            ->columns(4)
-            ->columnSpanFull(),
+                ->columns(4)
+                ->columnSpanFull(),
         ];
     }
-
 
     public function getRecord(): ?CategoryType
     {
         return $this->record;
     }
-
 
     protected function fillForm(): void
     {
@@ -305,7 +299,7 @@ class Category extends Page
             'form' => $this->form(
                 $this->makeForm()
                     ->schema($this->getFormSchema())
-                    ->model($this->getRecord() ?? new CategoryType())
+                    ->model($this->getRecord() ?? new CategoryType)
                     ->statePath('data')
                     ->columns(2)
                     ->inlineLabel($this->hasInlineLabels()),
