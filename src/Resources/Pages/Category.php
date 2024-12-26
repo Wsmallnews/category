@@ -2,7 +2,6 @@
 
 namespace Wsmallnews\Category\Resources\Pages;
 
-use Filament\Actions\Action;
 use Filament\Forms\Components;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
@@ -33,15 +32,13 @@ class Category extends FormPage
     #[Locked]
     public int $scope_id = 0;
 
-
     public function mount()
     {
         $this->record = CategoryType::where('scope_type', $this->scope_type)->where('scope_id', $this->scope_id)->first();
 
-
-        if (!$this->record) {
+        if (! $this->record) {
             // @sn todo 这么创建太随意了，要提前创建好
-            $categoryType = new CategoryType();
+            $categoryType = new CategoryType;
             $categoryType->scope_type = $this->scope_type;
             $categoryType->scope_id = $this->scope_id;
             $categoryType->name = $this->scope_type;
@@ -55,8 +52,6 @@ class Category extends FormPage
 
         $this->fillForm();
     }
-
-
 
     public function form(Form $form): Form
     {
@@ -145,7 +140,7 @@ class Category extends FormPage
                         ->uploadingMessage('分类图片上传中...')
                         ->columnSpan(1),
                 ])
-                ->columns(2),
+                    ->columns(2),
 
                 Components\TextInput::make('description')
                     ->hiddenLabel()
@@ -158,11 +153,10 @@ class Category extends FormPage
                     ->inline()
                     ->required(),
             ])
-            ->columns(4)
-            ->columnSpanFull(),
+                ->columns(4)
+                ->columnSpanFull(),
         ];
     }
-
 
     public static function getNavigationUrl(): string
     {
