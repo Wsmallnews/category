@@ -36,8 +36,7 @@ class Category extends FormPage
 
     public function mount()
     {
-        $this->record = CategoryType::where('scope_type', $this->scope_type)->where('scope_id', $this->scope_id)->first();
-
+        $this->record = CategoryType::with(['categories.children.children'])->where('scope_type', $this->scope_type)->where('scope_id', $this->scope_id)->first();
 
         if (!$this->record) {
             // @sn todo 这么创建太随意了，要提前创建好
