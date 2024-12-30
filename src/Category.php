@@ -21,10 +21,9 @@ class Category
         return self::$image_directory ?: 'filaments/categories/' . date('Ymd');
     }
 
-
     public static function registerType($scope_type)
     {
-        $categoryType = new CategoryType();
+        $categoryType = new CategoryType;
         $categoryType->scope_type = $scope_type;
         $categoryType->scope_id = 0;
         $categoryType->name = $scope_type;
@@ -33,5 +32,4 @@ class Category
 
         $categoryType->save();
     }
-
 }

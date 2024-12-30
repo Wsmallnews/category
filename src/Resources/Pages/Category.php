@@ -36,7 +36,7 @@ class Category extends FormPage
     {
         $this->record = CategoryType::with(['categories.children.children'])->where('scope_type', $this->scope_type)->where('scope_id', $this->scope_id)->first();
 
-        if (!$this->record) {
+        if (! $this->record) {
             // @sn todo 这么创建太随意了，要提前创建好
             $categoryType = new CategoryType;
             $categoryType->scope_type = $this->scope_type;
