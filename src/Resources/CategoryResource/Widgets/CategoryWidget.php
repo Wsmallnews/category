@@ -75,16 +75,16 @@ class CategoryWidget extends BaseWidget
     //     ];
     // }
     // OR OVERRIDE FOLLOWING METHODS
-    //protected function hasDeleteAction(): bool
-    //{
+    // protected function hasDeleteAction(): bool
+    // {
     //    return true;
-    //}
-    //protected function hasEditAction(): bool
-    //{
+    // }
+    // protected function hasEditAction(): bool
+    // {
     //    return true;
-    //}
-    //protected function hasViewAction(): bool
-    //{
+    // }
+    // protected function hasViewAction(): bool
+    // {
     //    return true;
-    //}
+    // }
 }

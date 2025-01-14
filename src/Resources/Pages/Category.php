@@ -8,11 +8,11 @@ use Filament\Forms\Get;
 use Livewire\Attributes\Locked;
 use Wsmallnews\Category\Category as CategoryManager;
 use Wsmallnews\Category\Enums;
-use Wsmallnews\Category\Models\CategoryType;
 use Wsmallnews\Category\Models\Category as CategoryModel;
+use Wsmallnews\Category\Models\CategoryType;
+use Wsmallnews\Support\Features\Tree;
 use Wsmallnews\Support\Resources\Pages\FormPage;
 use Wsmallnews\Support\Traits\Resources\SetResource;
-use Wsmallnews\Support\Features\Tree;
 
 class Category extends FormPage
 {
