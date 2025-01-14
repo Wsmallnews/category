@@ -8,12 +8,15 @@ use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Filesystem\Filesystem;
 use Livewire\Features\SupportTesting\Testable;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Wsmallnews\Category\Commands\CategoryCommand;
+use Wsmallnews\Category\Models\Category as CategoryModel;
+use Wsmallnews\Category\Models\CategoryType;
 use Wsmallnews\Category\Testing\TestsCategory;
 
 class CategoryServiceProvider extends PackageServiceProvider
@@ -63,6 +66,12 @@ class CategoryServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
+        // 注册模型别名
+        Relation::enforceMorphMap([
+            'sn_category' => CategoryModel::class,
+            'sn_category_type' => CategoryType::class,
+        ]);
+
         // Asset Registration
         FilamentAsset::register(
             $this->getAssets(),

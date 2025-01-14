@@ -9,8 +9,10 @@ use Livewire\Attributes\Locked;
 use Wsmallnews\Category\Category as CategoryManager;
 use Wsmallnews\Category\Enums;
 use Wsmallnews\Category\Models\CategoryType;
+use Wsmallnews\Category\Models\Category as CategoryModel;
 use Wsmallnews\Support\Resources\Pages\FormPage;
 use Wsmallnews\Support\Traits\Resources\SetResource;
+use Wsmallnews\Support\Features\Tree;
 
 class Category extends FormPage
 {
@@ -34,21 +36,11 @@ class Category extends FormPage
 
     public function mount()
     {
-        $this->record = CategoryType::with(['categories.children.children'])->where('scope_type', $this->scope_type)->where('scope_id', $this->scope_id)->first();
+        $this->record = CategoryType::where('scope_type', $this->scope_type)->where('scope_id', $this->scope_id)->firstOrFail();
 
-        if (! $this->record) {
-            // @sn todo 这么创建太随意了，要提前创建好
-            $categoryType = new CategoryType;
-            $categoryType->scope_type = $this->scope_type;
-            $categoryType->scope_id = $this->scope_id;
-            $categoryType->name = $this->scope_type;
-            $categoryType->level = 1;
-            $categoryType->status = Enums\CategoryTypeStatus::Normal;
-
-            $categoryType->save();
-
-            $this->record = $categoryType;
-        }
+        $this->record->categories = (new Tree(function () {
+            return CategoryModel::query()->where('scope_type', $this->scope_type)->where('scope_id', $this->scope_id)->where('type_id', $this->record->id);
+        }))->getTree();
 
         $this->fillForm();
     }
