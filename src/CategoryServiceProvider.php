@@ -158,7 +158,7 @@ class CategoryServiceProvider extends PackageServiceProvider
     {
         return [
             '2025_01_20_113233_create_sn_categories_table',
-            '2025_01_20_113233_create_sn_category_types_table'
+            '2025_01_20_113233_create_sn_category_types_table',
         ];
     }
 }
