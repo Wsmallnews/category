@@ -30,14 +30,14 @@ class Category
             return $exists;
         }, ttl: now()->addDay());
 
-        if (!$exists) {
+        if (! $exists) {
             $categoryType = new CategoryType;
             $categoryType->scope_type = $scope_type;
             $categoryType->scope_id = 0;
             $categoryType->name = $scope_type;
             $categoryType->level = 1;
             $categoryType->status = Enums\CategoryTypeStatus::Normal;
-    
+
             $categoryType->save();
         }
     }

@@ -16,8 +16,8 @@ use Wsmallnews\Support\Traits\Resources\SetResource;
 
 class Category extends FormPage
 {
-    use SetResource;
     use CanScopeable;
+    use SetResource;
 
     protected static ?string $navigationGroup = '分类管理';
 

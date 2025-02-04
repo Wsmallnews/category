@@ -14,7 +14,7 @@ use Wsmallnews\Support\Traits\Resources\Pages\CanScopeable;
 class ListCategoryTypes extends ListRecords
 {
     use CanScopeable;
-    
+
     protected static string $resource = CategoryTypeResource::class;
 
     protected function getHeaderActions(): array
