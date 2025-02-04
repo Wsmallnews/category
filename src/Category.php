@@ -23,13 +23,22 @@ class Category
 
     public static function registerType($scope_type)
     {
-        $categoryType = new CategoryType;
-        $categoryType->scope_type = $scope_type;
-        $categoryType->scope_id = 0;
-        $categoryType->name = $scope_type;
-        $categoryType->level = 1;
-        $categoryType->status = Enums\CategoryTypeStatus::Normal;
+        $key = 'sn-category:' . 'register-type:' . $scope_type;
+        $exists = through_cache($key, function () use ($scope_type) {
+            $exists = CategoryType::scopeable($scope_type)->exists();
 
-        $categoryType->save();
+            return $exists;
+        }, ttl: now()->addDay());
+
+        if (!$exists) {
+            $categoryType = new CategoryType;
+            $categoryType->scope_type = $scope_type;
+            $categoryType->scope_id = 0;
+            $categoryType->name = $scope_type;
+            $categoryType->level = 1;
+            $categoryType->status = Enums\CategoryTypeStatus::Normal;
+    
+            $categoryType->save();
+        }
     }
 }

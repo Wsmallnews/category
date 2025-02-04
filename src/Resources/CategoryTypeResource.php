@@ -4,18 +4,15 @@ namespace Wsmallnews\Category\Resources;
 
 use Filament\Forms\Components;
 use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Wsmallnews\Category\Enums;
 use Wsmallnews\Category\Models\CategoryType;
 use Wsmallnews\Category\Resources\CategoryTypeResource\Pages;
-use Wsmallnews\Support\Traits\Resources\SetResource;
+use Wsmallnews\Support\Resources\SupportResource;
 
-class CategoryTypeResource extends Resource
+class CategoryTypeResource extends SupportResource
 {
-    use SetResource;
-
     protected static ?string $model = CategoryType::class;
 
     protected static ?string $navigationGroup = '分类管理';

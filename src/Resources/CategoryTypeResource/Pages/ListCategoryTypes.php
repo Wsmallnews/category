@@ -9,9 +9,12 @@ use Filament\Support\Enums\IconPosition;
 use Illuminate\Database\Eloquent\Builder;
 use Wsmallnews\Category\Enums\CategoryTypeStatus;
 use Wsmallnews\Category\Resources\CategoryTypeResource;
+use Wsmallnews\Support\Traits\Resources\Pages\CanScopeable;
 
 class ListCategoryTypes extends ListRecords
 {
+    use CanScopeable;
+    
     protected static string $resource = CategoryTypeResource::class;
 
     protected function getHeaderActions(): array

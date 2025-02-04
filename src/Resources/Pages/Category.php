@@ -5,18 +5,19 @@ namespace Wsmallnews\Category\Resources\Pages;
 use Filament\Forms\Components;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
-use Livewire\Attributes\Locked;
 use Wsmallnews\Category\Category as CategoryManager;
 use Wsmallnews\Category\Enums;
 use Wsmallnews\Category\Models\Category as CategoryModel;
 use Wsmallnews\Category\Models\CategoryType;
 use Wsmallnews\Support\Features\Tree;
 use Wsmallnews\Support\Resources\Pages\FormPage;
+use Wsmallnews\Support\Traits\Components\CanScopeable;
 use Wsmallnews\Support\Traits\Resources\SetResource;
 
 class Category extends FormPage
 {
     use SetResource;
+    use CanScopeable;
 
     protected static ?string $navigationGroup = '分类管理';
 
@@ -26,20 +27,14 @@ class Category extends FormPage
 
     protected static ?string $title = '分类管理';
 
-    protected static ?string $slug = 'category/{scope_type}/{scope_id?}';
-
-    #[Locked]
-    public string $scope_type = 'default';
-
-    #[Locked]
-    public int $scope_id = 0;
+    protected static ?string $slug = 'category';
 
     public function mount()
     {
-        $this->record = CategoryType::where('scope_type', $this->scope_type)->where('scope_id', $this->scope_id)->firstOrFail();
+        $this->record = CategoryType::scopeable($this->scope_type, $this->scope_id)->firstOrFail();
 
         $this->record->categories = (new Tree(function () {
-            return CategoryModel::query()->where('scope_type', $this->scope_type)->where('scope_id', $this->scope_id)->where('type_id', $this->record->id);
+            return CategoryModel::query()->scopeable($this->scope_type, $this->scope_id)->where('type_id', $this->record->id);
         }))->getTree();
 
         $this->fillForm();
@@ -150,10 +145,10 @@ class Category extends FormPage
         ];
     }
 
-    public static function getNavigationUrl(): string
-    {
-        return static::getUrl(parameters: [
-            'scope_type' => 'smallnews',
-        ]);
-    }
+    // public static function getNavigationUrl(): string
+    // {
+    //     return static::getUrl(parameters: [
+    //         // 'scope_type' => 'smallnews',
+    //     ]);
+    // }
 }
