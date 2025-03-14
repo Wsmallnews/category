@@ -9,16 +9,16 @@ class Category
 {
     use CanSetResource;
 
-    public static $image_directory;
+    public static $imageDirectory;
 
-    public static function setImageDirectory($image_directory)
+    public static function setImageDirectory($imageDirectory)
     {
-        self::$image_directory = $image_directory;
+        self::$imageDirectory = $imageDirectory;
     }
 
     public static function getImageDirectory()
     {
-        return self::$image_directory ?: 'filaments/categories/' . date('Ymd');
+        return self::$imageDirectory ?: 'filaments/categories/' . date('Ymd');
     }
 
     public static function registerType($scope_type)
