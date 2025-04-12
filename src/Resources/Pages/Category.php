@@ -10,7 +10,7 @@ use Wsmallnews\Category\Enums;
 use Wsmallnews\Category\Models\Category as CategoryModel;
 use Wsmallnews\Category\Models\CategoryType;
 use Wsmallnews\Support\Features\Tree;
-use Wsmallnews\Support\Resources\Pages\FormPage;
+use Wsmallnews\Support\Filament\Pages\FormPage;
 use Wsmallnews\Support\Traits\Components\CanScopeable;
 use Wsmallnews\Support\Traits\Resources\SetResource;
 

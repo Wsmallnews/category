@@ -9,7 +9,7 @@ use Filament\Tables\Table;
 use Wsmallnews\Category\Enums;
 use Wsmallnews\Category\Models\CategoryType;
 use Wsmallnews\Category\Resources\CategoryTypeResource\Pages;
-use Wsmallnews\Support\Resources\SupportResource;
+use Wsmallnews\Support\Filament\Resources\SupportResource;
 
 class CategoryTypeResource extends SupportResource
 {
