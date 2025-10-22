@@ -2,8 +2,10 @@
 
 namespace Wsmallnews\Category\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Wsmallnews\Category\Enums\CategoryTypeStatus;
 use Wsmallnews\Support\Models\SupportModel;
 
 class CategoryType extends SupportModel
@@ -15,7 +17,8 @@ class CategoryType extends SupportModel
     protected $guarded = [];
 
     protected $casts = [
-        'status' => \Wsmallnews\Category\Enums\CategoryTypeStatus::class,
+        'options' => 'array',
+        'status' => CategoryTypeStatus::class,
     ];
 
     public function scopeNormal($query)
@@ -31,5 +34,10 @@ class CategoryType extends SupportModel
     public function categories(): HasMany
     {
         return $this->hasMany(Category::class, 'type_id');
+    }
+
+    public function team(): BelongsTo
+    {
+        return $this->belongsTo(Team::class);
     }
 }

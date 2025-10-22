@@ -2,22 +2,29 @@
 
 namespace Wsmallnews\Category\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Kalnoy\Nestedset\NodeTrait;
+use Wsmallnews\Category\Enums\CategoryStatus;
 use Wsmallnews\Support\Models\SupportModel;
 
 class Category extends SupportModel
 {
-    use HasFactory;
+    use NodeTrait;
 
     protected $table = 'sn_categories';
 
     protected $guarded = [];
 
     protected $casts = [
-        'status' => \Wsmallnews\Category\Enums\CategoryStatus::class,
+        'options' => 'array',
+        'status' => CategoryStatus::class,
     ];
+
+    public function getScopeAttributes(): array
+    {
+        return [];          // 'team_id'
+    }
 
     public function scopeNormal($query)
     {
@@ -29,13 +36,8 @@ class Category extends SupportModel
         return $query->where('status', 'hidden');
     }
 
-    public function category(): BelongsTo
+    public function team(): BelongsTo
     {
-        return $this->belongsTo(Category::class, 'parent_id');
-    }
-
-    public function children(): HasMany
-    {
-        return $this->hasMany(Category::class, 'parent_id');
+        return $this->belongsTo(Team::class);
     }
 }

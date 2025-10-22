@@ -2,14 +2,27 @@
 
 namespace Wsmallnews\Category;
 
+use BezhanSalleh\PluginEssentials\Concerns\Plugin as Essentials;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
-use Wsmallnews\Category\Resources\CategoryResource;
-use Wsmallnews\Category\Resources\CategoryTypeResource;
-use Wsmallnews\Category\Resources\Pages\Category;
+use Filament\Support\Concerns\EvaluatesClosures;
+use Filament\Support\Icons\Heroicon;
+use Wsmallnews\Category\Filament\Pages\Category;
+use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
+use Wsmallnews\Category\Concerns\Plugin\HasCustomProperties;
 
 class CategoryPlugin implements Plugin
 {
+    use Essentials\BelongsToParent;
+    use Essentials\BelongsToTenant;
+    use Essentials\HasGlobalSearch;
+    use Essentials\HasLabels;
+    use Essentials\HasNavigation;
+    use Essentials\HasPluginDefaults;
+    use Essentials\WithMultipleResourceSupport;
+    use EvaluatesClosures;
+    use HasCustomProperties;
+
     public function getId(): string
     {
         return 'sn_category';
@@ -17,17 +30,11 @@ class CategoryPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        $panel
-            ->resources([
-                CategoryTypeResource::class,
-                // CategoryResource::class,
-                // PostResource::class,
-                // CategoryResource::class,
-            ])
-            ->pages([
-                // Category::class,
-                // Settings::class,
-            ]);
+        $panel->resources([
+            CategoryTypeResource::class,
+        ])->pages([
+            Category::class,
+        ]);
     }
 
     public function boot(Panel $panel): void
@@ -46,5 +53,55 @@ class CategoryPlugin implements Plugin
         $plugin = filament(app(static::class)->getId());
 
         return $plugin;
+    }
+
+
+    /**
+     * 资源默认值
+     *
+     * @return array
+     */
+    protected function getPluginDefaults(): array
+    {
+        return [
+            'resources' => [
+                CategoryTypeResource::class => [
+                    'modelLabel' => '分类类型',
+                    'pluralModelLabel' => '分类类型',
+
+                    'navigationGroup' => '分类管理',
+                    'navigationLabel' => '分类类型',
+                    'navigationIcon' => Heroicon::Bars3,
+                    'activeNavigationIcon' => Heroicon::Bars3,
+                    'navigationSort' => 1,
+                    'navigationBadge' => null,
+                    'navigationBadgeColor' => null,
+                    'navigationParentItem' => null,
+                    'registerNavigation' => true,
+
+                    'globalSearchResultsLimit' => 50,
+                ],
+                Category::class => [
+                    'modelLabel' => '分类',
+
+                    'navigationGroup' => '分类管理',
+                    'navigationLabel' => '分类类型',
+                    'navigationIcon' => Heroicon::Bars3BottomLeft,
+                    'activeNavigationIcon' => Heroicon::Bars3BottomLeft,
+                    'navigationSort' => 1,
+                    'navigationBadge' => null,
+                    'navigationBadgeColor' => null,
+                    'navigationParentItem' => null,
+                    'registerNavigation' => true,
+
+                    'recordTitleAttribute' => 'name',
+
+                    'customProperties' => [
+                        'title' => '分类',
+                        'emptyLabel' => '分类数据为空',
+                    ],
+                ]
+            ],
+        ];
     }
 }

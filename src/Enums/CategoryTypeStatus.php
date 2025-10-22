@@ -2,11 +2,14 @@
 
 namespace Wsmallnews\Category\Enums;
 
+use BackedEnum;
 use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
+use Filament\Support\Icons\Heroicon;
 use Wsmallnews\Support\Enums\Traits\EnumHelper;
 
-enum CategoryTypeStatus: string implements HasColor, HasLabel
+enum CategoryTypeStatus: string implements HasColor, HasIcon, HasLabel
 {
     use EnumHelper;
 
@@ -26,7 +29,15 @@ enum CategoryTypeStatus: string implements HasColor, HasLabel
     {
         return match ($this) {
             self::Normal => 'success',
-            self::Disabled => 'danger',
+            self::Disabled => 'gary',
+        };
+    }
+
+    public function getIcon(): string | BackedEnum | null
+    {
+        return match ($this) {
+            self::Normal => Heroicon::OutlinedEye,
+            self::Disabled => Heroicon::OutlinedNoSymbol,
         };
     }
 }

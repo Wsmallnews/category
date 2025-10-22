@@ -14,10 +14,8 @@ use Livewire\Features\SupportTesting\Testable;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Wsmallnews\Category\Commands\CategoryCommand;
 use Wsmallnews\Category\Models\Category as CategoryModel;
 use Wsmallnews\Category\Models\CategoryType;
-use Wsmallnews\Category\Testing\TestsCategory;
 
 class CategoryServiceProvider extends PackageServiceProvider
 {
@@ -27,13 +25,7 @@ class CategoryServiceProvider extends PackageServiceProvider
 
     public function configurePackage(Package $package): void
     {
-        /*
-         * This class is a Package Service Provider
-         *
-         * More info: https://github.com/spatie/laravel-package-tools
-         */
         $package->name(static::$name)
-            ->hasCommands($this->getCommands())
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->publishConfigFile()
@@ -53,9 +45,9 @@ class CategoryServiceProvider extends PackageServiceProvider
             $package->runsMigrations();
         }
 
-        // if (file_exists($package->basePath('/../resources/lang'))) {
-        //     $package->hasTranslations();
-        // }
+        if (file_exists($package->basePath('/../resources/lang'))) {
+            $package->hasTranslations();
+        }
 
         if (file_exists($package->basePath('/../resources/views'))) {
             $package->hasViews(static::$viewNamespace);
@@ -95,9 +87,6 @@ class CategoryServiceProvider extends PackageServiceProvider
                 ], 'category-stubs');
             }
         }
-
-        // Testing
-        Testable::mixin(new TestsCategory);
     }
 
     protected function getAssetPackageName(): ?string
@@ -117,15 +106,6 @@ class CategoryServiceProvider extends PackageServiceProvider
         ];
     }
 
-    /**
-     * @return array<class-string>
-     */
-    protected function getCommands(): array
-    {
-        return [
-            CategoryCommand::class,
-        ];
-    }
 
     /**
      * @return array<string>
