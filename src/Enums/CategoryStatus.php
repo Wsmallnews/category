@@ -25,7 +25,6 @@ enum CategoryStatus: string implements HasColor, HasIcon, HasLabel
         };
     }
 
-
     public function getColor(): string | array | null
     {
         return match ($this) {
@@ -33,7 +32,6 @@ enum CategoryStatus: string implements HasColor, HasIcon, HasLabel
             self::Hidden => 'gray',
         };
     }
-
 
     public function getIcon(): string | BackedEnum | null
     {

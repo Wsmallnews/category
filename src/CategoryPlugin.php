@@ -7,9 +7,9 @@ use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Filament\Support\Concerns\EvaluatesClosures;
 use Filament\Support\Icons\Heroicon;
+use Wsmallnews\Category\Concerns\Plugin\HasCustomProperties;
 use Wsmallnews\Category\Filament\Pages\Category;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
-use Wsmallnews\Category\Concerns\Plugin\HasCustomProperties;
 
 class CategoryPlugin implements Plugin
 {
@@ -55,11 +55,8 @@ class CategoryPlugin implements Plugin
         return $plugin;
     }
 
-
     /**
      * 资源默认值
-     *
-     * @return array
      */
     protected function getPluginDefaults(): array
     {
@@ -100,7 +97,7 @@ class CategoryPlugin implements Plugin
                         'title' => '分类',
                         'emptyLabel' => '分类数据为空',
                     ],
-                ]
+                ],
             ],
         ];
     }

@@ -2,8 +2,8 @@
 
 namespace Wsmallnews\Category\Filament\Resources\CategoryTypes\Pages;
 
-use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
 use Filament\Resources\Pages\CreateRecord;
+use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
 
 class CreateCategoryType extends CreateRecord
 {

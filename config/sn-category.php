@@ -16,7 +16,6 @@ return [
     //     'navigation_count_badge' => false,
     // ],
 
-
     /*
      * Model name for product record.
      */

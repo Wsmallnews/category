@@ -2,10 +2,10 @@
 
 namespace Wsmallnews\Category\Filament\Resources\CategoryTypes\Schemas;
 
-use Wsmallnews\Category\Enums\CategoryTypeStatus;
 use Filament\Forms;
 use Filament\Schemas;
 use Filament\Schemas\Schema;
+use Wsmallnews\Category\Enums\CategoryTypeStatus;
 
 class CategoryTypeForm
 {
@@ -46,8 +46,8 @@ class CategoryTypeForm
                             ->options(CategoryTypeStatus::class),
                     ])->grow(false),
                 ])
-                ->columnSpanFull()
-                ->from('lg')
+                    ->columnSpanFull()
+                    ->from('lg'),
             ]);
     }
 }

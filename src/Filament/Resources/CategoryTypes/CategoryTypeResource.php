@@ -2,7 +2,6 @@
 
 namespace Wsmallnews\Category\Filament\Resources\CategoryTypes;
 
-use BackedEnum;
 use BezhanSalleh\PluginEssentials\Concerns;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -64,7 +63,6 @@ class CategoryTypeResource extends Resource
                 SoftDeletingScope::class,
             ]);
     }
-
 
     public static function getEssentialsPlugin(): ?CategoryPlugin
     {

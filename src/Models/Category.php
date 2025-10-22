@@ -3,7 +3,6 @@
 namespace Wsmallnews\Category\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Kalnoy\Nestedset\NodeTrait;
 use Wsmallnews\Category\Enums\CategoryStatus;
 use Wsmallnews\Support\Models\SupportModel;

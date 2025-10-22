@@ -10,7 +10,6 @@ use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Filesystem\Filesystem;
-use Livewire\Features\SupportTesting\Testable;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -105,7 +104,6 @@ class CategoryServiceProvider extends PackageServiceProvider
             // Js::make('category-scripts', __DIR__ . '/../resources/dist/category.js'),
         ];
     }
-
 
     /**
      * @return array<string>

@@ -2,11 +2,11 @@
 
 namespace Wsmallnews\Category\Filament\Resources\CategoryTypes\Pages;
 
-use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
 use Filament\Resources\Pages\EditRecord;
+use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
 
 class EditCategoryType extends EditRecord
 {
