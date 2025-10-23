@@ -11,9 +11,11 @@ use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Filesystem\Filesystem;
 use Livewire\Features\SupportTesting\Testable;
+use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Wsmallnews\Category\Filament\Components\Category as CategoryComponent;
 use Wsmallnews\Category\Models\Category as CategoryModel;
 use Wsmallnews\Category\Models\CategoryType;
 
@@ -87,6 +89,9 @@ class CategoryServiceProvider extends PackageServiceProvider
                 ], 'category-stubs');
             }
         }
+
+        // 注册组件
+        Livewire::component('sn-category-component', CategoryComponent::class);
     }
 
     protected function getAssetPackageName(): ?string

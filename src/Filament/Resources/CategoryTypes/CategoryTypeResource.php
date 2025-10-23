@@ -17,6 +17,7 @@ use Wsmallnews\Category\Filament\Resources\CategoryTypes\Pages\ListCategoryTypes
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Schemas\CategoryTypeForm;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Tables\CategoryTypesTable;
 use Wsmallnews\Category\Models\CategoryType;
+use Wsmallnews\Category\Filament\Widgets\Category as CategoryWidgets;
 
 class CategoryTypeResource extends Resource
 {
@@ -54,6 +55,13 @@ class CategoryTypeResource extends Resource
             'index' => ListCategoryTypes::route('/'),
             'create' => CreateCategoryType::route('/create'),
             'edit' => EditCategoryType::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            CategoryWidgets::class,
         ];
     }
 
