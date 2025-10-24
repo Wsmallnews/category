@@ -2,9 +2,9 @@
 
 namespace Wsmallnews\Category\Filament\Resources\CategoryTypes\Pages;
 
-use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
 
 class ListCategoryTypes extends ListRecords
 {

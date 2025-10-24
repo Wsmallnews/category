@@ -21,7 +21,6 @@ trait HasCustomProperties
         return static::getParentResult('getCustomProperties');
     }
 
-
     public static function getCustomProperty(string $key): mixed
     {
         return static::getCustomProperties()[$key] ?? null;

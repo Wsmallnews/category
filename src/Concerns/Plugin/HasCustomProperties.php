@@ -25,7 +25,6 @@ trait HasCustomProperties
         return $this;
     }
 
-
     public function getCustomProperties(?string $resourceClass = null): ?array
     {
         return $this->getPropertyWithDefaults('customProperties', $resourceClass);

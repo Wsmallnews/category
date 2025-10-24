@@ -111,7 +111,6 @@ class CategoryServiceProvider extends PackageServiceProvider
         ];
     }
 
-
     /**
      * @return array<string>
      */
