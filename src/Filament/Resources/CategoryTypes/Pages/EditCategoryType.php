@@ -22,7 +22,6 @@ class EditCategoryType extends EditRecord
         ];
     }
 
-
     protected function getFooterWidgets(): array
     {
         return [

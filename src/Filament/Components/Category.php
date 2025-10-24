@@ -2,8 +2,6 @@
 
 namespace Wsmallnews\Category\Filament\Components;
 
-use BezhanSalleh\PluginEssentials\Concerns;
-use Closure;
 use Filament\Forms;
 use Filament\Infolists;
 use Filament\Schemas;
@@ -49,7 +47,7 @@ class Category extends NestedsetPage
         return [
             Infolists\Components\TextEntry::make('description')
                 ->label('描述')
-                ->visible(fn($state): bool => $state ? true : false),
+                ->visible(fn ($state): bool => $state ? true : false),
             Infolists\Components\IconEntry::make('status')
                 ->label('状态'),
         ];
@@ -82,7 +80,7 @@ class Category extends NestedsetPage
                 ->options([
                     'none' => '无图标',
                     'icon' => 'icon图标',
-                    'image' => '图片图标'
+                    'image' => '图片图标',
                 ])
                 ->default('none')
                 ->inline(),
@@ -122,7 +120,7 @@ class Category extends NestedsetPage
                 ->visibleJs(<<<'JS'
                     $get('options.icon_type') == 'image'
                 JS),
-            
+
             Forms\Components\Radio::make('status')
                 ->label('状态')
                 ->default(CategoryStatus::Normal)
@@ -131,7 +129,6 @@ class Category extends NestedsetPage
                 ->columnSpan(1),
         ];
     }
-
 
     public function getEmptyLabel(): ?string
     {
