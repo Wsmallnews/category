@@ -21,14 +21,12 @@ class Category extends NestedsetPage
 
     protected static ?string $model = CategoryModel::class;
 
-
     public function mount(): void
     {
         $this->level = $this->categoryType?->level ?: 1;
 
         parent::mount();
     }
-
 
     public function createSchema($arguments): array
     {
@@ -53,8 +51,7 @@ class Category extends NestedsetPage
         ];
     }
 
-
-    protected function nestedScoped ()
+    protected function nestedScoped()
     {
         return [
             'scope_type' => $this->categoryType?->scope_type,
@@ -63,14 +60,13 @@ class Category extends NestedsetPage
         ];
     }
 
-
     protected function schema(array $arguments): array
     {
         return [
             // 保存 type_id 参数
             Forms\Components\Hidden::make('type_id')
                 ->default($arguments['type_id'])
-                ->visible(fn($state): bool => isset($arguments['type_id']) && $arguments['type_id']),
+                ->visible(fn ($state): bool => isset($arguments['type_id']) && $arguments['type_id']),
             Forms\Components\TextInput::make('name')->label('分类名称')
                 ->placeholder('请输入分类名称')
                 ->required(),
@@ -133,6 +129,7 @@ class Category extends NestedsetPage
     public function getEmptyLabel(): ?string
     {
         return '组件的属性这里要解决';
+
         return static::getCustomProperty('emptyLabel') ?? parent::getEmptyLabel();
     }
 }
