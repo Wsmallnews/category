@@ -8,9 +8,7 @@ use Filament\Forms;
 use Filament\Infolists;
 use Filament\Schemas;
 use Guava\IconPicker\Forms\Components\IconPicker;
-use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
-use Wsmallnews\Category\CategoryPlugin;
 use Wsmallnews\Category\Concerns\Resource\HasCustomProperties;
 use Wsmallnews\Category\Enums\CategoryStatus;
 use Wsmallnews\Category\Models\Category as CategoryModel;
@@ -18,13 +16,26 @@ use Wsmallnews\FilamentNestedset\Pages\NestedsetPage;
 
 class Category extends NestedsetPage
 {
+    // use HasCustomProperties;
+
     // 所属类型
     public ?Model $categoryType;
 
     protected static ?string $model = CategoryModel::class;
 
+
+    public function mount(): void
+    {
+        $this->level = $this->categoryType?->level ?: 1;
+
+        parent::mount();
+    }
+
+
     public function createSchema($arguments): array
     {
+        $arguments['type_id'] = $this->categoryType?->id;
+
         return $this->schema($arguments);
     }
 
@@ -45,9 +56,23 @@ class Category extends NestedsetPage
     }
 
 
+    protected function nestedScoped ()
+    {
+        return [
+            'scope_type' => $this->categoryType?->scope_type,
+            'scope_id' => $this->categoryType?->scope_id,
+            'type_id' => $this->categoryType?->id,
+        ];
+    }
+
+
     protected function schema(array $arguments): array
     {
         return [
+            // 保存 type_id 参数
+            Forms\Components\Hidden::make('type_id')
+                ->default($arguments['type_id'])
+                ->visible(fn($state): bool => isset($arguments['type_id']) && $arguments['type_id']),
             Forms\Components\TextInput::make('name')->label('分类名称')
                 ->placeholder('请输入分类名称')
                 ->required(),
@@ -110,6 +135,7 @@ class Category extends NestedsetPage
 
     public function getEmptyLabel(): ?string
     {
+        return '组件的属性这里要解决';
         return static::getCustomProperty('emptyLabel') ?? parent::getEmptyLabel();
     }
 }

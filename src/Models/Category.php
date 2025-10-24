@@ -5,6 +5,7 @@ namespace Wsmallnews\Category\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Kalnoy\Nestedset\NodeTrait;
 use Wsmallnews\Category\Enums\CategoryStatus;
+use Wsmallnews\Category\Support\Utils;
 use Wsmallnews\Support\Models\SupportModel;
 
 class Category extends SupportModel
@@ -22,7 +23,12 @@ class Category extends SupportModel
 
     public function getScopeAttributes(): array
     {
-        return [];          // 'team_id'
+        $scopes = ['scope_type', 'scope_id', 'type_id'];
+        if (Utils::isTenancyEnabled()) {        // 多租户 时，自动增加 租户相关参数
+            $scopes[] = 'team_id';
+        }
+
+        return $scopes;
     }
 
     public function scopeNormal($query)
@@ -37,6 +43,6 @@ class Category extends SupportModel
 
     public function team(): BelongsTo
     {
-        return $this->belongsTo(Team::class);
+        return $this->belongsTo(Utils::getTenantModel());
     }
 }

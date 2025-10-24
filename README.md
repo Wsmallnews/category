@@ -7,6 +7,13 @@
 
 
 
+#### 功能点
+
+如果当前所属 panel 支持 多租户，插件将自动增加 租户相关参数
+
+
+
+
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
 ## Installation
