@@ -15,8 +15,8 @@ use Wsmallnews\Category\Filament\Resources\CategoryTypes\Pages\EditCategoryType;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Pages\ListCategoryTypes;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Schemas\CategoryTypeForm;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Tables\CategoryTypesTable;
-use Wsmallnews\Category\Models\CategoryType;
 use Wsmallnews\Category\Filament\Widgets\Category as CategoryWidgets;
+use Wsmallnews\Category\Models\CategoryType;
 
 class CategoryTypeResource extends Resource
 {

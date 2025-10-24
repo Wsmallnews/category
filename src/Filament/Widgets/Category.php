@@ -4,7 +4,6 @@ namespace Wsmallnews\Category\Filament\Widgets;
 
 use Filament\Widgets\Widget;
 use Illuminate\Database\Eloquent\Model;
-use Livewire\Livewire;
 
 class Category extends Widget
 {
