@@ -67,10 +67,6 @@ class Category extends NestedsetPage
     protected function schema(array $arguments): array
     {
         return [
-            // 保存 type_id 参数
-            Forms\Components\Hidden::make('type_id')
-                ->default($arguments['type_id'])
-                ->visible(fn($state): bool => isset($arguments['type_id']) && $arguments['type_id']),
             Forms\Components\TextInput::make('name')->label('分类名称')
                 ->placeholder('请输入分类名称')
                 ->required(),
