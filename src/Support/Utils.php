@@ -9,10 +9,10 @@ use Filament\Panel;
 
 class Utils
 {
-
     public static function getConfig($name = null)
     {
         $config = config('sn-category');
+
         return $name ? ($config[$name] ?? null) : $config;
     }
 
@@ -20,7 +20,6 @@ class Utils
     {
         return Filament::getCurrentOrDefaultPanel();
     }
-    
 
     public static function getModel($name)
     {
@@ -34,6 +33,6 @@ class Utils
 
     public static function getTenantModel(): ?string
     {
-        return self::isTenancyEnabled() ? self::currentPanel()?->getTenantModel() : null;  
+        return self::isTenancyEnabled() ? self::currentPanel()?->getTenantModel() : null;
     }
 }
