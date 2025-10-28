@@ -17,8 +17,6 @@ class CategoryTypeForm
             ]);
     }
 
-
-
     public static function forms(): array
     {
         return [
@@ -55,8 +53,8 @@ class CategoryTypeForm
                         ->options(CategoryTypeStatus::class),
                 ])->grow(false),
             ])
-            ->columnSpanFull()
-            ->from('lg'),
+                ->columnSpanFull()
+                ->from('lg'),
         ];
     }
 }
