@@ -5,16 +5,16 @@ namespace Wsmallnews\Category\Filament\Resources\CategoryTypes;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Tables\Table;
 use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use UnitEnum;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Schemas\CategoryTypeForm;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Tables\CategoryTypesTable;
 use Wsmallnews\Category\Filament\Widgets\Category as CategoryWidgets;
 use Wsmallnews\Category\Models\CategoryType;
 use Wsmallnews\Support\Filament\Resources\Concerns\Scopeable;
-use UnitEnum;
 
 abstract class BaseResource extends Resource
 {
@@ -40,7 +40,6 @@ abstract class BaseResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
-
     public static function form(Schema $schema): Schema
     {
         return CategoryTypeForm::configure($schema);
@@ -50,7 +49,6 @@ abstract class BaseResource extends Resource
     {
         return CategoryTypesTable::configure($table);
     }
-
 
     public static function getWidgets(): array
     {

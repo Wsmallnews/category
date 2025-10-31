@@ -12,11 +12,11 @@ abstract class Category extends Page
 {
     /**
      * @var array<string, mixed> | null
-    */
+     */
     public ?array $data = [];
-    
+
     public ?int $level = null;
-    
+
     public ?CategoryType $record = null;
 
     protected static ?string $title = '分类';
@@ -42,14 +42,13 @@ abstract class Category extends Page
         $this->record = $this->getRecord();
     }
 
-
     public function getRecord(): ?CategoryType
     {
         $category = CategoryType::query()
             ->where('scope_type', 'default_shop')
             ->where('scope_id', 8)
             ->firstOrCreate();
-        
+
         return $category;
     }
 }

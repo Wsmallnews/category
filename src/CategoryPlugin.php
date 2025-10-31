@@ -8,7 +8,6 @@ use Filament\Panel;
 use Filament\Support\Concerns\EvaluatesClosures;
 use Filament\Support\Icons\Heroicon;
 use Wsmallnews\Category\Concerns\Plugin\HasCustomProperties;
-use Wsmallnews\Category\Filament\Pages\Category;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
 
 class CategoryPlugin implements Plugin
@@ -75,7 +74,7 @@ class CategoryPlugin implements Plugin
                     'registerNavigation' => true,
 
                     'globalSearchResultsLimit' => 50,
-                ]
+                ],
             ],
         ];
     }

@@ -3,9 +3,9 @@
 namespace Wsmallnews\Category\Filament\Components;
 
 use Illuminate\Database\Eloquent\Model;
-use Wsmallnews\Category\Models\Category as CategoryModel;
 use Wsmallnews\Category\Filament\Pages\Category\Schemas\CategoryForm;
 use Wsmallnews\Category\Filament\Pages\Category\Schemas\CategoryInfolist;
+use Wsmallnews\Category\Models\Category as CategoryModel;
 use Wsmallnews\FilamentNestedset\Pages\NestedsetPage;
 
 class Category extends NestedsetPage
@@ -22,26 +22,24 @@ class Category extends NestedsetPage
         parent::mount();
     }
 
-
     public function createSchema($arguments): array
     {
         $arguments = array_merge($arguments, $this->nestedScoped());
+
         return $this->schema($arguments);
     }
-
 
     public function editSchema($arguments): array
     {
         $arguments = array_merge($arguments, $this->nestedScoped());
+
         return $this->schema($arguments);
     }
-
 
     public function infolistSchema(): array
     {
         return CategoryInfolist::infolist();
     }
-
 
     protected function nestedScoped()
     {
@@ -52,12 +50,10 @@ class Category extends NestedsetPage
         ];
     }
 
-
     protected function schema(array $arguments): array
     {
         return CategoryForm::forms($arguments);
     }
-
 
     public function getEmptyLabel(): ?string
     {
