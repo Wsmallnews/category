@@ -10,8 +10,8 @@ use Filament\Schemas;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use UnitEnum;
-use Wsmallnews\Category\Models\CategoryType;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Schemas\CategoryTypeForm;
+use Wsmallnews\Category\Models\CategoryType;
 
 abstract class ManageCategory extends Page
 {
@@ -46,28 +46,27 @@ abstract class ManageCategory extends Page
         $this->form->fill($this->record?->attributesToArray());
     }
 
-
     public function form(Schema $schema): Schema
     {
         return $schema
             ->components([
                 Schemas\Components\Form::make(function () {
                     $forms = CategoryTypeForm::forms();
+
                     return $forms;
                 })
-                ->livewireSubmitHandler('save')
-                ->footer([
-                    Schemas\Components\Actions::make([
-                        Actions\Action::make('save')
-                            ->submit('save')
-                            ->keyBindings(['mod+s']),
+                    ->livewireSubmitHandler('save')
+                    ->footer([
+                        Schemas\Components\Actions::make([
+                            Actions\Action::make('save')
+                                ->submit('save')
+                                ->keyBindings(['mod+s']),
+                        ]),
                     ]),
-                ])
             ])
             ->record($this->getRecord())
             ->statePath('data');
     }
-
 
     public function save(): void
     {
@@ -76,7 +75,7 @@ abstract class ManageCategory extends Page
         $record = $this->getRecord();
 
         if (! $record) {
-            $record = new CategoryType();
+            $record = new CategoryType;
             $record->scope_type = 'default_shop';
         }
 
@@ -94,7 +93,6 @@ abstract class ManageCategory extends Page
             ->title('保存成功')
             ->send();
     }
-
 
     public function getRecord(): ?CategoryType
     {
