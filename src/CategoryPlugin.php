@@ -25,15 +25,13 @@ class CategoryPlugin implements Plugin
 
     public function getId(): string
     {
-        return 'sn_category';
+        return 'sn-category';
     }
 
     public function register(Panel $panel): void
     {
         $panel->resources([
             CategoryTypeResource::class,
-        ])->pages([
-            Category::class,
         ]);
     }
 
@@ -77,27 +75,7 @@ class CategoryPlugin implements Plugin
                     'registerNavigation' => true,
 
                     'globalSearchResultsLimit' => 50,
-                ],
-                Category::class => [
-                    'modelLabel' => '分类',
-
-                    'navigationGroup' => '分类管理',
-                    'navigationLabel' => '分类类型',
-                    'navigationIcon' => Heroicon::Bars3BottomLeft,
-                    'activeNavigationIcon' => Heroicon::Bars3BottomLeft,
-                    'navigationSort' => 1,
-                    'navigationBadge' => null,
-                    'navigationBadgeColor' => null,
-                    'navigationParentItem' => null,
-                    'registerNavigation' => true,
-
-                    'recordTitleAttribute' => 'name',
-
-                    'customProperties' => [
-                        'title' => '分类',
-                        'emptyLabel' => '分类数据为空',
-                    ],
-                ],
+                ]
             ],
         ];
     }

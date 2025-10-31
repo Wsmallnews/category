@@ -1,57 +1,15 @@
 <?php
 
-namespace Wsmallnews\Category\Filament\Pages;
+namespace Wsmallnews\Category\Filament\Pages\Category\Schemas;
 
-use BezhanSalleh\FilamentShield\Traits\HasPageShield;
-use BezhanSalleh\PluginEssentials\Concerns;
 use Filament\Forms;
-use Filament\Infolists;
 use Filament\Schemas;
 use Guava\IconPicker\Forms\Components\IconPicker;
-use Illuminate\Contracts\Support\Htmlable;
-use Wsmallnews\Category\CategoryPlugin;
-use Wsmallnews\Category\Concerns\Resource\HasCustomProperties;
 use Wsmallnews\Category\Enums\CategoryStatus;
-use Wsmallnews\Category\Models\Category as CategoryModel;
-use Wsmallnews\FilamentNestedset\Pages\NestedsetPage;
 
-class Category extends NestedsetPage
+class CategoryForm
 {
-    // use HasPageShield;
-
-    use Concerns\Resource\BelongsToParent;
-    use Concerns\Resource\BelongsToTenant;
-    use Concerns\Resource\HasGlobalSearch;
-    use Concerns\Resource\HasLabels;
-    use Concerns\Resource\HasNavigation;
-    use HasCustomProperties;
-
-    protected static ?string $model = CategoryModel::class;
-
-    protected static ?string $slug = 'categories';
-
-    public function createSchema($arguments): array
-    {
-        return $this->schema($arguments);
-    }
-
-    public function editSchema($arguments): array
-    {
-        return $this->schema($arguments);
-    }
-
-    public function infolistSchema(): array
-    {
-        return [
-            Infolists\Components\TextEntry::make('description')
-                ->label('描述')
-                ->visible(fn ($state): bool => $state ? true : false),
-            Infolists\Components\IconEntry::make('status')
-                ->label('状态'),
-        ];
-    }
-
-    protected function schema(array $arguments): array
+    public static function forms(array $arguments = []): array
     {
         return [
             Forms\Components\TextInput::make('name')->label('分类名称')
@@ -111,20 +69,5 @@ class Category extends NestedsetPage
                 ->options(CategoryStatus::class)
                 ->columnSpan(1),
         ];
-    }
-
-    public function getTitle(): string | Htmlable
-    {
-        return static::getCustomProperty('title') ?? parent::getTitle();
-    }
-
-    public function getEmptyLabel(): ?string
-    {
-        return static::getCustomProperty('emptyLabel') ?? parent::getEmptyLabel();
-    }
-
-    public static function getEssentialsPlugin(): ?CategoryPlugin
-    {
-        return CategoryPlugin::get();
     }
 }

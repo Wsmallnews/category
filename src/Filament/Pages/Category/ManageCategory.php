@@ -1,25 +1,44 @@
 <?php
 
-namespace App\Filament\Pages;
+namespace Wsmallnews\Category\Filament\Pages\Category;
 
+use BackedEnum;
 use Filament\Actions;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Schemas;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
+use UnitEnum;
 use Wsmallnews\Category\Models\CategoryType;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Schemas\CategoryTypeForm;
 
-class ManageCategory extends Page
+abstract class ManageCategory extends Page
 {
-    protected string $view = 'sn-category::filament.pages.category';
-
     /**
      * @var array<string, mixed> | null
      */
     public ?array $data = [];
 
     public ?CategoryType $record = null;
+
+    protected static ?string $title = '分类';
+
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::Bars3BottomLeft;
+
+    protected static string | BackedEnum | null $activeNavigationIcon = Heroicon::Bars3BottomLeft;
+
+    protected static ?string $navigationLabel = '分类管理';
+
+    protected static string | UnitEnum | null $navigationGroup = '分类管理';
+
+    protected static ?string $slug = 'categories';
+
+    protected static string $recordTitleAttribute = 'name';
+
+    protected static ?int $navigationSort = 1;
+
+    protected string $view = 'sn-category::filament.pages.manage-category';
 
     public function mount(): void
     {

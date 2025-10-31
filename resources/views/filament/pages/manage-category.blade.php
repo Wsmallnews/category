@@ -1,5 +1,4 @@
 <x-filament-panels::page>
-    {{-- Page content --}}
     {{ $this->form }}
 
     @if ($record)
