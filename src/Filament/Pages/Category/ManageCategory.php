@@ -12,9 +12,12 @@ use Filament\Support\Icons\Heroicon;
 use UnitEnum;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Schemas\CategoryTypeForm;
 use Wsmallnews\Category\Models\CategoryType;
+use Wsmallnews\Support\Filament\Pages\Concerns\Scopeable;
 
 abstract class ManageCategory extends Page
 {
+    use Scopeable;
+
     /**
      * @var array<string, mixed> | null
      */
@@ -64,7 +67,7 @@ abstract class ManageCategory extends Page
                         ]),
                     ]),
             ])
-            ->record($this->getRecord())
+            ->record($this->record)
             ->statePath('data');
     }
 
@@ -72,21 +75,18 @@ abstract class ManageCategory extends Page
     {
         $data = $this->form->getState();
 
-        $record = $this->getRecord();
-
-        if (! $record) {
-            $record = new CategoryType;
-            $record->scope_type = 'default_shop';
+        if (! $this->record) {
+            $this->record = new CategoryType;
+            $this->record->scope_type = static::getScopeType();
+            $this->record->scope_id = static::getScopeId();
         }
 
-        $record->fill($data);
-        $record->save();
+        $this->record->fill($data);
+        $this->record->save();
 
-        if ($record->wasRecentlyCreated) {
-            $this->form->record($record)->saveRelationships();
+        if ($this->record->wasRecentlyCreated) {
+            $this->form->record($this->record)->saveRelationships();
         }
-
-        $this->record = $record;
 
         Notification::make()
             ->success()
@@ -97,8 +97,7 @@ abstract class ManageCategory extends Page
     public function getRecord(): ?CategoryType
     {
         return CategoryType::query()
-            ->where('scope_type', 'default_shop')
-            ->where('scope_id', 8)
+            ->scopeable(static::getScopeType(), static::getScopeId())
             ->first();
     }
 }

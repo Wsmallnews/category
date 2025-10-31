@@ -5,11 +5,16 @@ namespace Wsmallnews\Category\Filament\Pages\Category;
 use BackedEnum;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Support\Str;
 use UnitEnum;
+use Wsmallnews\Category\Enums\CategoryTypeStatus;
 use Wsmallnews\Category\Models\CategoryType;
+use Wsmallnews\Support\Filament\Pages\Concerns\Scopeable;
 
 abstract class Category extends Page
 {
+    use Scopeable;
+
     /**
      * @var array<string, mixed> | null
      */
@@ -45,9 +50,14 @@ abstract class Category extends Page
     public function getRecord(): ?CategoryType
     {
         $category = CategoryType::query()
-            ->where('scope_type', 'default_shop')
-            ->where('scope_id', 8)
-            ->firstOrCreate();
+            ->firstOrCreate(
+                static::getScopeInfo(), 
+                [
+                    'name' => Str::title(static::getScopeType()),
+                    'level' => $this->level ?? 1,
+                    'status' => CategoryTypeStatus::Normal,
+                ]
+            );
 
         return $category;
     }

@@ -57,9 +57,9 @@ abstract class BaseResource extends Resource
         ];
     }
 
-    public static function getRecordRouteBindingEloquentQuery(): Builder
+    public static function getEloquentQuery(): Builder
     {
-        return parent::getRecordRouteBindingEloquentQuery()
+        return parent::getEloquentQuery()
             ->scopeable(self::$scopeType, self::$scopeId)
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
