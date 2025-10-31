@@ -51,7 +51,7 @@ abstract class Category extends Page
     {
         $category = CategoryType::query()
             ->firstOrCreate(
-                static::getScopeInfo(), 
+                static::getScopeInfo(),
                 [
                     'name' => Str::title(static::getScopeType()),
                     'level' => $this->level ?? 1,

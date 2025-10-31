@@ -9,7 +9,6 @@ class CreateCategoryType extends CreateRecord
 {
     protected static string $resource = CategoryTypeResource::class;
 
-
     /**
      * Mutate the form data before creating a record.
      *
