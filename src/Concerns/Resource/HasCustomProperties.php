@@ -10,7 +10,7 @@ trait HasCustomProperties
 {
     use DelegatesToPlugin;
 
-    public static function getCustomProperties(): array
+    public static function getCustomProperties(): ?array
     {
         $pluginResult = static::delegateToPlugin('HasCustomProperties', 'getCustomProperties');
 

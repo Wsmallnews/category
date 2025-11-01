@@ -21,9 +21,10 @@ return new class extends Migration
 
             $table->json('options')->nullable()->comment('选项');
             $table->string('status')->nullable()->comment('状态');
-            $table->unsignedInteger('order_column')->nullable()->index()->comment('排序');
+            $table->unsignedInteger('order_column')->nullable()->comment('排序');
             $table->timestamps();
             $table->softDeletes();
+            $table->index('order_column');
             $table->index(['scope_type', 'scope_id']);
         });
     }

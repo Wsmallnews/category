@@ -27,6 +27,16 @@ final class CategoryTypeResource extends BaseResource
         ];
     }
 
+    public static function getScopeType(): string
+    {
+        return static::getCustomProperty('scopeType') ?? parent::getScopeType();
+    }
+
+    public static function getScopeId(): int
+    {
+        return static::getCustomProperty('scopeId') ?? parent::getScopeId();
+    }
+
     public static function getEssentialsPlugin(): ?CategoryPlugin
     {
         return CategoryPlugin::get();

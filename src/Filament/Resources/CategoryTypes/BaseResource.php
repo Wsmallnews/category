@@ -60,7 +60,7 @@ abstract class BaseResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
-            ->scopeable(self::$scopeType, self::$scopeId)
+            ->scopeable(static::getScopeType(), static::getScopeId())
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
