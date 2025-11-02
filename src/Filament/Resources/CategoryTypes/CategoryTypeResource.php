@@ -4,10 +4,10 @@ namespace Wsmallnews\Category\Filament\Resources\CategoryTypes;
 
 use BezhanSalleh\PluginEssentials\Concerns;
 use Wsmallnews\Category\CategoryPlugin;
-use Wsmallnews\Category\Concerns\Resource\HasCustomProperties;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Pages\CreateCategoryType;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Pages\EditCategoryType;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Pages\ListCategoryTypes;
+use Wsmallnews\Support\Concerns\Resource\HasCustomProperties;
 
 final class CategoryTypeResource extends BaseResource
 {
