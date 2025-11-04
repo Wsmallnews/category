@@ -14,7 +14,7 @@ use Wsmallnews\Category\Filament\Resources\CategoryTypes\Schemas\CategoryTypeFor
 use Wsmallnews\Category\Models\CategoryType;
 use Wsmallnews\Support\Filament\Pages\Concerns\Scopeable;
 
-abstract class ManageCategory extends Page
+abstract class ManageBase extends Page
 {
     use Scopeable;
 
@@ -35,13 +35,13 @@ abstract class ManageCategory extends Page
 
     protected static string | UnitEnum | null $navigationGroup = '分类管理';
 
-    protected static ?string $slug = 'categories';
+    protected static ?string $slug = 'manage-categories';
 
     protected static string $recordTitleAttribute = 'name';
 
     protected static ?int $navigationSort = 1;
 
-    protected string $view = 'sn-category::filament.pages.manage-category';
+    protected string $view = 'sn-category::filament.pages.category.manage-category';
 
     public function mount(): void
     {
@@ -99,5 +99,12 @@ abstract class ManageCategory extends Page
         return CategoryType::query()
             ->scopeable(static::getScopeType(), static::getScopeId())
             ->first();
+    }
+
+    public function getProperties(): array
+    {
+        return [
+            'emptyLabel' => method_exists($this, 'getEmptyLabel') ? $this->getEmptyLabel() : null,
+        ];
     }
 }

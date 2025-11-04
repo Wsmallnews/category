@@ -10,9 +10,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use UnitEnum;
+use Wsmallnews\Category\Filament\Pages\Category\Widgets\CategoryManage as CategoryManageWidgets;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Schemas\CategoryTypeForm;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Tables\CategoryTypesTable;
-use Wsmallnews\Category\Filament\Widgets\Category as CategoryWidgets;
 use Wsmallnews\Category\Models\CategoryType;
 use Wsmallnews\Support\Filament\Resources\Concerns\Scopeable;
 
@@ -53,7 +53,7 @@ abstract class BaseResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            CategoryWidgets::class,
+            CategoryManageWidgets::class,
         ];
     }
 

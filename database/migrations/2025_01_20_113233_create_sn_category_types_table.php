@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('scope_id')->default(0)->comment('范围');
 
             $table->string('name')->nullable()->comment('名称');
-            $table->tinyInteger('level')->default(0)->comment('层级');
+            $table->tinyInteger('level')->nullable()->comment('层级');
             $table->string('description')->nullable()->comment('描述');
 
             $table->json('options')->nullable()->comment('选项');

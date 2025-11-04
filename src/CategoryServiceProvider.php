@@ -14,7 +14,7 @@ use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Wsmallnews\Category\Filament\Components\Category as CategoryComponent;
+use Wsmallnews\Category\Filament\Pages\Category\Components\BaseCategory as BaseCategoryComponent;
 use Wsmallnews\Category\Models\Category as CategoryModel;
 use Wsmallnews\Category\Models\CategoryType as CategoryTypeModel;
 
@@ -90,7 +90,7 @@ class CategoryServiceProvider extends PackageServiceProvider
         }
 
         // 注册组件
-        Livewire::component('sn-category-component', CategoryComponent::class);
+        Livewire::component('sn-fi-category', BaseCategoryComponent::class);
     }
 
     protected function getAssetPackageName(): ?string

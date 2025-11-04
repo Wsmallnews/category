@@ -6,8 +6,8 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
 use Filament\Resources\Pages\EditRecord;
+use Wsmallnews\Category\Filament\Pages\Category\Widgets\CategoryManage as CategoryManageWidgets;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
-use Wsmallnews\Category\Filament\Widgets\Category;
 
 class EditCategoryType extends EditRecord
 {
@@ -24,8 +24,13 @@ class EditCategoryType extends EditRecord
 
     protected function getFooterWidgets(): array
     {
+        $record = $this->getRecord();
+
         return [
-            Category::class,
+            CategoryManageWidgets::make([
+                'properties' => static::getResource()::getProperties() ?? [],
+                'key' => 'widgets-' . $record?->id . '-' . $record?->level,
+            ]),
         ];
     }
 }
