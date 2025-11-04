@@ -42,7 +42,6 @@ class BaseCategory extends NestedsetPage
 
     protected static ?int $navigationSort = 1;
 
-
     public function mount(): void
     {
         static::$level = $this->categoryType?->level;

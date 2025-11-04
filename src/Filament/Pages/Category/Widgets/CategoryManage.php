@@ -12,8 +12,8 @@ class CategoryManage extends Widget
     public ?CategoryType $record = null;
 
     public ?array $properties = [];
-    
+
     protected int | string | array $columnSpan = 'full';
-    
+
     protected string $view = 'sn-category::filament.pages.category.widgets.category-manage';
 }
