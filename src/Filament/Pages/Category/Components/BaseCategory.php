@@ -70,9 +70,9 @@ class BaseCategory extends NestedsetPage
         if ($icon_type == 'icon') {
             $icon = $item->options['icon'] ?? ($item->options['active_icon'] ?? '');
             $icon && $recordLabel = "<x-filament::icon icon=\"{$icon}\" class=\"size-6 mr-2\" />";
-        } else if ($icon_type == 'image') {
+        } elseif ($icon_type == 'image') {
             $image = $item->options['icon_src'] ?? ($item->options['active_icon_src'] ?? '');
-            $image && $recordLabel = "<img src=\"" . files_url($image) . "\" class=\"size-6 mr-2\" />";
+            $image && $recordLabel = '<img src="' . files_url($image) . '" class="size-6 mr-2" />';
         }
 
         $recordLabel = $recordLabel . parent::getRecordLabel($item);
