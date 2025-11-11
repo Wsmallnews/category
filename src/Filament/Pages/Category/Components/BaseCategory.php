@@ -4,6 +4,8 @@ namespace Wsmallnews\Category\Filament\Pages\Category\Components;
 
 use BackedEnum;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\HtmlString;
 use UnitEnum;
 use Wsmallnews\Category\Filament\Pages\Category\Schemas\CategoryForm;
 use Wsmallnews\Category\Filament\Pages\Category\Schemas\CategoryInfolist;
@@ -59,6 +61,23 @@ class BaseCategory extends NestedsetPage
     public function infolistSchema(): array
     {
         return CategoryInfolist::infolist();
+    }
+
+    public function getRecordLabel(Model $item): HtmlString | string
+    {
+        $recordLabel = '';
+        $icon_type = $item->options['icon_type'] ?? 'none';
+        if ($icon_type == 'icon') {
+            $icon = $item->options['icon'] ?? ($item->options['active_icon'] ?? '');
+            $icon && $recordLabel = "<x-filament::icon icon=\"{$icon}\" class=\"size-6 mr-2\" />";
+        } else if ($icon_type == 'image') {
+            $image = $item->options['icon_src'] ?? ($item->options['active_icon_src'] ?? '');
+            $image && $recordLabel = "<img src=\"" . files_url($image) . "\" class=\"size-6 mr-2\" />";
+        }
+
+        $recordLabel = $recordLabel . parent::getRecordLabel($item);
+
+        return new HtmlString($recordLabel);
     }
 
     public function getLevel(): ?int
