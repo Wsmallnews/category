@@ -38,8 +38,6 @@ class Category extends SupportModel
 
     /**
      * 当前是否是激活状态
-     *
-     * @return Attribute
      */
     protected function isActive(): Attribute
     {
@@ -52,8 +50,6 @@ class Category extends SupportModel
 
     /**
      * 导航名称（包含 icon）
-     *
-     * @return Attribute
      */
     protected function nameLabel(): Attribute
     {
