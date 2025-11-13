@@ -44,7 +44,12 @@ class CategoryForm
                     Forms\Components\FileUpload::make('options.icon_src')
                         ->label('图标')
                         ->image()
+                        ->visibility('public')
                         // ->directory(Product::getImageDirectory())
+                        ->imageResizeMode('cover')
+                        ->imageCropAspectRatio('1:1')
+                        ->imageResizeTargetHeight('200')
+                        ->imageResizeTargetWidth('200')
                         ->openable()
                         ->downloadable()
                         ->uploadingMessage('图标上传中...')
@@ -52,11 +57,18 @@ class CategoryForm
                     Forms\Components\FileUpload::make('options.active_icon_src')
                         ->label('活动图标')
                         ->image()
+                        ->visibility('public')
                         // ->directory(Product::getImageDirectory())
+                        ->imageResizeMode('cover')
+                        ->imageCropAspectRatio('1:1')
+                        ->imageResizeTargetHeight('200')
+                        ->imageResizeTargetWidth('200')
                         ->openable()
                         ->downloadable()
                         ->uploadingMessage('活动图标上传中...')
                         ->imagePreviewHeight('100'),
+                    Schemas\Components\Text::make('请上传正方形图片，推荐大小为 60x60 像素，非正方形图片将被自动缩放裁剪')
+                        ->columnSpanFull(),
                 ])
                 ->visibleJs(<<<'JS'
                     $get('options.icon_type') == 'image'
