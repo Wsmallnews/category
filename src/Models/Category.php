@@ -50,8 +50,6 @@ class Category extends SupportModel
 
     /**
      * 当前model以及子model中是否存在 激活状态
-     *
-     * @return Attribute
      */
     protected function hasActive(): Attribute
     {
@@ -81,8 +79,6 @@ class Category extends SupportModel
 
     /**
      * model名称（包含 icon）
-     *
-     * @return Attribute
      */
     protected function nameLabel(): Attribute
     {
