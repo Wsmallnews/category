@@ -7,8 +7,8 @@ use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Filament\Support\Concerns\EvaluatesClosures;
 use Filament\Support\Icons\Heroicon;
-use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
 use Wsmallnews\Category\Filament\Pages\Category as CategoryPage;
+use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
 use Wsmallnews\Support\Concerns\Plugin\HasCustomProperties;
 
 class CategoryPlugin implements Plugin
