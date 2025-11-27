@@ -8,9 +8,12 @@ use Filament\Actions\RestoreAction;
 use Filament\Resources\Pages\EditRecord;
 use Wsmallnews\Category\Filament\Pages\Category\Widgets\CategoryManage as CategoryManageWidgets;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
+use Wsmallnews\Support\Filament\Resources\Concerns\Pages\Scopeable;
 
 class EditCategoryType extends EditRecord
 {
+    use Scopeable;
+
     protected static string $resource = CategoryTypeResource::class;
 
     protected function getHeaderActions(): array

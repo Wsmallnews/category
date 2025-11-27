@@ -4,9 +4,12 @@ namespace Wsmallnews\Category\Filament\Resources\CategoryTypes\Pages;
 
 use Filament\Resources\Pages\CreateRecord;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
+use Wsmallnews\Support\Filament\Resources\Concerns\Pages\Scopeable;
 
 class CreateCategoryType extends CreateRecord
 {
+    use Scopeable;
+
     protected static string $resource = CategoryTypeResource::class;
 
     /**
@@ -18,7 +21,7 @@ class CreateCategoryType extends CreateRecord
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         // 合并 scopeinfo 参数
-        $data = array_merge($data, static::getResource()::getScopeInfo());
+        $data = array_merge($data, static::getScopeInfo());
 
         return parent::mutateFormDataBeforeCreate($data);
     }
