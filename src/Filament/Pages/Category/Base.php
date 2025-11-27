@@ -28,7 +28,7 @@ abstract class Base extends BaseCategory
     {
         $categoryType = CategoryType::query()
             ->firstOrCreate(
-                static::getScopeInfo(),
+                static::getScopeable(),
                 [
                     'name' => Str::title(static::getScopeType()),
                     'level' => static::getLevel(),

@@ -8,6 +8,7 @@ use Filament\Panel;
 use Filament\Support\Concerns\EvaluatesClosures;
 use Filament\Support\Icons\Heroicon;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
+use Wsmallnews\Category\Filament\Pages\Category as CategoryPage;
 use Wsmallnews\Support\Concerns\Plugin\HasCustomProperties;
 
 class CategoryPlugin implements Plugin
@@ -30,7 +31,9 @@ class CategoryPlugin implements Plugin
     public function register(Panel $panel): void
     {
         $panel->resources([
-            CategoryTypeResource::class,
+            // CategoryTypeResource::class,
+        ])->pages([
+            CategoryPage::class,
         ]);
     }
 
