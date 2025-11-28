@@ -14,6 +14,8 @@ class Categories extends Base
 
     public ?string $itemView = 'sn-category::category';
 
+    public ?string $style = 'simple';        // vivid=鲜明的, simple=简单的
+
     public function getRecordLabel(Model $category): HtmlString | string
     {
         return $category->name_label;
