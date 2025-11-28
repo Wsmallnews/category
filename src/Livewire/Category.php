@@ -42,7 +42,6 @@ class Category extends Component
             ->get()->toTree();
     }
 
-
     protected function nestedScoped()
     {
         return [
@@ -51,7 +50,6 @@ class Category extends Component
             'type_id' => $this->categoryType?->id,
         ];
     }
-
 
     // public function render()
     // {

@@ -3,10 +3,7 @@
 namespace Wsmallnews\Category\Livewire\Components;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
-use Livewire\Component;
-use Wsmallnews\Category\Models\Category as CategoryModel;
 use Wsmallnews\Category\Livewire\Concerns\Categoryable;
 
 class Categories extends Base
