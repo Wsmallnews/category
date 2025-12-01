@@ -68,7 +68,6 @@ class Utils
         return $model;
     }
 
-
     /**
      * 获取 分类 model
      *
@@ -89,11 +88,10 @@ class Utils
         return self::getModel('category_type');
     }
 
-
     /**
      * 获取文件目录
-     * 
-     * @param string|null $type 目录类型
+     *
+     * @param  string|null  $type  目录类型
      * @return string
      */
     public static function getFileDirectory($type = null)
