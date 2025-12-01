@@ -6,6 +6,8 @@ use Filament\Forms;
 use Filament\Schemas;
 use Guava\IconPicker\Forms\Components\IconPicker;
 use Wsmallnews\Category\Enums\CategoryStatus;
+use Wsmallnews\Category\Support\Utils;
+use Wsmallnews\Support\Support\Utils as SupportUtils;
 
 class CategoryForm
 {
@@ -44,8 +46,9 @@ class CategoryForm
                     Forms\Components\FileUpload::make('options.icon_src')
                         ->label('图标')
                         ->image()
+                        ->disk(SupportUtils::getFilesystemDisk())
+                        ->directory(Utils::getFileDirectory('icons'))
                         ->visibility('public')
-                        // ->directory(Product::getImageDirectory())
                         ->imageResizeMode('cover')
                         ->imageCropAspectRatio('1:1')
                         ->imageResizeTargetHeight('200')
@@ -57,8 +60,9 @@ class CategoryForm
                     Forms\Components\FileUpload::make('options.active_icon_src')
                         ->label('活动图标')
                         ->image()
+                        ->disk(SupportUtils::getFilesystemDisk())
+                        ->directory(Utils::getFileDirectory('icons'))
                         ->visibility('public')
-                        // ->directory(Product::getImageDirectory())
                         ->imageResizeMode('cover')
                         ->imageCropAspectRatio('1:1')
                         ->imageResizeTargetHeight('200')
@@ -67,7 +71,7 @@ class CategoryForm
                         ->downloadable()
                         ->uploadingMessage('活动图标上传中...')
                         ->imagePreviewHeight('100'),
-                    Schemas\Components\Text::make('请上传正方形图片，推荐大小为 60x60 像素，非正方形图片将被自动缩放裁剪')
+                    Schemas\Components\Text::make('请上传正方形图片，推荐大小为 200x200 像素，非正方形图片将被自动缩放裁剪')
                         ->columnSpanFull(),
                 ])
                 ->visibleJs(<<<'JS'

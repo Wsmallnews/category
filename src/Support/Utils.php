@@ -89,4 +89,16 @@ class Utils
     {
         return self::getModel('category_type');
     }
+
+
+    /**
+     * 获取文件目录
+     * 
+     * @param string|null $type 目录类型
+     * @return string
+     */
+    public static function getFileDirectory($type = null)
+    {
+        return self::getConfig('file_directory', 'sn/categories/') . ($type ? $type . '/' : '') . date('Ymd');
+    }
 }

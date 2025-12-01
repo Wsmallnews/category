@@ -20,4 +20,10 @@ return [
         'category_type' => Models\CategoryType::class,
     ],
 
+
+    /**
+     * 文件基础目录，会自动拼接当前年月日 (仅用于 filament 默认上传组件 (Forms\Components\FileUpload))
+     */
+    'file_directory' => 'sn/categories/',
+
 ];
