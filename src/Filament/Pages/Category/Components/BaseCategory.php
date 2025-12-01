@@ -9,8 +9,8 @@ use Illuminate\Support\HtmlString;
 use UnitEnum;
 use Wsmallnews\Category\Filament\Pages\Category\Schemas\CategoryForm;
 use Wsmallnews\Category\Filament\Pages\Category\Schemas\CategoryInfolist;
-use Wsmallnews\Category\Models\Category as CategoryModel;
 use Wsmallnews\Category\Models\CategoryType as CategoryTypeModel;
+use Wsmallnews\Category\Support\Utils;
 use Wsmallnews\FilamentNestedset\Pages\NestedsetPage;
 
 class BaseCategory extends NestedsetPage
@@ -21,8 +21,6 @@ class BaseCategory extends NestedsetPage
     public ?array $properties = [];
 
     protected static ?string $emptyLabel = '分类数据为空';
-
-    protected static ?string $model = CategoryModel::class;
 
     protected static ?string $modelLabel = '分类管理';
 
@@ -43,6 +41,11 @@ class BaseCategory extends NestedsetPage
     protected static string $recordTitleAttribute = 'name';
 
     protected static ?int $navigationSort = 1;
+
+    public static function getModel()
+    {
+        return Utils::getCategoryModel();
+    }
 
     public function createSchema($arguments): array
     {

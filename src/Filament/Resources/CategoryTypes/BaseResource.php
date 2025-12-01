@@ -13,14 +13,12 @@ use UnitEnum;
 use Wsmallnews\Category\Filament\Pages\Category\Widgets\CategoryManage as CategoryManageWidgets;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Schemas\CategoryTypeForm;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Tables\CategoryTypesTable;
-use Wsmallnews\Category\Models\CategoryType;
+use Wsmallnews\Category\Support\Utils;
 use Wsmallnews\Support\Filament\Resources\Concerns\Scopeable;
 
 abstract class BaseResource extends Resource
 {
     use Scopeable;
-
-    protected static ?string $model = CategoryType::class;
 
     protected static string | BackedEnum | null $navigationIcon = Heroicon::Bars3;
 
@@ -39,6 +37,11 @@ abstract class BaseResource extends Resource
     protected static ?string $pluralModelLabel = '分类类型';
 
     protected static ?int $navigationSort = 1;
+
+    public static function getModel(): string
+    {
+        return Utils::getCategoryTypeModel();
+    }
 
     public static function form(Schema $schema): Schema
     {

@@ -4,8 +4,8 @@ namespace Wsmallnews\Category\Livewire\Concerns;
 
 use Kalnoy\Nestedset\QueryBuilder;
 use Livewire\Attributes\Locked;
-use Wsmallnews\Category\Models\Category as CategoryModel;
 use Wsmallnews\Category\Models\CategoryType as CategoryTypeModel;
+use Wsmallnews\Category\Support\Utils;
 
 trait Categoryable
 {
@@ -16,7 +16,7 @@ trait Categoryable
 
     public function mountCategoryable()
     {
-        $this->categoryType = CategoryTypeModel::scopeable(...$this->getScopeable())->when($this->categoryTypeId, function ($query) {
+        $this->categoryType = Utils::getCategoryTypeModel()::scopeable(...$this->getScopeable())->when($this->categoryTypeId, function ($query) {
             $query->where('id', $this->categoryTypeId);
         })->firstOrFail();
 
@@ -39,6 +39,6 @@ trait Categoryable
      */
     public function getScopedQuery(): string | QueryBuilder
     {
-        return CategoryModel::scoped($this->getScoped());
+        return Utils::getCategoryModel()::scoped($this->getScoped());
     }
 }

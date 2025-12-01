@@ -16,8 +16,7 @@ use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Wsmallnews\Category\Filament\Pages\Category\Components\BaseCategory as BaseCategoryComponent;
 use Wsmallnews\Category\Livewire\Components\Categories as CategoriesComponent;
-use Wsmallnews\Category\Models\Category as CategoryModel;
-use Wsmallnews\Category\Models\CategoryType as CategoryTypeModel;
+use Wsmallnews\Category\Support\Utils;
 
 class CategoryServiceProvider extends PackageServiceProvider
 {
@@ -63,8 +62,8 @@ class CategoryServiceProvider extends PackageServiceProvider
     {
         // 注册模型别名
         Relation::enforceMorphMap([
-            'sn_category' => CategoryModel::class,
-            'sn_category_type' => CategoryTypeModel::class,
+            'sn_category' => Utils::getCategoryModel(),
+            'sn_category_type' => Utils::getCategoryTypeModel(),
         ]);
 
         // Asset Registration

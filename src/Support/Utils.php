@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Wsmallnews\Category\Support;
 
 use Wsmallnews\Category\Exceptions\CategoryException;
+use Wsmallnews\Category\Models;
 
 class Utils
 {
@@ -18,7 +19,7 @@ class Utils
     /**
      * 获取 scopeinfo 参数
      *
-     * @throws CmsException
+     * @throws CategoryException
      */
     public static function getScopeable(): array
     {
@@ -36,7 +37,7 @@ class Utils
     /**
      * 获取 scopeType 参数
      *
-     * @throws CmsException
+     * @throws CategoryException
      */
     public static function getScopeType(): string
     {
@@ -46,7 +47,7 @@ class Utils
     /**
      * 获取 scopeId 参数
      *
-     * @throws CmsException
+     * @throws CategoryException
      */
     public static function getScopeId(): int
     {
@@ -67,30 +68,25 @@ class Utils
         return $model;
     }
 
+
     /**
-     * 获取内容模型
+     * 获取 分类 model
      *
-     * @return Models\Content
+     * @return Models\Category
      */
-    // public static function getContentModel(): string
-    // {
-    //     return self::getModel('content');
-    // }
-
-
-    /**
-     * 获取 租户模型
-     */
-    public static function getTenantModel(): ?string
+    public static function getCategoryModel(): string
     {
-        return self::getConfig('tenant_model') ?? null;
+        return self::getModel('category');
     }
 
+
     /**
-     * 是否启用了租户
+     * 获取分类类型 model
+     *
+     * @return Models\CategoryType
      */
-    public static function isTenancyEnabled(): bool
+    public static function getCategoryTypeModel(): string
     {
-        return self::getTenantModel() !== null;
+        return self::getModel('category_type');
     }
 }

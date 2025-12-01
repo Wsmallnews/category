@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Wsmallnews\Category\Enums\CategoryTypeStatus;
-use Wsmallnews\Category\Support\Utils;
 use Wsmallnews\Support\Models\SupportModel;
+use Wsmallnews\Support\Support\Utils as SupportUtils;
 
 class CategoryType extends SupportModel
 {
@@ -39,6 +39,6 @@ class CategoryType extends SupportModel
 
     public function team(): BelongsTo
     {
-        return $this->belongsTo(Utils::getTenantModel());
+        return $this->belongsTo(SupportUtils::getTenantModel());
     }
 }

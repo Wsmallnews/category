@@ -12,6 +12,7 @@ use Filament\Support\Icons\Heroicon;
 use UnitEnum;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Schemas\CategoryTypeForm;
 use Wsmallnews\Category\Models\CategoryType;
+use Wsmallnews\Category\Support\Utils;
 use Wsmallnews\Support\Filament\Pages\Concerns\Scopeable;
 
 abstract class ManageBase extends Page
@@ -76,7 +77,7 @@ abstract class ManageBase extends Page
         $data = $this->form->getState();
 
         if (! $this->record) {
-            $this->record = new CategoryType;
+            $this->record = new (Utils::getCategoryTypeModel());
             $this->record->scope_type = static::getScopeType();
             $this->record->scope_id = static::getScopeId();
         }
@@ -96,7 +97,7 @@ abstract class ManageBase extends Page
 
     public function getRecord(): ?CategoryType
     {
-        return CategoryType::query()
+        return Utils::getCategoryTypeModel()::query()
             ->scopeable(static::getScopeType(), static::getScopeId())
             ->first();
     }

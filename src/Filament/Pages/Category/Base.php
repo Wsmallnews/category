@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use Wsmallnews\Category\Enums\CategoryTypeStatus;
 use Wsmallnews\Category\Filament\Pages\Category\Components\BaseCategory;
 use Wsmallnews\Category\Models\CategoryType;
+use Wsmallnews\Category\Support\Utils;
 use Wsmallnews\Support\Filament\Pages\Concerns\Scopeable;
 
 abstract class Base extends BaseCategory
@@ -22,11 +23,12 @@ abstract class Base extends BaseCategory
     public function mount(): void
     {
         $this->categoryType = $this->getCategoryType();
+        parent::mount();
     }
 
     public function getCategoryType(): ?CategoryType
     {
-        $categoryType = CategoryType::query()
+        $categoryType = Utils::getCategoryTypeModel()::query()
             ->firstOrCreate(
                 static::getScopeable(),
                 [
