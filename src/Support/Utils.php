@@ -79,7 +79,6 @@ class Utils
         return self::getModel('category');
     }
 
-
     /**
      * 获取分类类型 model
      *
