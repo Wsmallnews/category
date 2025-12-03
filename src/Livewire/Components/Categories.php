@@ -5,33 +5,23 @@ namespace Wsmallnews\Category\Livewire\Components;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
 use Wsmallnews\Category\Livewire\Concerns\Categoryable;
+use Wsmallnews\FilamentNestedset\Livewire\Components\Nestedset;
 
-class Categories extends Base
+class Categories extends Nestedset
 {
     use Categoryable;
 
-    public ?string $view = 'sn-category::livewire.components.categories';
-
-    public ?string $itemView = 'sn-category::category';
-
-    public ?string $style = 'simple';        // vivid=鲜明的, simple=简单的
-
-    public function getRecordLabel(Model $category): HtmlString | string
+    public function getRecordLabel(Model $record): HtmlString | string
     {
-        return $category->name_label;
+        return $record->name_label;
     }
 
-    public function getLevel(): ?int
+    public function getHasActive(Model $record): bool
     {
-        return $this->categoryType?->level;
+        return $record->has_active;
     }
 
-    public function getItemView(): string
-    {
-        return $this->itemView;
-    }
-
-    public function getCategories()
+    public function getNestedset()
     {
         return $this->getScopedQuery()->normal()->defaultOrder()
             ->get()->toTree();
