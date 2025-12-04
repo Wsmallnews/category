@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
 use Wsmallnews\Category\Livewire\Concerns\Categoryable;
 use Wsmallnews\FilamentNestedset\Livewire\Components\Nestedset;
+use Wsmallnews\Support\Livewire\Concerns\Scopeable;
 
 class Categories extends Nestedset
 {
     use Categoryable;
+    use Scopeable;
 
     public function getRecordLabel(Model $record): HtmlString | string
     {

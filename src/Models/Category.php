@@ -43,7 +43,15 @@ class Category extends SupportModel
     {
         return Attribute::make(
             get: function (mixed $value, array $attributes) {
-                return false;       // @sn todo 后续补充
+                $categoryId = request()->input('category_id', 0);
+                $categoryIds = request()->input('category_ids', '');
+                $categoryIds = is_array($categoryIds) ? $categoryIds : explode(',', $categoryIds);
+
+                if ($attributes['id'] == $categoryId || in_array($attributes['id'], $categoryIds)) {
+                    return true;
+                }
+
+                return false;
             }
         );
     }
