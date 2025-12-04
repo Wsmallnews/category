@@ -90,8 +90,8 @@ class CategoryServiceProvider extends PackageServiceProvider
         }
 
         // 注册组件
-        Livewire::component('sn-fi-category', BaseCategoryComponent::class);
-        Livewire::component('sn-components-categories', CategoriesComponent::class);
+        Livewire::component('sn-category-fi-category', BaseCategoryComponent::class);
+        Livewire::component('sn-category-components-categories', CategoriesComponent::class);
     }
 
     protected function getAssetPackageName(): ?string

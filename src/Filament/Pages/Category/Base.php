@@ -2,6 +2,7 @@
 
 namespace Wsmallnews\Category\Filament\Pages\Category;
 
+use Filament\Facades\Filament;
 use Illuminate\Support\Str;
 use Wsmallnews\Category\Enums\CategoryTypeStatus;
 use Wsmallnews\Category\Filament\Pages\Category\Components\BaseCategory;
@@ -28,9 +29,14 @@ abstract class Base extends BaseCategory
 
     public function getCategoryType(): ?CategoryType
     {
+        $attributes = static::getScopeable();
+        if (static::isScopedToTenant() && ($tenant = Filament::getTenant())) {
+            $attributes['team_id'] = $tenant->id;
+        }
+
         $categoryType = Utils::getCategoryTypeModel()::query()
             ->firstOrCreate(
-                static::getScopeable(),
+                $attributes,
                 [
                     'name' => Str::title(static::getScopeType()),
                     'level' => static::getLevel(),
