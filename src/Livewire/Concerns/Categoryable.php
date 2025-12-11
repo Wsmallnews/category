@@ -29,7 +29,7 @@ trait Categoryable
             ...$this->getScopeable(),
             'type_id' => $this->categoryType->id,
         ];
-        has_tenancy() && $scoped['team_id'] = current_tenant()?->id;
+        general_has_tenancy() && $scoped['team_id'] = general_current_tenant()?->id;
 
         return $scoped;
     }
