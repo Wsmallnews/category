@@ -27,7 +27,7 @@ class CategoryForm
                 ])
                 ->default('none')
                 ->inline(),
-            Schemas\Components\FieldSet::make('icons')
+            Schemas\Components\Fieldset::make('icons')
                 ->label('icon 图标')
                 ->schema([
                     IconPicker::make('options.icon')
@@ -40,7 +40,7 @@ class CategoryForm
                 ->visibleJs(<<<'JS'
                     $get('options.icon_type') == 'icon'
                 JS),
-            Schemas\Components\FieldSet::make('image_icons')
+            Schemas\Components\Fieldset::make('image_icons')
                 ->label('图片图标')
                 ->schema([
                     Forms\Components\FileUpload::make('options.icon_src')
