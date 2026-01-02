@@ -28,7 +28,7 @@ class Utils
             ! isset($scopeable['scope_type']) || blank($scopeable['scope_type'])
             || ! isset($scopeable['scope_id']) || blank($scopeable['scope_id'])
         ) {
-            throw new CategoryException('scopeable配置错误, 请检查 sn-cms.php 配置文件');
+            throw new CategoryException('scopeable配置错误, 请检查 sn-category.php 配置文件');
         }
 
         return $scopeable;
