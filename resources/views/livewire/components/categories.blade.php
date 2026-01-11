@@ -1,6 +1,5 @@
 @php
-    $level = $this->getLevel();
-    $categories = $this->getCategories();
+    $nestedset = $this->getNestedset();
 @endphp
 
 <ul
@@ -10,15 +9,14 @@
     ])
     role="menu"
 >
-    @forelse($categories as $treeKey => $record)
+    @forelse($nestedset as $treeKey => $record)
         <x-dynamic-component 
             @class([
                 'w-full',
             ]) 
-            :component="$this->getItemView()" 
-            key="categories-component-{{ $record->getKey() }}" 
+            :component="$this->getRecordView()" 
+            key="nestedset-record-component-{{ $record->getKey() }}" 
             :record="$record" 
-            :level="$level" 
             :first="$loop->first" 
             :last="$loop->last" 
             :style="$style" 
