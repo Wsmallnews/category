@@ -13,12 +13,6 @@ class Categories extends Nestedset
     use Categoryable;
     use Scopeable;
 
-    public ?string $view = 'sn-category::livewire.components.categories';
-
-    public ?string $recordView = 'sn-category::components.category';
-
-    public string $style = 'vivid';
-
     public function getRecordLabel(Model $record): HtmlString | string
     {
         return $record->name_label;
