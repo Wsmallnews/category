@@ -42,7 +42,7 @@ class BaseCategory extends NestedsetPage
 
     protected static ?int $navigationSort = 1;
 
-    public static function getModel()
+    public static function getModel(): ?string
     {
         return Utils::getCategoryModel();
     }
