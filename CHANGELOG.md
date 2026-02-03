@@ -2,6 +2,12 @@
 
 All notable changes to `category` will be documented in this file.
 
+## v1.0.1 - 2026-02-03
+
+* 修复 FieldSet to Fieldset
+* 优化 scopeable 未设置提示
+* category 移除自定义模板，在调用处 (cms) 自定义
+
 ## v1.0.0 - 2025-12-15
 
 * 分类增加无限级分类用户端组件
