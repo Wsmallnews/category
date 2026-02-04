@@ -3,8 +3,8 @@
 namespace Wsmallnews\Category\Livewire\Components;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\HtmlString;
 use Illuminate\Support\Collection;
+use Illuminate\Support\HtmlString;
 use Illuminate\View\View;
 use Wsmallnews\Category\Livewire\Concerns\Categoryable;
 use Wsmallnews\FilamentNestedset\Livewire\Components\Nestedset;
