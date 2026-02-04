@@ -4,6 +4,8 @@ namespace Wsmallnews\Category\Livewire\Components;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
+use Illuminate\Support\Collection;
+use Illuminate\View\View;
 use Wsmallnews\Category\Livewire\Concerns\Categoryable;
 use Wsmallnews\FilamentNestedset\Livewire\Components\Nestedset;
 use Wsmallnews\Support\Livewire\Concerns\Scopeable;
@@ -23,13 +25,13 @@ class Categories extends Nestedset
         return $record->has_active;
     }
 
-    public function getNestedset()
+    public function getNestedset(): Collection
     {
         return $this->getScopedQuery()->normal()->defaultOrder()
             ->get()->toTree();
     }
 
-    public function render()
+    public function render(): View
     {
         return view($this->view);
     }
