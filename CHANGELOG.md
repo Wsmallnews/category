@@ -2,6 +2,10 @@
 
 All notable changes to `category` will be documented in this file.
 
+## v1.0.3 - 2026-02-04
+
+* 适配 filament-nestedset
+
 ## v1.0.2 - 2026-02-03
 
 * 适配 filament-nestedset
