@@ -11,7 +11,7 @@ use Wsmallnews\Category\Livewire\Concerns\Categoryable;
 use Wsmallnews\FilamentNestedset\Livewire\Components\Nestedset;
 use Wsmallnews\Support\Livewire\Concerns\Scopeable;
 
-use function \Filament\Support\generate_href_html;
+use function Filament\Support\generate_href_html;
 
 class Categories extends Nestedset
 {
@@ -36,6 +36,7 @@ class Categories extends Nestedset
         // 启用 url 方式，并且没有子导航时，才返回 url
         if ($this->useUrl && ! $record->children->count()) {
             $url = $this->url ?? request()->fullUrlWithoutQuery($this->queryName);      // 默认使用当前 url, 移除 queryName 参数， 重新拼接新的 queryName 参数
+
             return generate_href_html($url . (Str::contains($url, '?') ? '&' : '?') . $this->queryName . '=' . $record->id, $this->shouldOpenInNewTab);
         }
 
