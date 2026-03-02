@@ -2,6 +2,10 @@
 
 All notable changes to `category` will be documented in this file.
 
+## v1.0.4 - 2026-03-02
+
+分类支持 url 跳转当前分类
+
 ## v1.0.3 - 2026-02-04
 
 * 适配 filament-nestedset
