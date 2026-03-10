@@ -19,7 +19,6 @@ class Utils
      *
      * @param  string|null  $name  Configuration key (dot notation)
      * @param  mixed  $default  Default value if not found
-     * @return mixed
      */
     public static function getConfig(?string $name = null, mixed $default = null): mixed
     {
@@ -31,7 +30,6 @@ class Utils
     /**
      * Get scopeable configuration as ScopeableContext object.
      *
-     * @return ScopeableContext
      *
      * @throws CategoryException
      */
@@ -59,7 +57,6 @@ class Utils
     /**
      * Get scope type.
      *
-     * @return string
      *
      * @throws CategoryException
      */
@@ -71,7 +68,6 @@ class Utils
     /**
      * Get scope ID.
      *
-     * @return int
      *
      * @throws CategoryException
      */
@@ -85,7 +81,6 @@ class Utils
      *
      * @param  string  $name  Model name (e.g., 'post', 'navigation')
      * @param  bool  $shouldException  Whether to throw exception if not found
-     * @return string|null
      *
      * @throws CategoryException
      */
@@ -103,7 +98,7 @@ class Utils
     /**
      * Get category model class.
      *
-     * @return string  Models\Category
+     * @return string Models\Category
      */
     public static function getCategoryModel(): string
     {
@@ -113,7 +108,7 @@ class Utils
     /**
      * Get category type model class.
      *
-     * @return string  Models\CategoryType
+     * @return string Models\CategoryType
      */
     public static function getCategoryTypeModel(): string
     {
@@ -124,7 +119,6 @@ class Utils
      * Get file directory path with optional type and date.
      *
      * @param  string|null  $type  Directory type
-     * @return string
      */
     public static function getFileDirectory(?string $type = null): string
     {
