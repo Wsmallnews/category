@@ -7,6 +7,7 @@ use Wsmallnews\Category\CategoryPlugin;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Pages\CreateCategoryType;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Pages\EditCategoryType;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Pages\ListCategoryTypes;
+use Wsmallnews\Category\Support\Utils;
 use Wsmallnews\Support\Concerns\Resource\HasCustomProperties;
 
 final class CategoryTypeResource extends BaseResource
@@ -29,12 +30,12 @@ final class CategoryTypeResource extends BaseResource
 
     public static function getScopeType(): string
     {
-        return self::getCustomProperty('scopeType') ?? parent::getScopeType();
+        return self::getCustomScopeType() ?? Utils::getScopeType();
     }
 
     public static function getScopeId(): int
     {
-        return self::getCustomProperty('scopeId') ?? parent::getScopeId();
+        return self::getCustomScopeId() ?? Utils::getScopeId();
     }
 
     public static function getEssentialsPlugin(): ?CategoryPlugin

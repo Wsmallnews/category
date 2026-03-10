@@ -6,10 +6,22 @@ namespace Wsmallnews\Category\Support;
 
 use Wsmallnews\Category\Exceptions\CategoryException;
 use Wsmallnews\Category\Models;
+use Wsmallnews\Support\Data\ScopeableContext;
+use Wsmallnews\Support\Support\Utils as SupportUtils;
 
+/**
+ * Utility class for Category package configuration and helpers.
+ */
 class Utils
 {
-    public static function getConfig($name = null, $default = null)
+    /**
+     * Get configuration value.
+     *
+     * @param  string|null  $name  Configuration key (dot notation)
+     * @param  mixed  $default  Default value if not found
+     * @return mixed
+     */
+    public static function getConfig(?string $name = null, mixed $default = null): mixed
     {
         $config = config('sn-category');
 
@@ -17,45 +29,65 @@ class Utils
     }
 
     /**
-     * 获取 scopeinfo 参数
+     * Get scopeable configuration as ScopeableContext object.
+     *
+     * @return ScopeableContext
+     *
+     * @throws CategoryException
+     */
+    public static function getScopeableContext(): ScopeableContext
+    {
+        try {
+            return SupportUtils::getScopeFromConfig('sn-category.scopeable');
+        } catch (\Wsmallnews\Support\Exceptions\InvalidScopeException $e) {
+            throw new CategoryException('Scopeable配置错误: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Get scopeable array (legacy method for backward compatibility).
+     *
+     * @return array{scope_type: string, scope_id: int}
      *
      * @throws CategoryException
      */
     public static function getScopeable(): array
     {
-        $scopeable = self::getConfig('scopeable');
-        if (
-            ! isset($scopeable['scope_type']) || blank($scopeable['scope_type'])
-            || ! isset($scopeable['scope_id']) || blank($scopeable['scope_id'])
-        ) {
-            throw new CategoryException('scopeable配置错误, 请检查 sn-category.php 配置文件');
-        }
-
-        return $scopeable;
+        return self::getScopeableContext()->toArray();
     }
 
     /**
-     * 获取 scopeType 参数
+     * Get scope type.
+     *
+     * @return string
      *
      * @throws CategoryException
      */
     public static function getScopeType(): string
     {
-        return self::getScopeable()['scope_type'];
+        return self::getScopeableContext()->scopeType;
     }
 
     /**
-     * 获取 scopeId 参数
+     * Get scope ID.
+     *
+     * @return int
      *
      * @throws CategoryException
      */
     public static function getScopeId(): int
     {
-        return self::getScopeable()['scope_id'];
+        return self::getScopeableContext()->scopeId;
     }
 
     /**
-     * 获取模型
+     * Get model class by name.
+     *
+     * @param  string  $name  Model name (e.g., 'post', 'navigation')
+     * @param  bool  $shouldException  Whether to throw exception if not found
+     * @return string|null
+     *
+     * @throws CategoryException
      */
     public static function getModel(string $name, bool $shouldException = true): ?string
     {
@@ -69,9 +101,9 @@ class Utils
     }
 
     /**
-     * 获取 分类 model
+     * Get category model class.
      *
-     * @return Models\Category
+     * @return string  Models\Category
      */
     public static function getCategoryModel(): string
     {
@@ -79,9 +111,9 @@ class Utils
     }
 
     /**
-     * 获取分类类型 model
+     * Get category type model class.
      *
-     * @return Models\CategoryType
+     * @return string  Models\CategoryType
      */
     public static function getCategoryTypeModel(): string
     {
@@ -89,12 +121,12 @@ class Utils
     }
 
     /**
-     * 获取文件目录
+     * Get file directory path with optional type and date.
      *
-     * @param  string|null  $type  目录类型
+     * @param  string|null  $type  Directory type
      * @return string
      */
-    public static function getFileDirectory($type = null)
+    public static function getFileDirectory(?string $type = null): string
     {
         return self::getConfig('file_directory', 'sn/categories/') . ($type ? $type . '/' : '') . date('Ymd');
     }

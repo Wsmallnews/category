@@ -5,6 +5,7 @@ namespace Wsmallnews\Category\Filament\Pages;
 use BezhanSalleh\PluginEssentials\Concerns;
 use Wsmallnews\Category\CategoryPlugin;
 use Wsmallnews\Category\Filament\Pages\Category\Base as BaseCategoryPage;
+use Wsmallnews\Category\Support\Utils;
 use Wsmallnews\Support\Concerns\Resource\HasCustomProperties;
 
 final class Category extends BaseCategoryPage
@@ -18,12 +19,12 @@ final class Category extends BaseCategoryPage
 
     public static function getScopeType(): string
     {
-        return self::getCustomProperty('scopeType') ?? parent::getScopeType();
+        return self::getCustomScopeType() ?? Utils::getScopeType();
     }
 
     public static function getScopeId(): int
     {
-        return self::getCustomProperty('scopeId') ?? parent::getScopeId();
+        return self::getCustomScopeId() ?? Utils::getScopeId();
     }
 
     public function getLevel(): ?int
