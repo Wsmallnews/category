@@ -7,6 +7,7 @@ namespace Wsmallnews\Category\Support;
 use Wsmallnews\Category\Exceptions\CategoryException;
 use Wsmallnews\Category\Models;
 use Wsmallnews\Support\Data\ScopeableContext;
+use Wsmallnews\Support\Exceptions\InvalidScopeException;
 use Wsmallnews\Support\Support\Utils as SupportUtils;
 
 /**
@@ -37,7 +38,7 @@ class Utils
     {
         try {
             return SupportUtils::getScopeFromConfig('sn-category.scopeable');
-        } catch (\Wsmallnews\Support\Exceptions\InvalidScopeException $e) {
+        } catch (InvalidScopeException $e) {
             throw new CategoryException('Scopeable配置错误: ' . $e->getMessage());
         }
     }
