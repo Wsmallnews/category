@@ -14,6 +14,7 @@ use Filament\Tables;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Collection;
+use Wsmallnews\Support\Helpers\FilamentHelper;
 
 class CategoryTypesTable
 {
@@ -56,7 +57,7 @@ class CategoryTypesTable
             ->searchPlaceholder('搜索类别名称、描述等...')
             ->filtersFormWidth(Width::Medium)
             ->filters([
-                // ...Common::createUpdateRangeFilter(),
+                ...FilamentHelper::createUpdateRangeFilter(),
                 TrashedFilter::make(),
             ])
             ->recordActions([
