@@ -2,6 +2,11 @@
 
 All notable changes to `category` will be documented in this file.
 
+## v1.0.5 - 2026-04-03
+
+* 优化 scopeable
+* resource 支持时间区间筛选
+
 ## v1.0.4 - 2026-03-02
 
 分类支持 url 跳转当前分类
