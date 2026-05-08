@@ -7,7 +7,7 @@ use Filament\Schemas;
 use Guava\IconPicker\Forms\Components\IconPicker;
 use Wsmallnews\Category\Enums\CategoryStatus;
 use Wsmallnews\Category\Support\Utils;
-use Wsmallnews\Support\Support\Utils as SupportUtils;
+use Wsmallnews\Support\Filament\Forms\FormComponents;
 
 class CategoryForm
 {
@@ -43,36 +43,24 @@ class CategoryForm
             Schemas\Components\Fieldset::make('image_icons')
                 ->label('图片图标')
                 ->schema([
-                    Forms\Components\FileUpload::make('options.icon_src')
+                    FormComponents::localImageUpload('options.icon_src')
                         ->label('图标')
-                        ->image()
-                        ->disk(SupportUtils::getFilesystemDisk())
                         ->directory(Utils::getFileDirectory('icons'))
-                        ->visibility('public')
                         ->automaticallyResizeImagesMode('cover')
                         ->imageAspectRatio('1:1')
                         ->automaticallyCropImagesToAspectRatio()
                         ->automaticallyResizeImagesToHeight('200')
                         ->automaticallyResizeImagesToWidth('200')
-                        ->openable()
-                        ->downloadable()
-                        ->uploadingMessage('图标上传中...')
-                        ->imagePreviewHeight('100'),
-                    Forms\Components\FileUpload::make('options.active_icon_src')
+                        ->uploadingMessage('图标上传中...'),
+                    FormComponents::localImageUpload('options.active_icon_src')
                         ->label('活动图标')
-                        ->image()
-                        ->disk(SupportUtils::getFilesystemDisk())
                         ->directory(Utils::getFileDirectory('icons'))
-                        ->visibility('public')
                         ->automaticallyResizeImagesMode('cover')
                         ->imageAspectRatio('1:1')
                         ->automaticallyCropImagesToAspectRatio()
                         ->automaticallyResizeImagesToHeight('200')
                         ->automaticallyResizeImagesToWidth('200')
-                        ->openable()
-                        ->downloadable()
-                        ->uploadingMessage('活动图标上传中...')
-                        ->imagePreviewHeight('100'),
+                        ->uploadingMessage('活动图标上传中...'),
                     Schemas\Components\Text::make('请上传正方形图片，推荐大小为 200x200 像素，非正方形图片将被自动缩放裁剪')
                         ->columnSpanFull(),
                 ])
