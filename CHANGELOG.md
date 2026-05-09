@@ -2,6 +2,11 @@
 
 All notable changes to `category` will be documented in this file.
 
+## v1.0.6 - 2026-05-09
+
+* table 增加 ID 列
+* 上传图片，使用formComponents
+
 ## v1.0.5 - 2026-04-03
 
 * 优化 scopeable
