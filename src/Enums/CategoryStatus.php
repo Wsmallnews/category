@@ -20,8 +20,8 @@ enum CategoryStatus: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): ?string
     {
         return match ($this) {
-            self::Normal => '正常',
-            self::Hidden => '隐藏',
+            self::Normal => __('sn-category::category.status.normal'),
+            self::Hidden => __('sn-category::category.status.hidden'),
         };
     }
 

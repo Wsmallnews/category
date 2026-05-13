@@ -10,6 +10,7 @@ use Filament\Pages\Page;
 use Filament\Schemas;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Contracts\Support\Htmlable;
 use UnitEnum;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Schemas\CategoryTypeForm;
 use Wsmallnews\Category\Models\CategoryType;
@@ -27,15 +28,9 @@ abstract class ManageBase extends Page
 
     public ?CategoryType $record = null;
 
-    protected static ?string $title = '分类';
-
     protected static string | BackedEnum | null $navigationIcon = Heroicon::Bars3BottomLeft;
 
     protected static string | BackedEnum | null $activeNavigationIcon = Heroicon::Bars3BottomLeft;
-
-    protected static ?string $navigationLabel = '分类管理';
-
-    protected static string | UnitEnum | null $navigationGroup = '分类管理';
 
     protected static ?string $slug = 'manage-categories';
 
@@ -44,6 +39,21 @@ abstract class ManageBase extends Page
     protected static ?int $navigationSort = 1;
 
     protected string $view = 'sn-category::filament.pages.category.manage-category';
+
+    public function getTitle(): string | Htmlable
+    {
+        return static::$title ?? __('sn-category::category.category_management.manage_title');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return static::$navigationLabel ?? static::$title ?? __('sn-category::category.category_management.navigation_label');
+    }
+
+    public static function getNavigationGroup(): string | UnitEnum | null
+    {
+        return static::$navigationGroup ?? __('sn-category::category.category_management.navigation_group');
+    }
 
     public function mount(): void
     {
@@ -95,7 +105,7 @@ abstract class ManageBase extends Page
 
         Notification::make()
             ->success()
-            ->title('保存成功')
+            ->title(__('sn-category::category.category_management.save_success'))
             ->send();
     }
 

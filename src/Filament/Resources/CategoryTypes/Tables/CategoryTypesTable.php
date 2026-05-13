@@ -29,34 +29,34 @@ class CategoryTypesTable
                     ->alignCenter()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('name')
-                    ->label('类别名称')
+                    ->label(__('sn-category::category.category_type_table.name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('level')
-                    ->label('层级')
+                    ->label(__('sn-category::category.category_type_table.level'))
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('description')
-                    ->label('描述')
+                    ->label(__('sn-category::category.category_type_table.description'))
                     ->searchable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('order_column')
-                    ->label('排序')
+                    ->label(__('sn-category::category.category_type_table.order_column'))
                     ->alignCenter()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('status')
-                    ->label('状态')
+                    ->label(__('sn-category::category.category_type_table.status'))
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('创建时间')
+                    ->label(__('sn-category::category.category_type_table.created_at'))
                     ->toggleable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->label('更新时间')
+                    ->label(__('sn-category::category.category_type_table.updated_at'))
                     ->toggleable()
                     ->sortable(),
             ])
             ->reorderable('order_column')
             ->defaultSort('order_column', 'asc')
-            ->searchPlaceholder('搜索类别名称、描述等...')
+            ->searchPlaceholder(__('sn-category::category.category_type_table.search_placeholder'))
             ->filtersFormWidth(Width::Medium)
             ->filters([
                 ...FilamentHelper::createUpdateRangeFilter(),

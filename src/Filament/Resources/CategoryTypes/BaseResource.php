@@ -24,23 +24,35 @@ abstract class BaseResource extends Resource
 
     protected static string | BackedEnum | null $activeNavigationIcon = Heroicon::Bars3;
 
-    protected static ?string $navigationLabel = '分类类型';
-
-    protected static string | UnitEnum | null $navigationGroup = '分类管理';
-
     protected static ?string $slug = 'category-types';
 
     protected static ?string $recordTitleAttribute = 'name';
-
-    protected static ?string $modelLabel = '分类类型';
-
-    protected static ?string $pluralModelLabel = '分类类型';
 
     protected static ?int $navigationSort = 1;
 
     public static function getModel(): string
     {
         return Utils::getCategoryTypeModel();
+    }
+
+    public static function getModelLabel(): string
+    {
+        return static::$modelLabel ?? __('sn-category::category.category_type_resource.model_label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return static::$pluralModelLabel ?? __('sn-category::category.category_type_resource.plural_model_label');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return static::$navigationLabel ?? __('sn-category::category.category_type_resource.navigation_label');
+    }
+
+    public static function getNavigationGroup(): string | UnitEnum | null
+    {
+        return static::$navigationGroup ?? __('sn-category::category.category_type_resource.navigation_group');
     }
 
     public static function form(Schema $schema): Schema

@@ -10,10 +10,10 @@ class CategoryInfolist
     {
         return [
             Infolists\Components\TextEntry::make('description')
-                ->label('描述')
+                ->label(__('sn-category::category.category_infolist.description'))
                 ->visible(fn ($state): bool => $state ? true : false),
             Infolists\Components\IconEntry::make('status')
-                ->label('状态'),
+                ->label(__('sn-category::category.category_infolist.status')),
         ];
     }
 }

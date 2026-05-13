@@ -14,54 +14,54 @@ class CategoryForm
     public static function forms(array $arguments = []): array
     {
         return [
-            Forms\Components\TextInput::make('name')->label('分类名称')
-                ->placeholder('请输入分类名称')
+            Forms\Components\TextInput::make('name')->label(__('sn-category::category.category_form.name'))
+                ->placeholder(__('sn-category::category.category_form.name_placeholder'))
                 ->required(),
-            Forms\Components\Textarea::make('description')->label('描述'),
+            Forms\Components\Textarea::make('description')->label(__('sn-category::category.category_form.description')),
             Forms\Components\ToggleButtons::make('options.icon_type')
-                ->label('分类图标')
+                ->label(__('sn-category::category.category_form.icon_type'))
                 ->options([
-                    'none' => '无图标',
-                    'icon' => 'icon图标',
-                    'image' => '图片图标',
+                    'none' => __('sn-category::category.category_form.icon_type_none'),
+                    'icon' => __('sn-category::category.category_form.icon_type_icon'),
+                    'image' => __('sn-category::category.category_form.icon_type_image'),
                 ])
                 ->default('none')
                 ->inline(),
             Schemas\Components\Fieldset::make('icons')
-                ->label('icon 图标')
+                ->label(__('sn-category::category.category_form.icon_fieldset'))
                 ->schema([
                     IconPicker::make('options.icon')
-                        ->label('图标')
-                        ->placeholder('请选择图标'),
+                        ->label(__('sn-category::category.category_form.icon'))
+                        ->placeholder(__('sn-category::category.category_form.icon_placeholder')),
                     IconPicker::make('options.active_icon')
-                        ->label('活动图标')
-                        ->placeholder('请选择活动图标'),
+                        ->label(__('sn-category::category.category_form.active_icon'))
+                        ->placeholder(__('sn-category::category.category_form.active_icon_placeholder')),
                 ])
                 ->visibleJs(<<<'JS'
                     $get('options.icon_type') == 'icon'
                 JS),
             Schemas\Components\Fieldset::make('image_icons')
-                ->label('图片图标')
+                ->label(__('sn-category::category.category_form.image_fieldset'))
                 ->schema([
                     FormComponents::localImageUpload('options.icon_src')
-                        ->label('图标')
+                        ->label(__('sn-category::category.category_form.image_icon'))
                         ->directory(Utils::getFileDirectory('icons'))
                         ->automaticallyResizeImagesMode('cover')
                         ->imageAspectRatio('1:1')
                         ->automaticallyCropImagesToAspectRatio()
                         ->automaticallyResizeImagesToHeight('200')
                         ->automaticallyResizeImagesToWidth('200')
-                        ->uploadingMessage('图标上传中...'),
+                        ->uploadingMessage(__('sn-category::category.category_form.icon_uploading')),
                     FormComponents::localImageUpload('options.active_icon_src')
-                        ->label('活动图标')
+                        ->label(__('sn-category::category.category_form.image_active_icon'))
                         ->directory(Utils::getFileDirectory('icons'))
                         ->automaticallyResizeImagesMode('cover')
                         ->imageAspectRatio('1:1')
                         ->automaticallyCropImagesToAspectRatio()
                         ->automaticallyResizeImagesToHeight('200')
                         ->automaticallyResizeImagesToWidth('200')
-                        ->uploadingMessage('活动图标上传中...'),
-                    Schemas\Components\Text::make('请上传正方形图片，推荐大小为 200x200 像素，非正方形图片将被自动缩放裁剪')
+                        ->uploadingMessage(__('sn-category::category.category_form.active_icon_uploading')),
+                    Schemas\Components\Text::make(__('sn-category::category.category_form.image_hint'))
                         ->columnSpanFull(),
                 ])
                 ->visibleJs(<<<'JS'
@@ -69,7 +69,7 @@ class CategoryForm
                 JS),
 
             Forms\Components\Radio::make('status')
-                ->label('状态')
+                ->label(__('sn-category::category.category_form.status'))
                 ->default(CategoryStatus::Normal)
                 ->inline()
                 ->options(CategoryStatus::class)

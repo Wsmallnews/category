@@ -63,11 +63,11 @@ class CategoryPlugin implements Plugin
         return [
             'resources' => [
                 CategoryTypeResource::class => [
-                    'modelLabel' => '分类类型',
-                    'pluralModelLabel' => '分类类型',
+                    'modelLabel' => __('sn-category::category.category_type_resource.model_label'),
+                    'pluralModelLabel' => __('sn-category::category.category_type_resource.plural_model_label'),
 
-                    'navigationGroup' => '分类管理',
-                    'navigationLabel' => '分类类型',
+                    'navigationGroup' => __('sn-category::category.category_type_resource.navigation_group'),
+                    'navigationLabel' => __('sn-category::category.category_type_resource.navigation_label'),
                     'navigationIcon' => Heroicon::Bars3,
                     'activeNavigationIcon' => Heroicon::Bars3,
                     'navigationSort' => 1,
