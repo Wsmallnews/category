@@ -34,12 +34,12 @@ class CategoryTypeForm
                                 3 => __('sn-category::category.category_type_form.level_three'),
                                 'infinite' => __('sn-category::category.category_type_form.level_infinite'),
                             ])
-                            ->formatStateUsing(fn($state) => is_null($state) ? 'infinite' : $state)     // 显示时，null 转成 infinite
-                            ->dehydrateStateUsing(fn($state) => $state === 'infinite' ? null : $state)  // 存库时，infinite 转成 null
+                            ->formatStateUsing(fn ($state) => is_null($state) ? 'infinite' : $state)     // 显示时，null 转成 infinite
+                            ->dehydrateStateUsing(fn ($state) => $state === 'infinite' ? null : $state)  // 存库时，infinite 转成 null
                             ->default(1)
                             ->inline()
                             ->required()
-                            ->helperText(fn($operation) => $operation === 'create' ? __('sn-category::category.category_type_form.level_helper_create') : __('sn-category::category.category_type_form.level_helper_edit'))
+                            ->helperText(fn ($operation) => $operation === 'create' ? __('sn-category::category.category_type_form.level_helper_create') : __('sn-category::category.category_type_form.level_helper_edit'))
                             ->columnSpan(1),
                         Forms\Components\TextInput::make('description')->label(__('sn-category::category.category_type_form.description'))
                             ->placeholder(__('sn-category::category.category_type_form.description_placeholder'))

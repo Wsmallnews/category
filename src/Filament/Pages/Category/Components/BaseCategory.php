@@ -4,6 +4,7 @@ namespace Wsmallnews\Category\Filament\Pages\Category\Components;
 
 use BackedEnum;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
 use UnitEnum;
@@ -54,7 +55,7 @@ class BaseCategory extends NestedsetPage
         return static::$pluralModelLabel ?? __('sn-category::category.category_management.plural_model_label');
     }
 
-    public function getTitle(): string | \Illuminate\Contracts\Support\Htmlable
+    public function getTitle(): string | Htmlable
     {
         return static::$title ?? __('sn-category::category.category_management.title');
     }
