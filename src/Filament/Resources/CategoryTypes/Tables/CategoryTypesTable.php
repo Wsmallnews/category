@@ -14,7 +14,7 @@ use Filament\Tables;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Collection;
-use Wsmallnews\Support\Helpers\FilamentHelper;
+use Wsmallnews\Support\Filament\Filters\FilterComponents;
 
 class CategoryTypesTable
 {
@@ -59,7 +59,7 @@ class CategoryTypesTable
             ->searchPlaceholder(__('sn-category::category.category_type_table.search_placeholder'))
             ->filtersFormWidth(Width::Medium)
             ->filters([
-                ...FilamentHelper::createUpdateRangeFilter(),
+                ...FilterComponents::createUpdateRangeFilter(),
                 TrashedFilter::make(),
             ])
             ->recordActions([
