@@ -13,12 +13,11 @@ use Wsmallnews\Category\Filament\Pages\Category\Schemas\CategoryInfolist;
 use Wsmallnews\Category\Models\CategoryType as CategoryTypeModel;
 use Wsmallnews\Category\Support\Utils;
 use Wsmallnews\FilamentNestedset\Pages\NestedsetPage;
+use Wsmallnews\Support\Livewire\Concerns\HasProperties;
 
-class BaseCategory extends NestedsetPage
+class Category extends NestedsetPage
 {
-    public ?CategoryTypeModel $categoryType = null;
-
-    public ?array $properties = [];
+    use HasProperties;
 
     protected static ?string $emptyLabel = null;
 
@@ -39,6 +38,8 @@ class BaseCategory extends NestedsetPage
     protected static string $recordTitleAttribute = 'name';
 
     protected static ?int $navigationSort = 1;
+
+    public ?CategoryTypeModel $categoryType = null;
 
     public static function getModel(): ?string
     {
@@ -72,7 +73,7 @@ class BaseCategory extends NestedsetPage
 
     public function getEmptyLabel(): ?string
     {
-        return (isset($this->properties['emptyLabel']) && filled($this->properties['emptyLabel'])) ? $this->properties['emptyLabel'] : (static::$emptyLabel ?? __('sn-category::category.category_management.empty_label'));
+        return $this->getProperty('emptyLabel') ?: (static::$emptyLabel ?? __('sn-category::category.category_management.empty_label'));
     }
 
     public function createSchema($arguments): array

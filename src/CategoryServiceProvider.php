@@ -14,7 +14,7 @@ use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Wsmallnews\Category\Filament\Pages\Category\Components\BaseCategory as BaseCategoryComponent;
+use Wsmallnews\Category\Filament\Pages\Category\Components\Category as CategoryComponent;
 use Wsmallnews\Category\Livewire\Components\Categories as CategoriesComponent;
 use Wsmallnews\Category\Support\Utils;
 
@@ -53,7 +53,6 @@ class CategoryServiceProvider extends PackageServiceProvider
         if (file_exists($package->basePath('/../resources/views'))) {
             $package->hasViews(static::$viewNamespace);
         }
-
     }
 
     public function packageRegistered(): void {}
@@ -90,7 +89,7 @@ class CategoryServiceProvider extends PackageServiceProvider
         }
 
         // 注册组件
-        Livewire::component('sn-category-fi-category', BaseCategoryComponent::class);
+        Livewire::component('sn-category-fi-category', CategoryComponent::class);
         Livewire::component('sn-category-components-categories', CategoriesComponent::class);
     }
 
