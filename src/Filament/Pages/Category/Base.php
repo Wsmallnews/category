@@ -48,13 +48,10 @@ abstract class Base extends Page
 
     /**
      * 是否可管理分类类型
-     *
-     * @var boolean
      */
     protected static bool $canManage = false;
 
     protected string $view = 'sn-category::filament.pages.category.category-page';
-
 
     public static function getModelLabel(): string
     {
@@ -124,7 +121,7 @@ abstract class Base extends Page
             ->snScope(static::getScopeType(), static::getScopeId())
             ->first();
 
-        if (!$categoryType && !static::getCanManage()) {
+        if (! $categoryType && ! static::getCanManage()) {
             // 自动创建分类类型
             $categoryType = Utils::getCategoryTypeModel()::create([
                 'name' => Str::title(static::getScopeType()),
@@ -137,7 +134,6 @@ abstract class Base extends Page
 
         return $categoryType;
     }
-
 
     public function form(Schema $schema): Schema
     {
