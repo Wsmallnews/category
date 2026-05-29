@@ -9,6 +9,7 @@ use Filament\Support\Concerns\EvaluatesClosures;
 use Filament\Support\Icons\Heroicon;
 use Wsmallnews\Category\Filament\Pages\Category\CategoryPage;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
+use Wsmallnews\Category\Support\Utils;
 use Wsmallnews\Support\Concerns\Plugin\HasCustomProperties;
 
 class CategoryPlugin implements Plugin
@@ -30,11 +31,17 @@ class CategoryPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        $panel->resources([
-            // CategoryTypeResource::class,
-        ])->pages([
-            CategoryPage::class,
-        ]);
+        if (Utils::getPanelRegister('pages')) {
+            $panel->pages([
+                ...Utils::getPanelRegister('pages'),
+            ]);
+        }
+
+        if (Utils::getPanelRegister('resources')) {
+            $panel->resources([
+                ...Utils::getPanelRegister('resources'),
+            ]);
+        }
     }
 
     public function boot(Panel $panel): void
@@ -68,7 +75,7 @@ class CategoryPlugin implements Plugin
 
                     'navigationGroup' => __('sn-category::category.category_type_resource.navigation_group'),
                     'navigationLabel' => __('sn-category::category.category_type_resource.navigation_label'),
-                    'navigationIcon' => Heroicon::Bars3,
+                    'navigationIcon' => Heroicon::OutlinedBars3,
                     'activeNavigationIcon' => Heroicon::Bars3,
                     'navigationSort' => 1,
                     'navigationBadge' => null,
@@ -76,7 +83,45 @@ class CategoryPlugin implements Plugin
                     'navigationParentItem' => null,
                     'registerNavigation' => true,
 
+                    // hasGlobalSearch
+                    'globallySearchable' => false,
                     'globalSearchResultsLimit' => 50,
+                    'forceGlobalSearchCaseInsensitive' => null,
+                    'splitGlobalSearchTerms' => false,
+
+                    // belongsToParent
+                    'parentResource' => null,
+
+                    // HasCustomProperties
+                    'customProperties' => [],
+                ],
+                CategoryPage::class => [
+                    // hasLabels
+                    'modelLabel' => __('sn-category::category.category_management.model_label'),
+                    'pluralModelLabel' => __('sn-category::category.category_management.plural_model_label'),
+
+                    // hasNavigation
+                    'navigationLabel' => __('sn-category::category.category_management.navigation_label'),
+                    'navigationIcon' => Heroicon::OutlinedChatBubbleLeft,
+                    'activeNavigationIcon' => Heroicon::ChatBubbleLeft,
+                    'navigationGroup' => __('sn-category::category.category_management.navigation_group'),
+                    'navigationSort' => 1,
+                    'navigationBadge' => null,
+                    'navigationBadgeColor' => null,
+                    'navigationParentItem' => null,
+                    'registerNavigation' => true,
+
+                    // hasGlobalSearch
+                    'globallySearchable' => false,
+                    'globalSearchResultsLimit' => 50,
+                    'forceGlobalSearchCaseInsensitive' => null,
+                    'splitGlobalSearchTerms' => false,
+
+                    // belongsToParent
+                    'parentResource' => null,
+
+                    // HasCustomProperties
+                    'customProperties' => [],
                 ],
             ],
         ];

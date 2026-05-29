@@ -1,6 +1,8 @@
 <?php
 
 use Wsmallnews\Category\Models;
+use Wsmallnews\Category\Filament\Pages\Category\CategoryPage;
+use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
 
 return [
     /**
@@ -17,6 +19,18 @@ return [
     'models' => [
         'category' => Models\Category::class,
         'category_type' => Models\CategoryType::class,
+    ],
+
+    /**
+     * Panel register
+     */
+    'panel_register' => [
+        'pages' => [
+            CategoryPage::class,
+        ],
+        'resources' => [
+            CategoryTypeResource::class,
+        ],
     ],
 
     /**

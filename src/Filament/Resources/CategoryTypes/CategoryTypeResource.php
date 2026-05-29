@@ -38,6 +38,13 @@ final class CategoryTypeResource extends BaseResource
         return self::getCustomScopeId() ?? Utils::getScopeId();
     }
 
+    public static function getProperties(): array
+    {
+        return [
+            'emptyLabel' => self::getCustomProperty('emptyLabel') ?? null,
+        ];
+    }
+
     public static function getEssentialsPlugin(): ?CategoryPlugin
     {
         return CategoryPlugin::get();

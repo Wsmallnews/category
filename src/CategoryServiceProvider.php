@@ -11,9 +11,9 @@ use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Filesystem\Filesystem;
 use Livewire\Livewire;
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Wsmallnews\Category\Commands\CategoryInstallCommand;
 use Wsmallnews\Category\Filament\Pages\Category\Components\Category as CategoryComponent;
 use Wsmallnews\Category\Livewire\Components\Categories as CategoriesComponent;
 use Wsmallnews\Category\Support\Utils;
@@ -27,32 +27,11 @@ class CategoryServiceProvider extends PackageServiceProvider
     public function configurePackage(Package $package): void
     {
         $package->name(static::$name)
-            ->hasInstallCommand(function (InstallCommand $command) {
-                $command
-                    ->publishConfigFile()
-                    ->publishMigrations()
-                    ->askToRunMigrations()
-                    ->askToStarRepoOnGitHub('wsmallnews/category');
-            });
-
-        $configFileName = $package->shortName();
-
-        if (file_exists($package->basePath("/../config/{$configFileName}.php"))) {
-            $package->hasConfigFile();
-        }
-
-        if (file_exists($package->basePath('/../database/migrations'))) {
-            $package->hasMigrations($this->getMigrations());
-            $package->runsMigrations();
-        }
-
-        if (file_exists($package->basePath('/../resources/lang'))) {
-            $package->hasTranslations();
-        }
-
-        if (file_exists($package->basePath('/../resources/views'))) {
-            $package->hasViews(static::$viewNamespace);
-        }
+            ->hasCommands($this->getCommands())
+            ->hasConfigFile()
+            ->hasMigrations($this->getMigrations())
+            ->hasTranslations()
+            ->hasViews(static::$viewNamespace);
     }
 
     public function packageRegistered(): void {}
@@ -88,8 +67,10 @@ class CategoryServiceProvider extends PackageServiceProvider
             }
         }
 
-        // 注册组件
+        // 注册 filament panel 组件
         Livewire::component('sn-category-fi-category', CategoryComponent::class);
+
+        // 注册 livewire 组件
         Livewire::component('sn-category-components-categories', CategoriesComponent::class);
     }
 
@@ -107,6 +88,16 @@ class CategoryServiceProvider extends PackageServiceProvider
             // AlpineComponent::make('category', __DIR__ . '/../resources/dist/components/category.js'),
             // Css::make('category-styles', __DIR__ . '/../resources/dist/category.css'),
             // Js::make('category-scripts', __DIR__ . '/../resources/dist/category.js'),
+        ];
+    }
+
+    /**
+     * @return array<class-string>
+     */
+    protected function getCommands(): array
+    {
+        return [
+            CategoryInstallCommand::class,
         ];
     }
 
@@ -140,8 +131,8 @@ class CategoryServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            '2025_01_20_113233_create_sn_categories_table',
-            '2025_01_20_113233_create_sn_category_types_table',
+            'create_sn_categories_table',
+            'create_sn_category_types_table',
         ];
     }
 }

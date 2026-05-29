@@ -68,6 +68,8 @@ return [
         'navigation_group' => 'Category Management',
         'manage_title' => 'Category',
         'save_success' => 'Saved successfully',
+        'no_data' => 'No category data',
+        'no_data_description' => 'Category data is empty.',
     ],
 
     'category_type_resource' => [

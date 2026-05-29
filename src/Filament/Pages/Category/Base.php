@@ -30,7 +30,7 @@ abstract class Base extends Page
 
     public ?CategoryType $categoryType = null;
 
-    protected static ?string $pluralModelLabel = null;
+    protected static ?int $level = null;
 
     protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedBars3BottomLeft;
 
@@ -55,27 +55,27 @@ abstract class Base extends Page
 
     public static function getModelLabel(): string
     {
-        return static::$modelLabel ?? __('sn-category::category.filament.category.model_label');
+        return static::$modelLabel ?? __('sn-category::category.category_management.model_label');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return static::$pluralModelLabel ?? __('sn-category::category.filament.category.plural_model_label');
+        return static::$pluralModelLabel ?? __('sn-category::category.category_management.plural_model_label');
     }
 
     public function getTitle(): string | Htmlable
     {
-        return static::$title ?? __('sn-category::category.filament.category.title');
+        return static::$title ?? __('sn-category::category.category_management.title');
     }
 
     public static function getNavigationLabel(): string
     {
-        return static::$navigationLabel ?? static::$title ?? __('sn-category::category.filament.category.navigation_label');
+        return static::$navigationLabel ?? static::$title ?? __('sn-category::category.category_management.navigation_label');
     }
 
     public static function getNavigationGroup(): string | UnitEnum | null
     {
-        return static::$navigationGroup ?? __('sn-category::category.filament.category.navigation_group');
+        return static::$navigationGroup ?? __('sn-category::category.category_management.navigation_group');
     }
 
     public static function getCanManage(): bool
@@ -83,14 +83,19 @@ abstract class Base extends Page
         return static::$canManage;
     }
 
+    public static function getLevel(): ?int
+    {
+        return static::$level;
+    }
+
     public static function getEmptyLabel(): ?string
     {
-        return static::$emptyLabel ?? __('sn-category::category.filament.category.no_data');
+        return static::$emptyLabel ?? __('sn-category::category.category_management.no_data');
     }
 
     public static function getEmptyTipLabel(): ?string
     {
-        return static::$emptyTipLabel ?? __('sn-category::category.filament.category.no_data_description');
+        return static::$emptyTipLabel ?? __('sn-category::category.category_management.no_data_description');
     }
 
     public static function getProperties(): array
@@ -112,7 +117,6 @@ abstract class Base extends Page
 
             $this->form->fill($attributes);
         }
-        parent::mount();
     }
 
     public function getCategoryType(): ?CategoryType

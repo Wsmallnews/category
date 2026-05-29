@@ -68,6 +68,8 @@ return [
         'navigation_group' => '分类管理',
         'manage_title' => '分类',
         'save_success' => '保存成功',
+        'no_data' => '暂无分类数据',
+        'no_data_description' => '分类数据是空的',
     ],
 
     'category_type_resource' => [

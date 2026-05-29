@@ -6,7 +6,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
 use Filament\Resources\Pages\EditRecord;
-use Wsmallnews\Category\Filament\Pages\Category\Widgets\CategoryManage as CategoryManageWidgets;
+use Wsmallnews\Category\Filament\Pages\Category\Widgets\Category as CategoryWidget;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
 use Wsmallnews\Support\Filament\Resources\Concerns\Pages\Scopeable;
 
@@ -30,7 +30,7 @@ class EditCategoryType extends EditRecord
         $record = $this->getRecord();
 
         return [
-            CategoryManageWidgets::make([
+            CategoryWidget::make([
                 'properties' => static::getResource()::getProperties() ?? [],
                 'key' => 'widgets-' . $record?->id . '-' . $record?->level,
             ]),
