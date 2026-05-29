@@ -1,8 +1,8 @@
 <?php
 
-use Wsmallnews\Category\Models;
 use Wsmallnews\Category\Filament\Pages\Category\CategoryPage;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
+use Wsmallnews\Category\Models;
 
 return [
     /**
