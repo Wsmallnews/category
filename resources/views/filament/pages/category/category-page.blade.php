@@ -12,7 +12,7 @@
         <livewire:sn-category-fi-category 
             :properties="$properties"
             :category-type="$categoryType"
-            :key="'fi-component-category-' . $categoryType->id . '-' . $categoryType->level"
+            :key="'fi-components-sn-category-' . $categoryType->id . '-' . $categoryType->level"
         />
     @endif
 </x-filament-panels::page>

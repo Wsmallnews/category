@@ -60,6 +60,7 @@ return [
 
     'category_management' => [
         'empty_label' => 'No category data',
+        'empty_tip_label' => 'No category data available',
         'model_label' => 'Category Management',
         'plural_model_label' => 'Category Management',
         'title' => 'Category Management',

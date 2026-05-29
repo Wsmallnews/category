@@ -3,5 +3,5 @@
         :properties="$properties"
         :category-type="$record"
         :contained="$contained"
-        :key="'components-' . $record->id . '-' . $record->level" />
+        :key="'fi-components-sn-category-' . $record->id . '-' . $record->level" />
 </x-filament-widgets::widget>

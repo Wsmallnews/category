@@ -19,7 +19,11 @@ class Category extends NestedsetPage
 {
     use HasProperties;
 
+    public ?CategoryTypeModel $categoryType = null;
+
     protected static ?string $emptyLabel = null;
+
+    protected static ?string $emptyTipLabel = null;
 
     protected static ?string $pluralModelLabel = null;
 
@@ -38,8 +42,6 @@ class Category extends NestedsetPage
     protected static string $recordTitleAttribute = 'name';
 
     protected static ?int $navigationSort = 1;
-
-    public ?CategoryTypeModel $categoryType = null;
 
     public static function getModel(): ?string
     {
@@ -76,23 +78,9 @@ class Category extends NestedsetPage
         return $this->getProperty('emptyLabel') ?: (static::$emptyLabel ?? __('sn-category::category.category_management.empty_label'));
     }
 
-    public function createSchema($arguments): array
+    public function getEmptyTipLabel(): ?string
     {
-        $arguments = array_merge($arguments, $this->nestedScoped());
-
-        return $this->schema($arguments);
-    }
-
-    public function editSchema($arguments): array
-    {
-        $arguments = array_merge($arguments, $this->nestedScoped());
-
-        return $this->schema($arguments);
-    }
-
-    public function infolistSchema(): array
-    {
-        return CategoryInfolist::infolist();
+        return $this->getProperty('emptyTipLabel') ?: (static::$emptyTipLabel ?? __('sn-category::category.category_management.empty_tip_label'));
     }
 
     public function getRecordLabel(Model $category): HtmlString | string
@@ -114,8 +102,27 @@ class Category extends NestedsetPage
         ];
     }
 
+    protected function createSchema(array $arguments): array
+    {
+        $arguments = array_merge($arguments, $this->nestedScoped());
+
+        return $this->schema($arguments);
+    }
+
+    protected function editSchema(array $arguments): array
+    {
+        $arguments = array_merge($arguments, $this->nestedScoped());
+
+        return $this->schema($arguments);
+    }
+
     protected function schema(array $arguments): array
     {
         return CategoryForm::forms($arguments);
+    }
+
+    protected function infolistSchema(): array
+    {
+        return CategoryInfolist::infolist();
     }
 }

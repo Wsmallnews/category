@@ -60,6 +60,7 @@ return [
 
     'category_management' => [
         'empty_label' => '分类数据为空',
+        'empty_tip_label' => '暂无分类数据',
         'model_label' => '分类管理',
         'plural_model_label' => '分类管理',
         'title' => '分类管理',
