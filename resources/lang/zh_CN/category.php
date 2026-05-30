@@ -58,14 +58,17 @@ return [
         'status' => '状态',
     ],
 
-    'category_management' => [
+    'global_default' => [
+        'navigation_group' => '分类管理',
+    ],
+
+    'category_page' => [
         'empty_label' => '分类数据为空',
         'empty_tip_label' => '暂无分类数据',
         'model_label' => '分类管理',
         'plural_model_label' => '分类管理',
         'title' => '分类管理',
         'navigation_label' => '分类管理',
-        'navigation_group' => '分类管理',
         'manage_title' => '分类',
         'save_success' => '保存成功',
         'no_data' => '暂无分类数据',
@@ -75,7 +78,6 @@ return [
     'category_type_resource' => [
         'model_label' => '分类类型',
         'plural_model_label' => '分类类型',
-        'navigation_group' => '分类管理',
         'navigation_label' => '分类类型',
     ],
 

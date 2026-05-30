@@ -68,60 +68,28 @@ class CategoryPlugin implements Plugin
     protected function getPluginDefaults(): array
     {
         return [
+            'navigationGroup' => fn () => __('sn-category::category.global_default.navigation_group'),
+            'globallySearchable' => false,
+            'globalSearchResultsLimit' => 25,
+
             'resources' => [
                 CategoryTypeResource::class => [
-                    'modelLabel' => __('sn-category::category.category_type_resource.model_label'),
-                    'pluralModelLabel' => __('sn-category::category.category_type_resource.plural_model_label'),
+                    'modelLabel' => fn () => __('sn-category::category.category_type_resource.model_label'),
+                    'pluralModelLabel' => fn () => __('sn-category::category.category_type_resource.plural_model_label'),
 
-                    'navigationGroup' => __('sn-category::category.category_type_resource.navigation_group'),
-                    'navigationLabel' => __('sn-category::category.category_type_resource.navigation_label'),
+                    'navigationLabel' => fn () => __('sn-category::category.category_type_resource.navigation_label'),
                     'navigationIcon' => Heroicon::OutlinedBars3,
                     'activeNavigationIcon' => Heroicon::Bars3,
                     'navigationSort' => 1,
-                    'navigationBadge' => null,
-                    'navigationBadgeColor' => null,
-                    'navigationParentItem' => null,
-                    'registerNavigation' => true,
-
-                    // hasGlobalSearch
-                    'globallySearchable' => false,
-                    'globalSearchResultsLimit' => 50,
-                    'forceGlobalSearchCaseInsensitive' => null,
-                    'splitGlobalSearchTerms' => false,
-
-                    // belongsToParent
-                    'parentResource' => null,
-
-                    // HasCustomProperties
-                    'customProperties' => [],
                 ],
                 CategoryPage::class => [
-                    // hasLabels
-                    'modelLabel' => __('sn-category::category.category_management.model_label'),
-                    'pluralModelLabel' => __('sn-category::category.category_management.plural_model_label'),
+                    'modelLabel' => fn () => __('sn-category::category.category_page.model_label'),
+                    'pluralModelLabel' => fn () => __('sn-category::category.category_page.plural_model_label'),
 
-                    // hasNavigation
-                    'navigationLabel' => __('sn-category::category.category_management.navigation_label'),
+                    'navigationLabel' => fn () => __('sn-category::category.category_page.navigation_label'),
                     'navigationIcon' => Heroicon::OutlinedChatBubbleLeft,
                     'activeNavigationIcon' => Heroicon::ChatBubbleLeft,
-                    'navigationGroup' => __('sn-category::category.category_management.navigation_group'),
                     'navigationSort' => 1,
-                    'navigationBadge' => null,
-                    'navigationBadgeColor' => null,
-                    'navigationParentItem' => null,
-                    'registerNavigation' => true,
-
-                    // hasGlobalSearch
-                    'globallySearchable' => false,
-                    'globalSearchResultsLimit' => 50,
-                    'forceGlobalSearchCaseInsensitive' => null,
-                    'splitGlobalSearchTerms' => false,
-
-                    // belongsToParent
-                    'parentResource' => null,
-
-                    // HasCustomProperties
-                    'customProperties' => [],
                 ],
             ],
         ];

@@ -58,14 +58,17 @@ return [
         'status' => 'Status',
     ],
 
-    'category_management' => [
+    'global_default' => [
+        'navigation_group' => 'Category Management',
+    ],
+
+    'category_page' => [
         'empty_label' => 'No category data',
         'empty_tip_label' => 'No category data available',
         'model_label' => 'Category Management',
         'plural_model_label' => 'Category Management',
         'title' => 'Category Management',
         'navigation_label' => 'Category Management',
-        'navigation_group' => 'Category Management',
         'manage_title' => 'Category',
         'save_success' => 'Saved successfully',
         'no_data' => 'No category data',
@@ -75,7 +78,6 @@ return [
     'category_type_resource' => [
         'model_label' => 'Category Type',
         'plural_model_label' => 'Category Types',
-        'navigation_group' => 'Category Management',
         'navigation_label' => 'Category Types',
     ],
 
