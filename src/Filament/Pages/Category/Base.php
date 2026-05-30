@@ -68,6 +68,11 @@ abstract class Base extends Page
         return static::$title ?? __('sn-category::category.category_page.title');
     }
 
+    public function getHeading(): string | Htmlable | null
+    {
+        return null;
+    }
+
     public static function getNavigationLabel(): string
     {
         return static::$navigationLabel ?? static::$title ?? __('sn-category::category.category_page.navigation_label');

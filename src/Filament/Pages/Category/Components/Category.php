@@ -29,13 +29,13 @@ class Category extends NestedsetPage
 
     protected static ?string $title = null;
 
-    protected static string | BackedEnum | null $navigationIcon = Heroicon::Bars3BottomLeft;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Bars3BottomLeft;
 
-    protected static string | BackedEnum | null $activeNavigationIcon = Heroicon::Bars3BottomLeft;
+    protected static string|BackedEnum|null $activeNavigationIcon = Heroicon::Bars3BottomLeft;
 
     protected static ?string $navigationLabel = null;
 
-    protected static string | UnitEnum | null $navigationGroup = null;
+    protected static string|UnitEnum|null $navigationGroup = null;
 
     protected static ?string $slug = 'categories';
 
@@ -50,40 +50,40 @@ class Category extends NestedsetPage
 
     public static function getModelLabel(): string
     {
-        return static::$modelLabel ?? __('sn-category::category.category_management.model_label');
+        return static::$modelLabel ?? __('sn-category::category.category_page.model_label');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return static::$pluralModelLabel ?? __('sn-category::category.category_management.plural_model_label');
+        return static::$pluralModelLabel ?? __('sn-category::category.category_page.plural_model_label');
     }
 
-    public function getTitle(): string | Htmlable
+    public function getTitle(): string|Htmlable
     {
-        return static::$title ?? __('sn-category::category.category_management.title');
+        return static::$title ?? __('sn-category::category.category_page.title');
     }
 
     public static function getNavigationLabel(): string
     {
-        return static::$navigationLabel ?? static::$title ?? __('sn-category::category.category_management.navigation_label');
+        return static::$navigationLabel ?? static::$title ?? __('sn-category::category.category_page.navigation_label');
     }
 
-    public static function getNavigationGroup(): string | UnitEnum | null
+    public static function getNavigationGroup(): string|UnitEnum|null
     {
-        return static::$navigationGroup ?? __('sn-category::category.category_management.navigation_group');
+        return static::$navigationGroup ?? __('sn-category::category.global_default.navigation_group');
     }
 
     public function getEmptyLabel(): ?string
     {
-        return $this->getProperty('emptyLabel') ?: (static::$emptyLabel ?? __('sn-category::category.category_management.empty_label'));
+        return $this->getProperty('emptyLabel') ?: (static::$emptyLabel ?? __('sn-category::category.category_page.empty_label'));
     }
 
     public function getEmptyTipLabel(): ?string
     {
-        return $this->getProperty('emptyTipLabel') ?: (static::$emptyTipLabel ?? __('sn-category::category.category_management.empty_tip_label'));
+        return $this->getProperty('emptyTipLabel') ?: (static::$emptyTipLabel ?? __('sn-category::category.category_page.empty_tip_label'));
     }
 
-    public function getRecordLabel(Model $category): HtmlString | string
+    public function getRecordLabel(Model $category): HtmlString|string
     {
         return $category->name_label;
     }
