@@ -1,5 +1,4 @@
 @php
-    $properties = static::getProperties();
     $canManage = static::getCanManage();
 @endphp
 
@@ -8,11 +7,20 @@
         {{ $this->form }}
     @endif
 
+    {{ $this->content }}
+
     @if ($categoryType)
-        <livewire:sn-category-fi-category 
-            :properties="$properties"
-            :category-type="$categoryType"
-            :key="'fi-components-sn-category-' . $categoryType->id . '-' . $categoryType->level"
+        <livewire:sn-filament-nestedset-fi-nestedset
+            :page-class="static::class"
+            :active-tab="$activeTab"
+            :model="static::getModel()"
+            :tab-field-name="static::getTabFieldName()"
+            :record-title-attribute="static::getRecordTitleAttribute()"
+            :level="static::getLevel()"
+            :empty-label="static::getEmptyLabel()"
+            :empty-tip-label="static::getEmptyTipLabel()"
+            :is-scoped-to-tenant="static::isScopedToTenant()"
+            :key="'fi-components-sn-nestedset-' . $categoryType->id . '-' . $categoryType->level"
         />
     @endif
 </x-filament-panels::page>

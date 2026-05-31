@@ -5,14 +5,9 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/wsmallnews/category/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/wsmallnews/category/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/wsmallnews/category.svg?style=flat-square)](https://packagist.org/packages/wsmallnews/category)
 
-
-
 #### 功能点
 
 如果当前所属 panel 支持 多租户，插件将自动增加 租户相关参数
-
-
-
 
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 

@@ -6,20 +6,24 @@ use BackedEnum;
 use Filament\Actions;
 use Filament\Facades\Filament;
 use Filament\Notifications\Notification;
-use Filament\Pages\Page;
 use Filament\Schemas;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use UnitEnum;
 use Wsmallnews\Category\Enums\CategoryTypeStatus;
+use Wsmallnews\Category\Filament\Pages\Category\Schemas\CategoryForm;
+use Wsmallnews\Category\Filament\Pages\Category\Schemas\CategoryInfolist;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Schemas\CategoryTypeForm;
 use Wsmallnews\Category\Models\CategoryType;
 use Wsmallnews\Category\Support\Utils;
+use Wsmallnews\FilamentNestedset\Filament\Pages\NestedsetPage;
 use Wsmallnews\Support\Filament\Pages\Concerns\Scopeable;
 
-abstract class Base extends Page
+abstract class Base extends NestedsetPage
 {
     use Scopeable;
 
@@ -30,21 +34,13 @@ abstract class Base extends Page
 
     public ?CategoryType $categoryType = null;
 
-    protected static ?int $level = null;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBars3BottomLeft;
 
-    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedBars3BottomLeft;
-
-    protected static string | BackedEnum | null $activeNavigationIcon = Heroicon::Bars3BottomLeft;
+    protected static string|BackedEnum|null $activeNavigationIcon = Heroicon::Bars3BottomLeft;
 
     protected static ?string $slug = 'categories';
 
-    protected static string $recordTitleAttribute = 'name';
-
     protected static ?int $navigationSort = 1;
-
-    protected static ?string $emptyLabel = null;
-
-    protected static ?string $emptyTipLabel = null;
 
     /**
      * 是否可管理分类类型
@@ -52,6 +48,26 @@ abstract class Base extends Page
     protected static bool $canManage = false;
 
     protected string $view = 'sn-category::filament.pages.category.category-page';
+
+    public function mount(): void
+    {
+        parent::mount();
+
+        $this->categoryType = $this->getCategoryType();
+
+        // 可管理分类类型，填充表单数据
+        if (static::getCanManage()) {
+            $attributes = $this->categoryType ? $this->categoryType->attributesToArray() : [];
+            $attributes['level'] = $attributes['level'] ?? static::getLevel();      // 分类类型等级
+
+            $this->form->fill($attributes);
+        }
+    }
+
+    public static function getModel(): ?string
+    {
+        return Utils::getCategoryModel();
+    }
 
     public static function getModelLabel(): string
     {
@@ -63,14 +79,9 @@ abstract class Base extends Page
         return static::$pluralModelLabel ?? __('sn-category::category.category_page.plural_model_label');
     }
 
-    public function getTitle(): string | Htmlable
+    public function getTitle(): string|Htmlable
     {
         return static::$title ?? __('sn-category::category.category_page.title');
-    }
-
-    public function getHeading(): string | Htmlable | null
-    {
-        return null;
     }
 
     public static function getNavigationLabel(): string
@@ -78,7 +89,7 @@ abstract class Base extends Page
         return static::$navigationLabel ?? static::$title ?? __('sn-category::category.category_page.navigation_label');
     }
 
-    public static function getNavigationGroup(): string | UnitEnum | null
+    public static function getNavigationGroup(): string|UnitEnum|null
     {
         return static::$navigationGroup ?? __('sn-category::category.global_default.navigation_group');
     }
@@ -103,25 +114,42 @@ abstract class Base extends Page
         return static::$emptyTipLabel ?? __('sn-category::category.category_page.no_data_description');
     }
 
-    public static function getProperties(): array
+    public function getRecordLabel(Model $record): HtmlString|string
+    {
+        return $record->name_label;
+    }
+
+    public function nestedScoped(): array
     {
         return [
-            'emptyLabel' => static::getEmptyLabel(),
-            'emptyTipLabel' => static::getEmptyTipLabel(),
+            'scope_type' => $this->categoryType?->scope_type,
+            'scope_id' => $this->categoryType?->scope_id,
+            'type_id' => $this->categoryType?->id,
         ];
     }
 
-    public function mount(): void
+    public function createSchema(array $arguments): array
     {
-        $this->categoryType = $this->getCategoryType();
+        $arguments = array_merge($arguments, $this->nestedScoped());
 
-        // 可管理分类类型，填充表单数据
-        if (static::getCanManage()) {
-            $attributes = $this->categoryType ? $this->categoryType->attributesToArray() : [];
-            $attributes['level'] = $attributes['level'] ?? static::getLevel();      // 分类类型等级
+        return $this->schema($arguments);
+    }
 
-            $this->form->fill($attributes);
-        }
+    public function editSchema(array $arguments): array
+    {
+        $arguments = array_merge($arguments, $this->nestedScoped());
+
+        return $this->schema($arguments);
+    }
+
+    public function schema(array $arguments): array
+    {
+        return CategoryForm::forms($arguments);
+    }
+
+    public function infolistSchema(): array
+    {
+        return CategoryInfolist::infolist();
     }
 
     public function getCategoryType(): ?CategoryType

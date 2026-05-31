@@ -14,7 +14,6 @@ use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Wsmallnews\Category\Commands\CategoryInstallCommand;
-use Wsmallnews\Category\Filament\Pages\Category\Components\Category as CategoryComponent;
 use Wsmallnews\Category\Livewire\Components\Categories as CategoriesComponent;
 use Wsmallnews\Category\Support\Utils;
 
@@ -60,15 +59,12 @@ class CategoryServiceProvider extends PackageServiceProvider
 
         // Handle Stubs
         if (app()->runningInConsole()) {
-            foreach (app(Filesystem::class)->files(__DIR__ . '/../stubs/') as $file) {
+            foreach (app(Filesystem::class)->files(__DIR__.'/../stubs/') as $file) {
                 $this->publishes([
                     $file->getRealPath() => base_path("stubs/category/{$file->getFilename()}"),
                 ], 'category-stubs');
             }
         }
-
-        // 注册 filament panel 组件
-        Livewire::component('sn-category-fi-category', CategoryComponent::class);
 
         // 注册 livewire 组件
         Livewire::component('sn-category-components-categories', CategoriesComponent::class);

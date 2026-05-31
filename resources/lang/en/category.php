@@ -65,11 +65,10 @@ return [
     'category_page' => [
         'empty_label' => 'No category data',
         'empty_tip_label' => 'No category data available',
-        'model_label' => 'Category Management',
-        'plural_model_label' => 'Category Management',
+        'model_label' => 'Category',
+        'plural_model_label' => 'Categories',
         'title' => 'Category Management',
         'navigation_label' => 'Category Management',
-        'manage_title' => 'Category',
         'save_success' => 'Saved successfully',
         'no_data' => 'No category data',
         'no_data_description' => 'Category data is empty.',
