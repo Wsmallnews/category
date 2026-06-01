@@ -2,6 +2,13 @@
 
 All notable changes to `category` will be documented in this file.
 
+## v1.0.7 - 2026-06-01
+
+* Base 继承 supportBase 组件
+* category 模块支持多语言
+* 支持 filamentv5
+* 修改 category 组件，适配 filament-nestedset v3
+
 ## v1.0.6 - 2026-05-09
 
 * table 增加 ID 列
