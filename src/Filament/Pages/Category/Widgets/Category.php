@@ -38,7 +38,7 @@ class Category extends Nestedset
         return static::$modelLabel ?? __('sn-category::category.category_page.model_label');
     }
 
-    public static function getRecordLabel(Model $record): HtmlString|string
+    public static function getRecordLabel(Model $record): HtmlString | string
     {
         return $record->name_label;
     }
