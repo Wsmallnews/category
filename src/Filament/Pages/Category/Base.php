@@ -53,7 +53,7 @@ abstract class Base extends NestedsetPage
     {
         parent::mount();
 
-        $this->categoryType = $this->getCategoryType();
+        $this->categoryType = static::getCategoryType();
 
         // 可管理分类类型，填充表单数据
         if (static::getCanManage()) {
@@ -114,45 +114,47 @@ abstract class Base extends NestedsetPage
         return static::$emptyTipLabel ?? __('sn-category::category.category_page.no_data_description');
     }
 
-    public function getRecordLabel(Model $record): HtmlString | string
+    public static function getRecordLabel(Model $record): HtmlString | string
     {
         return $record->name_label;
     }
 
-    public function nestedScoped(): array
+    public static function nestedScoped(): array
     {
+        $categoryType = static::getCategoryType();
+
         return [
-            'scope_type' => $this->categoryType?->scope_type,
-            'scope_id' => $this->categoryType?->scope_id,
-            'type_id' => $this->categoryType?->id,
+            'scope_type' => $categoryType?->scope_type,
+            'scope_id' => $categoryType?->scope_id,
+            'type_id' => $categoryType?->id,
         ];
     }
 
-    public function createSchema(array $arguments): array
+    public static function createSchema(array $arguments): array
     {
-        $arguments = array_merge($arguments, $this->nestedScoped());
+        $arguments = array_merge($arguments, static::nestedScoped());
 
-        return $this->schema($arguments);
+        return static::schema($arguments);
     }
 
-    public function editSchema(array $arguments): array
+    public static function editSchema(array $arguments): array
     {
-        $arguments = array_merge($arguments, $this->nestedScoped());
+        $arguments = array_merge($arguments, static::nestedScoped());
 
-        return $this->schema($arguments);
+        return static::schema($arguments);
     }
 
-    public function schema(array $arguments): array
+    public static function schema(array $arguments): array
     {
         return CategoryForm::forms($arguments);
     }
 
-    public function infolistSchema(): array
+    public static function infolistSchema(): array
     {
         return CategoryInfolist::infolist();
     }
 
-    public function getCategoryType(): ?CategoryType
+    public static function getCategoryType(): ?CategoryType
     {
         $categoryType = Utils::getCategoryTypeModel()::query()
             ->snScope(static::getScopeType(), static::getScopeId())
