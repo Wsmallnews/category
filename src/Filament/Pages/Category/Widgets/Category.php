@@ -19,15 +19,6 @@ class Category extends Nestedset
     #[Reactive]
     public ?CategoryType $record = null;
 
-    protected static ?CategoryType $categoryType = null;
-
-    public function mount(): void
-    {
-        parent::mount();
-
-        static::$categoryType = $this->record;
-    }
-
     public static function getModel(): ?string
     {
         return Utils::getCategoryModel();
@@ -38,26 +29,26 @@ class Category extends Nestedset
         return static::$modelLabel ?? __('sn-category::category.category_page.model_label');
     }
 
-    public static function getRecordLabel(Model $record): HtmlString | string
+    public function getRecordLabel(Model $record): HtmlString | string
     {
         return $record->name_label;
     }
 
-    public static function nestedScoped(): array
+    public function nestedScoped(): array
     {
         return [
-            'scope_type' => static::$categoryType?->scope_type,
-            'scope_id' => static::$categoryType?->scope_id,
-            'type_id' => static::$categoryType?->id,
+            'scope_type' => $this->record?->scope_type,
+            'scope_id' => $this->record?->scope_id,
+            'type_id' => $this->record?->id,
         ];
     }
 
-    public static function schema(array $arguments): array
+    public function schema(array $arguments): array
     {
         return CategoryForm::forms($arguments);
     }
 
-    public static function infolistSchema(): array
+    public function infolistSchema(): array
     {
         return CategoryInfolist::infolist();
     }

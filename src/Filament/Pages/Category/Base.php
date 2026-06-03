@@ -114,42 +114,40 @@ abstract class Base extends NestedsetPage
         return static::$emptyTipLabel ?? __('sn-category::category.category_page.no_data_description');
     }
 
-    public static function getRecordLabel(Model $record): HtmlString | string
+    public function getRecordLabel(Model $record): HtmlString | string
     {
         return $record->name_label;
     }
 
-    public static function nestedScoped(): array
+    public function nestedScoped(): array
     {
-        $categoryType = static::getCategoryType();
-
         return [
-            'scope_type' => $categoryType?->scope_type,
-            'scope_id' => $categoryType?->scope_id,
-            'type_id' => $categoryType?->id,
+            'scope_type' => $this->categoryType?->scope_type,
+            'scope_id' => $this->categoryType?->scope_id,
+            'type_id' => $this->categoryType?->id,
         ];
     }
 
-    public static function createSchema(array $arguments): array
+    public function createSchema(array $arguments): array
     {
-        $arguments = array_merge($arguments, static::nestedScoped());
+        $arguments = array_merge($arguments, $this->nestedScoped());
 
-        return static::schema($arguments);
+        return $this->schema($arguments);
     }
 
-    public static function editSchema(array $arguments): array
+    public function editSchema(array $arguments): array
     {
-        $arguments = array_merge($arguments, static::nestedScoped());
+        $arguments = array_merge($arguments, $this->nestedScoped());
 
-        return static::schema($arguments);
+        return $this->schema($arguments);
     }
 
-    public static function schema(array $arguments): array
+    public function schema(array $arguments): array
     {
         return CategoryForm::forms($arguments);
     }
 
-    public static function infolistSchema(): array
+    public function infolistSchema(): array
     {
         return CategoryInfolist::infolist();
     }
