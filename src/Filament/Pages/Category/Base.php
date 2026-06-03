@@ -34,9 +34,9 @@ abstract class Base extends NestedsetPage
 
     public ?CategoryType $categoryType = null;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBars3BottomLeft;
+    protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedBars3BottomLeft;
 
-    protected static string|BackedEnum|null $activeNavigationIcon = Heroicon::Bars3BottomLeft;
+    protected static string | BackedEnum | null $activeNavigationIcon = Heroicon::Bars3BottomLeft;
 
     protected static ?string $slug = 'categories';
 
@@ -90,7 +90,7 @@ abstract class Base extends NestedsetPage
         return static::$pluralModelLabel ?? __('sn-category::category.category_page.plural_model_label');
     }
 
-    public function getTitle(): string|Htmlable
+    public function getTitle(): string | Htmlable
     {
         return static::$title ?? __('sn-category::category.category_page.title');
     }
@@ -100,7 +100,7 @@ abstract class Base extends NestedsetPage
         return static::$navigationLabel ?? static::$title ?? __('sn-category::category.category_page.navigation_label');
     }
 
-    public static function getNavigationGroup(): string|UnitEnum|null
+    public static function getNavigationGroup(): string | UnitEnum | null
     {
         return static::$navigationGroup ?? __('sn-category::category.global_default.navigation_group');
     }
@@ -125,7 +125,7 @@ abstract class Base extends NestedsetPage
         return static::$emptyTipLabel ?? __('sn-category::category.category_page.no_data_description');
     }
 
-    public function getRecordLabel(Model $record): HtmlString|string
+    public function getRecordLabel(Model $record): HtmlString | string
     {
         return $record->name_label;
     }
