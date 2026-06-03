@@ -52,6 +52,7 @@ class CategoryTypeForm
                         ->rules(['integer', 'min:0']),
                     Forms\Components\Radio::make('status')
                         ->label(__('sn-category::category.category_type_form.status'))
+                        ->required()
                         ->default(CategoryTypeStatus::Normal)
                         ->inline()
                         ->options(CategoryTypeStatus::class),

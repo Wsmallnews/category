@@ -21,7 +21,7 @@ class CreateCategoryType extends CreateRecord
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         // 合并 scopeinfo 参数
-        $data = array_merge($data, static::getScopeInfo());
+        $data = array_merge($data, static::getScopeable());
 
         return parent::mutateFormDataBeforeCreate($data);
     }

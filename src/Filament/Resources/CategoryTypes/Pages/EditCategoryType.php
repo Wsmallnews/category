@@ -31,8 +31,7 @@ class EditCategoryType extends EditRecord
 
         return [
             CategoryWidget::make([
-                'properties' => static::getResource()::getProperties() ?? [],
-                'key' => 'widgets-' . $record?->id . '-' . $record?->level,
+                'key' => 'widgets-'.$record?->id.'-'.$record?->level,
             ]),
         ];
     }

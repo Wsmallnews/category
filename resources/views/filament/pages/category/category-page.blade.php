@@ -7,12 +7,23 @@
         {{ $this->form }}
     @endif
 
-    {{ $this->content }}
-
     @if ($categoryType)
-        @include('sn-filament-nestedset::filament.pages.components.nestedset', [
-            'nestedset' => $this->getNestedset(),
-            'level' => $this->getLevel(),
-        ])
+        @php
+            $nestedset = $this->getNestedset();
+        @endphp
+
+        @if ($headerActions = $this->getNestedsetActions())
+            <div class="flex justify-end items-center">
+                <x-filament::actions :actions="$headerActions" />
+            </div>
+        @endif
+
+        {{ $this->content }}
+    
+        <x-sn-filament-nestedset::filament.nestedset 
+            :nestedset="$nestedset" 
+            :level="$level" 
+            :empty-label="$emptyLabel" 
+            :empty-tip-label="$emptyTipLabel" />
     @endif
 </x-filament-panels::page>
