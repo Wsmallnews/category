@@ -30,9 +30,7 @@ class EditCategoryType extends EditRecord
         $record = $this->getRecord();
 
         return [
-            CategoryWidget::make([
-                'key' => 'widgets-' . $record?->id . '-' . $record?->level,
-            ]),
+            CategoryWidget::make([]),
         ];
     }
 }

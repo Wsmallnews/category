@@ -51,7 +51,9 @@ abstract class Base extends NestedsetPage
 
     public function mount(): void
     {
-        $this->categoryType = static::getCategoryType();
+        $this->categoryType = $this->getCategoryType();
+
+        static::$level = $this->categoryType?->level ?? null;
 
         // 可管理分类类型，填充表单数据
         if (static::getCanManage()) {
@@ -125,44 +127,6 @@ abstract class Base extends NestedsetPage
         return static::$emptyTipLabel ?? __('sn-category::category.category_page.no_data_description');
     }
 
-    public function getRecordLabel(Model $record): HtmlString | string
-    {
-        return $record->name_label;
-    }
-
-    public function nestedScoped(): array
-    {
-        return [
-            'scope_type' => $this->categoryType?->scope_type,
-            'scope_id' => $this->categoryType?->scope_id,
-            'type_id' => $this->categoryType?->id,
-        ];
-    }
-
-    public function createSchema(array $arguments): array
-    {
-        $arguments = array_merge($arguments, $this->nestedScoped());
-
-        return $this->schema($arguments);
-    }
-
-    public function editSchema(array $arguments): array
-    {
-        $arguments = array_merge($arguments, $this->nestedScoped());
-
-        return $this->schema($arguments);
-    }
-
-    public function schema(array $arguments): array
-    {
-        return CategoryForm::forms($arguments);
-    }
-
-    public function infolistSchema(): array
-    {
-        return CategoryInfolist::infolist();
-    }
-
     public static function getCategoryType(): ?CategoryType
     {
         $categoryType = Utils::getCategoryTypeModel()::query()
@@ -178,6 +142,13 @@ abstract class Base extends NestedsetPage
                 ...static::getScopeable(),
                 'team_id' => Filament::getTenant()?->id,
             ]);
+        }
+
+        // 不可管理模式，自动更新自定义设置的层级
+        if ($categoryType && ! static::getCanManage()) {
+            // 固定层级
+            $categoryType->level = static::getLevel();
+            $categoryType->save();
         }
 
         return $categoryType;
@@ -225,9 +196,49 @@ abstract class Base extends NestedsetPage
             $this->form->record($this->categoryType)->saveRelationships();
         }
 
+        static::$level = $this->categoryType->level ?? null;
+
         Notification::make()
             ->success()
             ->title(__('sn-category::category.category_page.save_success'))
             ->send();
+    }
+
+    protected function getRecordLabel(Model $record): HtmlString | string
+    {
+        return $record->name_label;
+    }
+
+    protected function nestedScoped(): array
+    {
+        return [
+            'scope_type' => $this->categoryType?->scope_type,
+            'scope_id' => $this->categoryType?->scope_id,
+            'type_id' => $this->categoryType?->id,
+        ];
+    }
+
+    protected function createSchema(array $arguments): array
+    {
+        $arguments = array_merge($arguments, $this->nestedScoped());
+
+        return $this->schema($arguments);
+    }
+
+    protected function editSchema(array $arguments): array
+    {
+        $arguments = array_merge($arguments, $this->nestedScoped());
+
+        return $this->schema($arguments);
+    }
+
+    protected function schema(array $arguments): array
+    {
+        return CategoryForm::forms($arguments);
+    }
+
+    protected function infolistSchema(): array
+    {
+        return CategoryInfolist::infolist();
     }
 }

@@ -10,14 +10,16 @@ use Wsmallnews\Category\Filament\Pages\Category\Schemas\CategoryInfolist;
 use Wsmallnews\Category\Models\CategoryType;
 use Wsmallnews\Category\Support\Utils;
 use Wsmallnews\FilamentNestedset\Filament\Pages\Widgets\Nestedset;
-use Wsmallnews\Support\Filament\Pages\Concerns\Scopeable;
 
 class Category extends Nestedset
 {
-    use Scopeable;
-
     #[Reactive]
     public ?CategoryType $record = null;
+
+    public function boot()
+    {
+        static::$level = $this->record?->level ?? null;
+    }
 
     public static function getModel(): ?string
     {
@@ -45,6 +47,8 @@ class Category extends Nestedset
 
     public function schema(array $arguments): array
     {
+        $arguments = array_merge($arguments, $this->nestedScoped());
+
         return CategoryForm::forms($arguments);
     }
 
