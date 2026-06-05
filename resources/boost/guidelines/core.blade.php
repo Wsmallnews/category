@@ -4,9 +4,10 @@
 
 ### 核心架构
 
-- 依赖 `wsmallnews/filament-nestedset ^3.0`
-- **Base**（`Wsmallnews\Category\Filament\Pages\Category\Base`）：继承 `NestedsetPage` 的抽象页面类，负责配置、schema 定义、分类类型管理
+- 依赖 `wsmallnews/filament-nestedset`（`NestedsetPage` 基类）
+- **Base**（`Wsmallnews\Category\Filament\Pages\Category\Base`）：继承 `Wsmallnews\FilamentNestedset\Filament\Pages\NestedsetPage` 的抽象页面类，负责配置、schema 定义、分类类型管理
 - **CategoryPage**（`Wsmallnews\Category\Filament\Pages\Category\CategoryPage`）：继承 Base 的具体页面类，注册到 Filament 面板
+- **Category Widget**（`Wsmallnews\Category\Filament\Pages\Category\Widgets\Category`）：Filament Widget 变体
 
 ### 分类类型（CategoryType）
 
@@ -67,19 +68,15 @@ public function getEloquentQuery($query) { return $query; }
 public function nestedScoped(): array { return []; }
 ```
 
-### Component 属性
+### 关键可覆盖方法
 
-| 属性 | 类型 | 说明 |
-|---|---|---|
-| `$pageClass` | `?string` | Page 类名，从 Page 通过 Blade 传入 |
-| `$activeTab` | `?string` | 当前激活的 Tab |
-| `$model` | `?string` | 分类模型类名 |
-| `$recordTitleAttribute` | `string` | 节点标题属性名 |
-| `$level` | `?int` | 嵌套层级限制 |
-| `$emptyLabel` | `?string` | 空状态标签 |
-| `$emptyTipLabel` | `?string` | 空状态提示标签 |
-| `$isScopedToTenant` | `bool` | 是否关联多租户 |
-| `$categoryType` | `?CategoryType` | 当前分类类型 |
+Base 页面自动通过 `nestedScoped()` 将 `scope_type`、`scope_id`、`type_id` 注入 nestedset 查询，不要手动重复添加这些 scope。`$categoryType` 会自动从配置的 `scopeType` / `scopeId` 解析或创建。
+
+Base 页面覆盖了 `getRecordLabel()`（返回 `$record->name_label`）和 `getHeaderActions()` / `getNestedsetActions()`（仅返回 createAction 和 fixNestedsetAction）。
+
+### 模型 scope 要求
+
+`Category` 模型的 `getScopeAttributes()` 返回 `['scope_type', 'scope_id', 'type_id']`，多租户时追加 `'team_id'`。不要将 `type_id` 忽略，否则 scoped 查询会遗漏分类类型过滤。
 
 ### 模型要求
 
@@ -105,7 +102,7 @@ class Category extends Model
 |---|---|
 | Page 基类 | `Wsmallnews\Category\Filament\Pages\Category\Base` |
 | Page 实现 | `Wsmallnews\Category\Filament\Pages\Category\CategoryPage` |
-| Component | `Wsmallnews\Category\Filament\Pages\Category\Components\Category` |
+| Widget | `Wsmallnews\Category\Filament\Pages\Category\Widgets\Category` |
 | Schema Form | `Wsmallnews\Category\Filament\Pages\Category\Schemas\CategoryForm` |
 | Schema Infolist | `Wsmallnews\Category\Filament\Pages\Category\Schemas\CategoryInfolist` |
 | 模型 | `Wsmallnews\Category\Models\Category` |
