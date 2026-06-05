@@ -2,6 +2,12 @@
 
 All notable changes to `category` will be documented in this file.
 
+## v1.0.8 - 2026-06-05
+
+* 分类适配最新 filaemnt-nestedset
+* 完善 canManage 时 level 问题，更新 record 时，关联小部件自动更新问题
+* 更新 readme 和 boost ai guidelines
+
 ## v1.0.7 - 2026-06-01
 
 * Base 继承 supportBase 组件
