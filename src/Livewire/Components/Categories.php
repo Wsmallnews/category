@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
+use RalphJSmit\Livewire\Urls\Facades\Url;
 use Wsmallnews\Category\Livewire\Concerns\Categoryable;
 use Wsmallnews\FilamentNestedset\Livewire\Components\Nestedset;
 use Wsmallnews\Support\Livewire\Concerns\Scopeable;
@@ -35,7 +36,7 @@ class Categories extends Nestedset
     {
         // 启用 url 方式，并且没有子导航时，才返回 url
         if ($this->useUrl && ! $record->children->count()) {
-            $url = $this->url ?? \RalphJSmit\Livewire\Urls\Facades\Url::current();      // 默认使用当前 url （不可使用 request()->fullUrlWithoutQuery， 会获取到 livewire/update）
+            $url = $this->url ?? Url::current();      // 默认使用当前 url （不可使用 request()->fullUrlWithoutQuery， 会获取到 livewire/update）
 
             // 移除 queryName 参数, 后续重新拼接新的 queryName 参数
             $url = remove_query_param_from_url($url, $this->queryName);
