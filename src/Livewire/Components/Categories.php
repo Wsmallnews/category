@@ -35,7 +35,10 @@ class Categories extends Nestedset
     {
         // 启用 url 方式，并且没有子导航时，才返回 url
         if ($this->useUrl && ! $record->children->count()) {
-            $url = $this->url ?? request()->fullUrlWithoutQuery($this->queryName);      // 默认使用当前 url, 移除 queryName 参数， 重新拼接新的 queryName 参数
+            $url = $this->url ?? \RalphJSmit\Livewire\Urls\Facades\Url::current();      // 默认使用当前 url （不可使用 request()->fullUrlWithoutQuery， 会获取到 livewire/update）
+
+            // 移除 queryName 参数, 后续重新拼接新的 queryName 参数
+            $url = remove_query_param_from_url($url, $this->queryName);
 
             return generate_href_html($url . (Str::contains($url, '?') ? '&' : '?') . $this->queryName . '=' . $record->id, $this->shouldOpenInNewTab);
         }

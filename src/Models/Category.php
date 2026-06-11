@@ -7,14 +7,17 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\HtmlString;
 use Kalnoy\Nestedset\NodeTrait;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Wsmallnews\Category\Enums\CategoryStatus;
 use Wsmallnews\Support\Models\SupportModel;
 use Wsmallnews\Support\Support\Utils as SupportUtils;
 
 use function Filament\Support\generate_icon_html;
 
-class Category extends SupportModel
+class Category extends SupportModel implements HasMedia
 {
+    use InteractsWithMedia;
     use NodeTrait;
 
     protected $table = 'sn_categories';
