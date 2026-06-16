@@ -7,8 +7,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
-use RalphJSmit\Livewire\Urls\Facades\Url;
 use Wsmallnews\Category\Livewire\Concerns\Categoryable;
+use Wsmallnews\Category\Models\Category;
 use Wsmallnews\FilamentNestedset\Livewire\Components\Nestedset;
 use Wsmallnews\Support\Livewire\Concerns\Scopeable;
 
@@ -18,6 +18,9 @@ class Categories extends Nestedset
 {
     use Categoryable;
     use Scopeable;
+
+    // 从父组件接收当前活跃的分类 ID，用于 model 的 isActive 判断
+    public int $activeCategoryId = 0;
 
     public bool $useUrl = false;
 
@@ -36,10 +39,7 @@ class Categories extends Nestedset
     {
         // 启用 url 方式，并且没有子导航时，才返回 url
         if ($this->useUrl && ! $record->children->count()) {
-            $url = $this->url ?? Url::current();      // 默认使用当前 url （不可使用 request()->fullUrlWithoutQuery， 会获取到 livewire/update）
-
-            // 移除 queryName 参数, 后续重新拼接新的 queryName 参数
-            $url = remove_query_param_from_url($url, $this->queryName);
+            $url = $this->url ?? request()->fullUrlWithoutQuery($this->queryName);      // 默认使用当前 url, 移除 queryName 参数， 重新拼接新的 queryName 参数
 
             return generate_href_html($url . (Str::contains($url, '?') ? '&' : '?') . $this->queryName . '=' . $record->id, $this->shouldOpenInNewTab);
         }
@@ -49,6 +49,10 @@ class Categories extends Nestedset
 
     public function getHasActive(Model $record): bool
     {
+        // 设置 model 上下文，让 isActive accessor 使用正确的活跃分类 ID
+        Category::$activeCategoryId = $this->activeCategoryId ?: null;
+        Category::$activeQueryName = $this->queryName;
+
         return $record->has_active;
     }
 

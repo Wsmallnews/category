@@ -20,6 +20,12 @@ class Category extends SupportModel implements HasMedia
     use InteractsWithMedia;
     use NodeTrait;
 
+    // 设置当前活跃的分类 id
+    public static ?int $activeCategoryId = null;
+
+    // 设置当前活跃的分类查询参数名，用于自动读取 query 参数
+    public static string $activeQueryName = 'categoryId';
+
     protected $table = 'sn_categories';
 
     protected $guarded = [];
@@ -46,11 +52,18 @@ class Category extends SupportModel implements HasMedia
     {
         return Attribute::make(
             get: function (mixed $value, array $attributes) {
-                $categoryId = request()->input('categoryId', 0);
-                $categoryIds = request()->input('categoryIds', '');
-                $categoryIds = is_array($categoryIds) ? $categoryIds : explode(',', $categoryIds);
+                $categoryId = static::$activeCategoryId
+                    ?? request()->input(static::$activeQueryName, 0);
 
-                if ($attributes['id'] == $categoryId || in_array($attributes['id'], $categoryIds)) {
+                $categoryIds = request()->input('categoryIds', '');
+                $categoryIds = is_array($categoryIds)
+                    ? $categoryIds
+                    : explode(',', $categoryIds);
+
+                if (
+                    $attributes['id'] == $categoryId
+                    || in_array($attributes['id'], $categoryIds)
+                ) {
                     return true;
                 }
 
