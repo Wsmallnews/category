@@ -2,6 +2,16 @@
 
 All notable changes to `category` will be documented in this file.
 
+## v1.0.9 - 2026-06-16
+
+### What's Changed
+
+- 分类组件点击分类默认使用事件，useUrl 默认为 request()->fullUrlWithoutQuery() 获取，isActive 优先根据在模型设置的 activeCategoryId 来决定
+- getRecordUrl 获取当前地址优化，model 要增加 media 支持
+- Fix styling
+
+**Full Changelog**: https://github.com/Wsmallnews/category/compare/v1.0.8...v1.0.9
+
 ## v1.0.8 - 2026-06-05
 
 * 分类适配最新 filaemnt-nestedset
