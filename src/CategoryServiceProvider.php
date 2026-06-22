@@ -14,7 +14,6 @@ use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Wsmallnews\Category\Commands\CategoryInstallCommand;
-use Wsmallnews\Category\Livewire\Components\Categories as CategoriesComponent;
 use Wsmallnews\Category\Support\Utils;
 
 class CategoryServiceProvider extends PackageServiceProvider
@@ -66,8 +65,11 @@ class CategoryServiceProvider extends PackageServiceProvider
             }
         }
 
-        // 注册 livewire 组件
-        Livewire::component('sn-category-components-categories', CategoriesComponent::class);
+        // 注册 livewire 命名空间
+        Livewire::addNamespace(
+            namespace: 'sn-category',
+            classNamespace: 'Wsmallnews\\Category\\Livewire'
+        );
     }
 
     protected function getAssetPackageName(): ?string
