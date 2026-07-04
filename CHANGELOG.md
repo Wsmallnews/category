@@ -2,6 +2,13 @@
 
 All notable changes to `category` will be documented in this file.
 
+## v1.0.10 - 2026-07-04
+
+### What's Changed
+
+- 更新通过 Livewire::addNamespace 注册组件
+- 分类 page 页 slug 修改为 page-categories
+
 ## v1.0.9 - 2026-06-16
 
 ### What's Changed
