@@ -2,27 +2,15 @@
 
 namespace Wsmallnews\Category;
 
-use BezhanSalleh\PluginEssentials\Concerns\Plugin as Essentials;
+use BadMethodCallException;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
-use Filament\Support\Concerns\EvaluatesClosures;
-use Filament\Support\Icons\Heroicon;
-use Wsmallnews\Category\Filament\Pages\Category\CategoryPage;
-use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
 use Wsmallnews\Category\Support\Utils;
-use Wsmallnews\Support\Concerns\Plugin\HasCustomProperties;
+use Wsmallnews\Support\Filament\Concerns\RegistersConfigurable;
 
 class CategoryPlugin implements Plugin
 {
-    use Essentials\BelongsToParent;
-    use Essentials\BelongsToTenant;
-    use Essentials\HasGlobalSearch;
-    use Essentials\HasLabels;
-    use Essentials\HasNavigation;
-    use Essentials\HasPluginDefaults;
-    use Essentials\WithMultipleResourceSupport;
-    use EvaluatesClosures;
-    use HasCustomProperties;
+    use RegistersConfigurable;
 
     public function getId(): string
     {
@@ -31,15 +19,17 @@ class CategoryPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        if (Utils::getPanelRegister('pages')) {
+        if ($pages = Utils::getPanelRegister('pages', true)) {
             $panel->pages([
-                ...Utils::getPanelRegister('pages'),
+                ...$pages,
+                ...$this->getConfigurablePages()
             ]);
         }
 
-        if (Utils::getPanelRegister('resources')) {
+        if ($resources = Utils::getPanelRegister('resources', true)) {
             $panel->resources([
-                ...Utils::getPanelRegister('resources'),
+                ...$resources,
+                ...$this->getConfigurableResources()
             ]);
         }
     }
@@ -62,36 +52,20 @@ class CategoryPlugin implements Plugin
         return $plugin;
     }
 
+
     /**
-     * 资源默认值
+     * 调用静态方法
+     * 
+     * @param string $method
+     * @param array $arguments
+     * @return mixed
      */
-    protected function getPluginDefaults(): array
+    public function __call(string $method, array $arguments): mixed
     {
-        return [
-            'navigationGroup' => fn () => __('sn-category::category.global_default.navigation_group'),
-            'globallySearchable' => false,
-            'globalSearchResultsLimit' => 25,
+        if (method_exists(Utils::class, $method)) {
+            return Utils::$method(...$arguments);
+        }
 
-            'resources' => [
-                CategoryTypeResource::class => [
-                    'modelLabel' => fn () => __('sn-category::category.category_type_resource.model_label'),
-                    'pluralModelLabel' => fn () => __('sn-category::category.category_type_resource.plural_model_label'),
-
-                    'navigationLabel' => fn () => __('sn-category::category.category_type_resource.navigation_label'),
-                    'navigationIcon' => Heroicon::OutlinedBars3,
-                    'activeNavigationIcon' => Heroicon::Bars3,
-                    'navigationSort' => 1,
-                ],
-                CategoryPage::class => [
-                    'modelLabel' => fn () => __('sn-category::category.category_page.model_label'),
-                    'pluralModelLabel' => fn () => __('sn-category::category.category_page.plural_model_label'),
-
-                    'navigationLabel' => fn () => __('sn-category::category.category_page.navigation_label'),
-                    'navigationIcon' => Heroicon::OutlinedChatBubbleLeft,
-                    'activeNavigationIcon' => Heroicon::ChatBubbleLeft,
-                    'navigationSort' => 1,
-                ],
-            ],
-        ];
+        throw new BadMethodCallException("Method {$method} does not exist on CategoryPlugin");
     }
 }

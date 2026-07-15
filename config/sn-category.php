@@ -23,13 +23,18 @@ return [
 
     /**
      * Panel register
+     *
+     * 支持两种格式：
+     *   - 简单注册：ClassName::class（使用 Base 类中的硬编码默认值）
+     *   - 带配置：ClassName::class => ['key' => 'value']（覆盖默认值）
+     * 配置项键名使用驼峰转下划线（如 navigationIcon → navigation_icon）
      */
     'panel_register' => [
-        'pages' => [
-            CategoryPage::class,
-        ],
         'resources' => [
             CategoryTypeResource::class,
+        ],
+        'pages' => [
+            CategoryPage::class,
         ],
     ],
 
