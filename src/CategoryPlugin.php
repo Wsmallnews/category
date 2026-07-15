@@ -22,14 +22,14 @@ class CategoryPlugin implements Plugin
         if ($pages = Utils::getPanelRegister('pages', true)) {
             $panel->pages([
                 ...$pages,
-                ...$this->getConfigurablePages()
+                ...$this->getConfigurablePages(),
             ]);
         }
 
         if ($resources = Utils::getPanelRegister('resources', true)) {
             $panel->resources([
                 ...$resources,
-                ...$this->getConfigurableResources()
+                ...$this->getConfigurableResources(),
             ]);
         }
     }
@@ -52,13 +52,8 @@ class CategoryPlugin implements Plugin
         return $plugin;
     }
 
-
     /**
      * 调用静态方法
-     * 
-     * @param string $method
-     * @param array $arguments
-     * @return mixed
      */
     public function __call(string $method, array $arguments): mixed
     {

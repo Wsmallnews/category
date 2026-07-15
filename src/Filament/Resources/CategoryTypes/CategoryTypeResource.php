@@ -6,7 +6,6 @@ use Wsmallnews\Category\CategoryPlugin;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Pages\CreateCategoryType;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Pages\EditCategoryType;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Pages\ListCategoryTypes;
-use Wsmallnews\Category\Support\Utils;
 use Wsmallnews\Support\Filament\Concerns\CanBeConfigured;
 use Wsmallnews\Support\Filament\Resources\ResourceConfiguration;
 
@@ -28,7 +27,7 @@ final class CategoryTypeResource extends BaseResource
     public static function getProperties(): array
     {
         return [
-            'emptyLabel' => static::resolveCustomProperty('emptyLabel'),
+            'emptyLabel' => self::resolveCustomProperty('emptyLabel'),
         ];
     }
 
