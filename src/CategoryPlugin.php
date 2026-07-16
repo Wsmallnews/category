@@ -58,13 +58,8 @@ class CategoryPlugin implements Plugin
         return $plugin;
     }
 
-
     /**
      * 调用静态方法
-     * 
-     * @param string $method
-     * @param array $arguments
-     * @return mixed
      */
     public function __call(string $method, array $arguments): mixed
     {
