@@ -19,18 +19,24 @@ class CategoryPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        if ($pages = Utils::getPanelRegister('pages', true)) {
-            $panel->pages([
-                ...$pages,
-                ...$this->getConfigurablePages()
-            ]);
+        // 注册 resources
+        $resources = Utils::getPanelRegister('resources', true);
+        if ($resources) {
+            $panel->resources([...$resources]);
+        }
+        $configurableResources = $this->getConfigurableResources();
+        if ($configurableResources) {
+            $panel->resources([...$configurableResources]);
         }
 
-        if ($resources = Utils::getPanelRegister('resources', true)) {
-            $panel->resources([
-                ...$resources,
-                ...$this->getConfigurableResources()
-            ]);
+        // 注册 pages
+        $pages = Utils::getPanelRegister('pages', true);
+        if ($pages) {
+            $panel->pages([...$pages]);
+        }
+        $configurablePages = $this->getConfigurablePages();
+        if ($configurablePages) {
+            $panel->pages([...$configurablePages]);
         }
     }
 

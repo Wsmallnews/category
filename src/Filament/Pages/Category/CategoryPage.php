@@ -3,7 +3,6 @@
 namespace Wsmallnews\Category\Filament\Pages\Category;
 
 use Wsmallnews\Category\CategoryPlugin;
-use Wsmallnews\Category\Support\Utils;
 use Wsmallnews\Support\Filament\Concerns\CanBeConfigured;
 use Wsmallnews\Support\Filament\Pages\PageConfiguration;
 
