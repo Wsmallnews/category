@@ -38,7 +38,7 @@ abstract class Base extends NestedsetPage
 
     protected static string | BackedEnum | null $activeNavigationIcon = Heroicon::Bars3BottomLeft;
 
-    protected static ?string $slug = 'page-categories';
+    protected static ?string $slug = 'categories';
 
     protected static ?int $navigationSort = 1;
 

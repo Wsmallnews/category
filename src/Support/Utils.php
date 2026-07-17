@@ -31,7 +31,6 @@ class Utils
     /**
      * Get scopeable configuration as ScopeableContext object.
      *
-     *
      * @throws CategoryException
      */
     public static function getScopeableContext(): ScopeableContext
@@ -58,7 +57,6 @@ class Utils
     /**
      * Get scope type.
      *
-     *
      * @throws CategoryException
      */
     public static function getScopeType(): string
@@ -69,7 +67,6 @@ class Utils
     /**
      * Get scope ID.
      *
-     *
      * @throws CategoryException
      */
     public static function getScopeId(): int
@@ -78,26 +75,18 @@ class Utils
     }
 
     /**
-     * Get panel register.
+     * Get panel register config.
      *
-     * @param  string  $type  Register type (pages or resources)
-     * @param  bool  $onlyFQCN  Whether to return only FQCNs
-     * @return array<string|class-string>
+     * @param  string|null  $type  Register type (pages, resources, global_default) or null for all
+     * @return mixed
      */
-    public static function getPanelRegister(string $type = 'pages', bool $onlyFQCN = false): array
+    public static function getPanelRegister(?string $type = null): mixed
     {
-        $registers = self::getConfig("panel_register.$type", []);
-
-        if ($onlyFQCN) {
-            $classes = [];
-            foreach ($registers as $key => $value) {
-                $classes[] = is_int($key) ? $value : $key;
-            }
-
-            $registers = $classes;
+        if (blank($type)) {
+            return self::getConfig('panel_register', null);
         }
 
-        return $registers;
+        return self::getConfig("panel_register.$type", null);
     }
 
     /**
