@@ -10,6 +10,7 @@ use Kalnoy\Nestedset\NodeTrait;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Wsmallnews\Category\Enums\CategoryStatus;
+use Wsmallnews\Support\Models\Concerns\HasActivityLog;
 use Wsmallnews\Support\Models\SupportModel;
 use Wsmallnews\Support\Support\Utils as SupportUtils;
 
@@ -17,6 +18,7 @@ use function Filament\Support\generate_icon_html;
 
 class Category extends SupportModel implements HasMedia
 {
+    use HasActivityLog;
     use InteractsWithMedia;
     use NodeTrait;
 
@@ -34,6 +36,11 @@ class Category extends SupportModel implements HasMedia
         'options' => 'array',
         'status' => CategoryStatus::class,
     ];
+
+    protected function getActivityIgnoreAttributes(): array
+    {
+        return ['_lft', '_rgt', 'updated_at'];
+    }
 
     public function getScopeAttributes(): array
     {
