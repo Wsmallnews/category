@@ -10,13 +10,14 @@ use Kalnoy\Nestedset\NodeTrait;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Wsmallnews\Category\Enums\CategoryStatus;
+use Wsmallnews\Support\Contracts\HasSnSubject;
 use Wsmallnews\Support\Models\Concerns\HasActivityLog;
 use Wsmallnews\Support\Models\SupportModel;
 use Wsmallnews\Support\Support\Utils as SupportUtils;
 
 use function Filament\Support\generate_icon_html;
 
-class Category extends SupportModel implements HasMedia
+class Category extends SupportModel implements HasMedia, HasSnSubject
 {
     use HasActivityLog;
     use InteractsWithMedia;
@@ -50,6 +51,31 @@ class Category extends SupportModel implements HasMedia
         }
 
         return $scopes;
+    }
+
+    public function getSnSubjectId(): int
+    {
+        return $this->id;
+    }
+
+    public function getSnSubjectTitle(): string | HtmlString | null
+    {
+        return $this->name;
+    }
+
+    public function getSnSubjectDescription(): string | HtmlString | null
+    {
+        return $this->description;
+    }
+
+    public function getSnSubjectCoverUrl(): string | HtmlString | null
+    {
+        return null;
+    }
+
+    public function getSnSubjectHrefUrl(): string | HtmlString | null
+    {
+        return null;
     }
 
     /**
