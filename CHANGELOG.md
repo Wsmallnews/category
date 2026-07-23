@@ -2,6 +2,18 @@
 
 All notable changes to `category` will be documented in this file.
 
+## v1.0.11 - 2026-07-23
+
+### What's Changed
+
+- 支持软删除的 table recordActions 增加 forceDeleteAction (9ada524)
+- resource table 都通过 action 包装器设置 action (856eacf)
+- feat: migrate to Filament native configurable resources/pages, remove bezhansalleh dependency (f3aa604)
+- 更新资源注册方式 (2234e96)
+- 重新设计资源注册方式，默认都使用 configuration 配置 (5d82f46)
+- 记录 activitylog 日志 (9fad4d1)
+- model 增加 HasSnSubject 接口支持 (8a1d954)
+
 ## v1.0.10 - 2026-07-04
 
 ### What's Changed
