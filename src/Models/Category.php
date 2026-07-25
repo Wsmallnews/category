@@ -23,6 +23,11 @@ class Category extends SupportModel implements HasMedia, HasSnSubject
     use InteractsWithMedia;
     use NodeTrait;
 
+    /**
+     * 搜索字段（用于 morphFilter 关键词搜索 + 全局搜索）。
+     */
+    public static array $keywordSearchFields = ['name', 'description'];
+
     // 设置当前活跃的分类 id
     public static ?int $activeCategoryId = null;
 
