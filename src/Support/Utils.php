@@ -38,7 +38,7 @@ class Utils
         try {
             return SupportUtils::getScopeFromConfig('sn-category.scopeable');
         } catch (InvalidScopeException $e) {
-            throw new CategoryException('Scopeable配置错误: ' . $e->getMessage());
+            throw new CategoryException('Scopeable configuration error. ' . $e->getMessage());
         }
     }
 
@@ -101,7 +101,7 @@ class Utils
         $model = self::getConfig('models')[$name] ?? null;
 
         if (blank($model) && $shouldException) {
-            throw new CategoryException("模型 {$name} 不存在");
+            throw new CategoryException("Model {$name} not found.");
         }
 
         return $model;
