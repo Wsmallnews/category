@@ -96,6 +96,52 @@ class Category extends Model
 }
 ```
 
+### CategoryType 资源
+
+`CategoryTypeResource` 提供分类类型的 CRUD 管理，继承自 support 包的 Scopeable 体系：
+
+```php
+use Wsmallnews\Category\Filament\Resources\CategoryTypes\BaseResource;
+
+// BaseResource 已提供：
+// - use Scopeable（applyScopeableToQuery 自动过滤）
+// - form() → CategoryTypeForm
+// - table() → CategoryTypesTable
+// - getWidgets() → CategoryWidget
+// - getEloquentQuery() → 带 scope + 软删除
+```
+
+可配置的具体实现：
+
+```php
+use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
+
+// 在 PanelProvider 中注册
+$panel->resources([CategoryTypeResource::class]);
+```
+
+### 分类模型
+
+`Category` 继承 `SupportModel`，实现 `HasSnSubject` 接口和 `NodeTrait`：
+
+```php
+use Wsmallnews\Category\Models\Category;
+
+// 核心特性：
+// - use NodeTrait（嵌套集）
+// - use HasActivityLog（活动日志）
+// - use InteractsWithMedia（Spatie 媒体库）
+// - implements HasSnSubject（preference 包集成）
+// - getScopeAttributes() 返回 ['scope_type', 'scope_id', 'type_id', 'team_id']
+```
+
+### 辅助函数
+
+| 函数 | 说明 |
+|---|---|
+| `has_category()` | 前端是否有当前分类（从 request attributes 读取） |
+| `current_category()` | 前端当前分类 Model |
+
 ### 正确命名空间速查
 
 | 类别 | 命名空间 |
@@ -105,8 +151,12 @@ class Category extends Model
 | Widget | `Wsmallnews\Category\Filament\Pages\Category\Widgets\Category` |
 | Schema Form | `Wsmallnews\Category\Filament\Pages\Category\Schemas\CategoryForm` |
 | Schema Infolist | `Wsmallnews\Category\Filament\Pages\Category\Schemas\CategoryInfolist` |
+| CategoryType Resource | `Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource` |
+| CategoryType BaseResource | `Wsmallnews\Category\Filament\Resources\CategoryTypes\BaseResource` |
 | 模型 | `Wsmallnews\Category\Models\Category` |
 | 分类类型模型 | `Wsmallnews\Category\Models\CategoryType` |
+| CategoryPlugin | `Wsmallnews\Category\CategoryPlugin` |
+| Utils | `Wsmallnews\Category\Support\Utils` |
 | ServiceProvider | `Wsmallnews\Category\CategoryServiceProvider` |
 
 ### 常见错误
