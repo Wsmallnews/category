@@ -43,7 +43,7 @@ class CategoryForm
             Schemas\Components\Fieldset::make('image_icons')
                 ->label(__('sn-category::category.category_form.image_fieldset'))
                 ->schema([
-                    FormComponents::localImageUpload('options.icon_src')
+                    FormComponents::plainImageUpload('options.icon_src')
                         ->label(__('sn-category::category.category_form.image_icon'))
                         ->directory(Utils::getFileDirectory('icons'))
                         ->automaticallyResizeImagesMode('cover')
@@ -52,7 +52,7 @@ class CategoryForm
                         ->automaticallyResizeImagesToHeight('200')
                         ->automaticallyResizeImagesToWidth('200')
                         ->uploadingMessage(__('sn-category::category.category_form.icon_uploading')),
-                    FormComponents::localImageUpload('options.active_icon_src')
+                    FormComponents::plainImageUpload('options.active_icon_src')
                         ->label(__('sn-category::category.category_form.image_active_icon'))
                         ->directory(Utils::getFileDirectory('icons'))
                         ->automaticallyResizeImagesMode('cover')
