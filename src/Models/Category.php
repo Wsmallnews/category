@@ -78,11 +78,6 @@ class Category extends SupportModel implements HasMedia, HasSnSubject
         return null;
     }
 
-    public function getSnSubjectHrefUrl(): string | HtmlString | null
-    {
-        return null;
-    }
-
     /**
      * 当前是否是激活状态
      */
