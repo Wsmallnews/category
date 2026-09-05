@@ -58,8 +58,8 @@ class Categories extends Nestedset
 
     public function getNestedset(): Collection
     {
-        return $this->getScopedQuery()->normal()->defaultOrder()
-            ->get()->toTree();
+        return $this->getScopedQuery()?->normal()->defaultOrder()
+            ->get()->toTree() ?? collect([]);
     }
 
     public function render(): View
