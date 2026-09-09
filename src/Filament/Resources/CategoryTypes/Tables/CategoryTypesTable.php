@@ -15,6 +15,7 @@ use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Wsmallnews\Category\Enums\CategoryTypeStatus;
 use Wsmallnews\Support\Filament\Actions\ActionComponents;
 use Wsmallnews\Support\Filament\Filters\FilterComponents;
 
@@ -46,6 +47,7 @@ class CategoryTypesTable
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('status')
                     ->label(__('sn-category::category.category_type_table.status'))
+                    ->badge()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(__('sn-category::category.category_type_table.created_at'))
@@ -56,11 +58,12 @@ class CategoryTypesTable
                     ->toggleable()
                     ->sortable(),
             ])
-            ->reorderable('order_column')
+            ->reorderable('order_column', direction: 'asc')
             ->defaultSort('order_column', 'asc')
             ->searchPlaceholder(__('sn-category::category.category_type_table.search_placeholder'))
             ->filtersFormWidth(Width::Medium)
             ->filters([
+                FilterComponents::statusFilter(CategoryTypeStatus::class),
                 ...FilterComponents::createUpdateRangeFilter(),
                 TrashedFilter::make(),
             ])
