@@ -2,6 +2,10 @@
 
 All notable changes to `category` will be documented in this file.
 
+## v1.0.12 - 2026-09-09
+
+**Full Changelog**: https://github.com/Wsmallnews/category/compare/v1.0.11...v1.0.12
+
 ## v1.0.11 - 2026-07-23
 
 ### What's Changed
