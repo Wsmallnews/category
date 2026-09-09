@@ -68,12 +68,7 @@ class CategoryForm
                     $get('options.icon_type') == 'image'
                 JS),
 
-            Forms\Components\Radio::make('status')
-                ->label(__('sn-category::category.category_form.status'))
-                ->default(CategoryStatus::Normal)
-                ->inline()
-                ->options(CategoryStatus::class)
-                ->columnSpan(1),
+            FormComponents::statusToggleButtons(CategoryStatus::class),
         ];
     }
 }
