@@ -44,7 +44,7 @@ class CategoryTypeForm
                     ->placeholder(__('sn-category::category.category_type_form.description_placeholder'))
                     ->columnSpan(1),
                 FormComponents::orderColumnInput(),
-                FormComponents::statusToggleButtons(CategoryTypeStatus::class),
+                FormComponents::enumsToggleButtons(CategoryTypeStatus::class),
             ])->columns(2)->columnSpanFull(),
         ];
     }

@@ -26,7 +26,7 @@ class CategoryForm
                     'image' => __('sn-category::category.category_form.icon_type_image'),
                 ])
                 ->default('none')
-                ->inline(),
+                ->inline()->grouped(),
             Schemas\Components\Fieldset::make('icons')
                 ->label(__('sn-category::category.category_form.icon_fieldset'))
                 ->schema([
@@ -68,7 +68,7 @@ class CategoryForm
                     $get('options.icon_type') == 'image'
                 JS),
 
-            FormComponents::statusToggleButtons(CategoryStatus::class),
+            FormComponents::enumsToggleButtons(CategoryStatus::class),
         ];
     }
 }
