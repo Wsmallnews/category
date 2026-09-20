@@ -2,7 +2,6 @@
 
 namespace Wsmallnews\Category\Filament\Pages\Category;
 
-use Wsmallnews\Category\CategoryPlugin;
 use Wsmallnews\Support\Filament\Concerns\CanBeConfigured;
 use Wsmallnews\Support\Filament\Pages\PageConfiguration;
 
@@ -35,10 +34,5 @@ final class CategoryPage extends Base
     public static function getEmptyTipLabel(): ?string
     {
         return self::resolveCustomProperty('emptyTipLabel') ?? parent::getEmptyTipLabel();
-    }
-
-    public static function getEssentialsPlugin(): ?CategoryPlugin
-    {
-        return CategoryPlugin::get();
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Wsmallnews\Category\Filament\Resources\CategoryTypes;
 
-use Wsmallnews\Category\CategoryPlugin;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Pages\CreateCategoryType;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Pages\EditCategoryType;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\Pages\ListCategoryTypes;
@@ -29,10 +28,5 @@ final class CategoryTypeResource extends BaseResource
         return [
             'emptyLabel' => self::resolveCustomProperty('emptyLabel'),
         ];
-    }
-
-    public static function getEssentialsPlugin(): ?CategoryPlugin
-    {
-        return CategoryPlugin::get();
     }
 }
