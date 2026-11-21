@@ -73,42 +73,40 @@ The package configuration lives in `config/sn-category.php`:
 
 ```php
 return [
-    'scopeable' => [
-        'scope_type' => 'sn-category',
-        'scope_id' => 0,
-    ],
-
     'models' => [
         'category' => Wsmallnews\Category\Models\Category::class,
         'category_type' => Wsmallnews\Category\Models\CategoryType::class,
-    ],
-
-    'panel_register' => [
-        'pages' => [
-            Wsmallnews\Category\Filament\Pages\Category\CategoryPage::class,
-        ],
-        'resources' => [
-            Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource::class,
-        ],
     ],
 ];
 ```
 
 ## Filament plugin
 
-Register the plugin on your Filament panel:
+Category is meant to be consumed (usually by cms) and has no defaults: adding
+`CategoryPlugin::make()` to a panel mounts nothing and creates no site. Declare
+what the panel needs:
 
 ```php
 use Wsmallnews\Category\CategoryPlugin;
+use Wsmallnews\Category\Filament\Pages\Category\CategoryPage;
+use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
 
-$panel
-    ->plugin(CategoryPlugin::make());
+$panel->plugin(
+    CategoryPlugin::make()
+        ->resources([CategoryTypeResource::class])
+        ->pages([CategoryPage::class])
+);
 ```
 
-`CategoryPlugin` registers the pages and resources configured in `sn-category.panel_register`:
+The registered components use the `sn-category` scope. The category page is a
+public page class: a consuming package (for example cms) may register it into
+its own site scope instead:
 
-- `Wsmallnews\Category\Filament\Pages\Category\CategoryPage`
-- `Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource`
+```php
+CmsPlugin::make()->pages([
+    \Wsmallnews\Category\Filament\Pages\Category\CategoryPage::class => ['key' => 'post-category'],
+]);
+```
 
 ## Usage
 

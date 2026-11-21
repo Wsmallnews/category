@@ -70,6 +70,7 @@ return [
         'title' => 'Category Management',
         'navigation_label' => 'Category Management',
         'save_success' => 'Saved successfully',
+        'tenant_missing' => 'No tenant is active, the category settings cannot be saved',
         'no_data' => 'No category data',
         'no_data_description' => 'Category data is empty.',
     ],

@@ -104,7 +104,7 @@ class Category extends Model
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\BaseResource;
 
 // BaseResource 已提供：
-// - use Scopeable（applyScopeableToQuery 自动过滤）
+// - use ScopedQueries（applyScopeToQuery 自动过滤）
 // - form() → CategoryTypeForm
 // - table() → CategoryTypesTable
 // - getWidgets() → CategoryWidget
@@ -155,7 +155,6 @@ use Wsmallnews\Category\Models\Category;
 | CategoryType BaseResource | `Wsmallnews\Category\Filament\Resources\CategoryTypes\BaseResource` |
 | 模型 | `Wsmallnews\Category\Models\Category` |
 | 分类类型模型 | `Wsmallnews\Category\Models\CategoryType` |
-| CategoryPlugin | `Wsmallnews\Category\CategoryPlugin` |
 | Utils | `Wsmallnews\Category\Support\Utils` |
 | ServiceProvider | `Wsmallnews\Category\CategoryServiceProvider` |
 

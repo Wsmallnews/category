@@ -70,6 +70,7 @@ return [
         'title' => '分类管理',
         'navigation_label' => '分类管理',
         'save_success' => '保存成功',
+        'tenant_missing' => '未识别到当前租户，无法保存分类配置',
         'no_data' => '暂无分类数据',
         'no_data_description' => '分类数据是空的',
     ],

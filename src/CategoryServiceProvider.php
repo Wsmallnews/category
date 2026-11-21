@@ -40,7 +40,7 @@ class CategoryServiceProvider extends PackageServiceProvider
         ModuleRegistry::register(new Module(
             id: static::$name,
             namespace: 'Wsmallnews\\Category',
-            plugin: CategoryPlugin::class,
+            plugin: null,
         ));
     }
 
