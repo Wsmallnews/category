@@ -50,12 +50,7 @@ class Category extends SupportModel implements HasMedia, HasSnSubject
 
     public function getScopeAttributes(): array
     {
-        $scopes = ['scope_type', 'scope_id', 'type_id'];
-        if (SupportUtils::isTenancyEnabled()) {        // 多租户 时，自动增加 租户相关参数
-            $scopes[] = 'team_id';
-        }
-
-        return $scopes;
+        return ['scope_type', 'scope_id', 'type_id', 'team_id'];
     }
 
     public function getSnSubjectId(): int

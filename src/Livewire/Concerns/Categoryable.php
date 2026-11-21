@@ -19,7 +19,7 @@ trait Categoryable
      */
     public function mountCategoryable()
     {
-        $this->categoryType = Utils::getCategoryTypeModel()::scopeable(...$this->getScopeable())->when($this->categoryTypeId, function ($query) {
+        $this->categoryType = Utils::getCategoryTypeModel()::query()->forScopeable($this->getScopeable())->when($this->categoryTypeId, function ($query) {
             $query->where('id', $this->categoryTypeId);
         })->first();
 
@@ -40,7 +40,7 @@ trait Categoryable
             ...$this->getScopeable(),
             'type_id' => $this->categoryType?->id,
         ];
-        has_tenancy() && $scoped['team_id'] = current_tenant()?->id;
+        $scoped['team_id'] = current_tenant()?->getKey();
 
         return $scoped;
     }

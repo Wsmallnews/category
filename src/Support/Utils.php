@@ -5,10 +5,6 @@ declare(strict_types=1);
 namespace Wsmallnews\Category\Support;
 
 use Wsmallnews\Category\Exceptions\CategoryException;
-use Wsmallnews\Category\Models;
-use Wsmallnews\Support\Data\ScopeableContext;
-use Wsmallnews\Support\Exceptions\InvalidScopeException;
-use Wsmallnews\Support\Support\Utils as SupportUtils;
 
 /**
  * Utility class for Category package configuration and helpers.
@@ -26,73 +22,6 @@ class Utils
         $config = config('sn-category');
 
         return $name ? (data_get($config, $name) ?? $default) : $config;
-    }
-
-    /**
-     * Get scopeable configuration as ScopeableContext object.
-     *
-     * @param  string|null  $key  实例键（null = main 默认实例）
-     *
-     * @throws CategoryException
-     */
-    public static function getScopeableContext(?string $key = null): ScopeableContext
-    {
-        try {
-            return SupportUtils::getScopeFromInstances('sn-category.scopeables', $key);
-        } catch (InvalidScopeException $e) {
-            throw new CategoryException('Scopeable configuration error. ' . $e->getMessage());
-        }
-    }
-
-    /**
-     * Get scopeable array.
-     *
-     * @param  string|null  $key  实例键（null = main 默认实例）
-     * @return array{scope_type: string, scope_id: int}
-     *
-     * @throws CategoryException
-     */
-    public static function getScopeable(?string $key = null): array
-    {
-        return self::getScopeableContext($key)->toArray();
-    }
-
-    /**
-     * Get scope type.
-     *
-     * @param  string|null  $key  实例键（null = main 默认实例）
-     *
-     * @throws CategoryException
-     */
-    public static function getScopeType(?string $key = null): string
-    {
-        return self::getScopeableContext($key)->scopeType;
-    }
-
-    /**
-     * Get scope ID.
-     *
-     * @param  string|null  $key  实例键（null = main 默认实例）
-     *
-     * @throws CategoryException
-     */
-    public static function getScopeId(?string $key = null): int
-    {
-        return self::getScopeableContext($key)->scopeId;
-    }
-
-    /**
-     * Get panel register config.
-     *
-     * @param  string|null  $type  Register type (pages, resources, global_default) or null for all
-     */
-    public static function getPanelRegister(?string $type = null): mixed
-    {
-        if (blank($type)) {
-            return self::getConfig('panel_register', null);
-        }
-
-        return self::getConfig("panel_register.$type", null);
     }
 
     /**

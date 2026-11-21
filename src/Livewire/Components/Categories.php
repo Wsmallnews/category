@@ -10,14 +10,14 @@ use Illuminate\View\View;
 use Wsmallnews\Category\Livewire\Concerns\Categoryable;
 use Wsmallnews\Category\Models\Category;
 use Wsmallnews\FilamentNestedset\Livewire\Components\Nestedset;
-use Wsmallnews\Support\Livewire\Concerns\Scopeable;
+use Wsmallnews\Support\Livewire\Concerns\ScopedBySite;
 
 use function Filament\Support\generate_href_html;
 
 class Categories extends Nestedset
 {
     use Categoryable;
-    use Scopeable;
+    use ScopedBySite;
 
     // 从父组件接收当前活跃的分类 ID，用于 model 的 isActive 判断
     public int $activeCategoryId = 0;
