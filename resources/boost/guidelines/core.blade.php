@@ -25,6 +25,12 @@ $categoryType = CategoryType::create([
 ]);
 ```
 
+### 组件侧的 scope（Categoryable）
+
+`Categoryable` 的 `typeScopeable()` 决定分类树的数据空间，**默认站点 base**；分区组件覆写返回 `getScopeable()`（分类树自身），内容组件覆写返回 `getRelatedScopeable('categories')`（如 cms 的 Posts）。
+
+`typeScopeable()` 同时喂给 `CategoryType` 查询和分类行查询，两者 scope 不一致会抛 `InvalidScopeException`；分类行保存时模型再做一次同 scope 校验。
+
 ### 创建分类页面
 
 ```bash

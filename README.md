@@ -80,31 +80,40 @@ return [
 ];
 ```
 
-## Filament plugin
+## Filament registration
 
-Category is meant to be consumed (usually by cms) and has no defaults: adding
-`CategoryPlugin::make()` to a panel mounts nothing and creates no site. Declare
-what the panel needs:
+Category is meant to be consumed (usually by cms) and declares no site of its
+own: the package ships no plugin class, so nothing is mounted automatically.
+Register what the panel needs through the consuming site plugin — entries follow
+that site's scope:
 
 ```php
-use Wsmallnews\Category\CategoryPlugin;
 use Wsmallnews\Category\Filament\Pages\Category\CategoryPage;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
 
-$panel->plugin(
-    CategoryPlugin::make()
-        ->resources([CategoryTypeResource::class])
-        ->pages([CategoryPage::class])
-);
+CmsPlugin::make()
+    ->resources([CategoryTypeResource::class])
+    ->pages([CategoryPage::class]);
 ```
 
-The registered components use the `sn-category` scope. The category page is a
-public page class: a consuming package (for example cms) may register it into
-its own site scope instead:
+A second instance of the same page (its own category tree) needs a distinct
+`key` and a `scope_suffix` naming its data partition:
 
 ```php
 CmsPlugin::make()->pages([
-    \Wsmallnews\Category\Filament\Pages\Category\CategoryPage::class => ['key' => 'post-category'],
+    CategoryPage::class => ['key' => 'post-category', 'scope_suffix' => 'post-category'],
+]);
+```
+
+Without a site plugin (a plain panel), register the configuration with an
+explicit scope pair — a bare class name carries no scope and fails closed when
+the query runs:
+
+```php
+$panel->resources([
+    CategoryTypeResource::make('category-types')
+        ->scopeType('sn-category')
+        ->scopeId(0),
 ]);
 ```
 
@@ -171,7 +180,6 @@ Use the component when you need a frontend category tree display that follows th
 
 | Category | Namespace |
 | --- | --- |
-| Plugin | `Wsmallnews\Category\CategoryPlugin` |
 | ServiceProvider | `Wsmallnews\Category\CategoryServiceProvider` |
 | Page Base | `Wsmallnews\Category\Filament\Pages\Category\Base` |
 | Page Implementation | `Wsmallnews\Category\Filament\Pages\Category\CategoryPage` |
