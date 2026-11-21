@@ -19,6 +19,12 @@ class Categories extends Nestedset
     use Categoryable;
     use ScopedBySite;
 
+    /** The tree's own scope is its data scope (site base by default). */
+    protected function typeScopeable(): array
+    {
+        return $this->getScopeable();
+    }
+
     // 从父组件接收当前活跃的分类 ID，用于 model 的 isActive 判断
     public int $activeCategoryId = 0;
 

@@ -11,7 +11,6 @@ use Filament\Support\Icons\Heroicon;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
-use Illuminate\Support\Str;
 use Livewire\Attributes\Locked;
 use UnitEnum;
 use Wsmallnews\Category\Enums\CategoryTypeStatus;
@@ -21,11 +20,13 @@ use Wsmallnews\Category\Filament\Resources\CategoryTypes\Schemas\CategoryTypeFor
 use Wsmallnews\Category\Models\CategoryType;
 use Wsmallnews\Category\Support\Utils;
 use Wsmallnews\FilamentNestedset\Filament\Pages\NestedsetPage;
+use Wsmallnews\Support\Filament\Concerns\HasPanelScopedType;
 use Wsmallnews\Support\Filament\Concerns\RequiresConfiguration;
 use Wsmallnews\Support\Filament\Pages\PageConfiguration;
 
 abstract class Base extends NestedsetPage
 {
+    use HasPanelScopedType;
     use RequiresConfiguration;
 
     protected static ?string $configurationClass = PageConfiguration::class;
@@ -131,22 +132,9 @@ abstract class Base extends NestedsetPage
         return static::$emptyTipLabel ?? __('sn-category::category.category_page.no_data_description');
     }
 
-    public static function getCategoryType(): ?CategoryType
+    public function getCategoryType(): ?CategoryType
     {
-        $categoryType = Utils::getCategoryTypeModel()::query()
-            ->panelContext(static::getScopeable())
-            ->first();
-
-        if (! $categoryType && ! static::getCanManage()) {
-            $categoryType = Utils::getCategoryTypeModel()::query()->create([
-                'team_id' => current_tenant()?->getKey(),
-                'scope_type' => static::getScopeType(),
-                'scope_id' => static::getScopeId(),
-                'name' => Str::title(static::getScopeType()),
-                'level' => static::getLevel(),
-                'status' => CategoryTypeStatus::Normal,
-            ]);
-        }
+        $categoryType = $this->resolvePanelType();
 
         // 不可管理模式，自动更新自定义设置的层级（仅在与库中值不同时写库）
         if ($categoryType && ! static::getCanManage() && (int) $categoryType->level !== (int) static::getLevel()) {
@@ -155,6 +143,20 @@ abstract class Base extends NestedsetPage
         }
 
         return $categoryType;
+    }
+
+    protected function typeModel(): string
+    {
+        return Utils::getCategoryTypeModel();
+    }
+
+    protected function typeDefaults(): array
+    {
+        return [
+            'name' => $this->typeNameFromScope(),
+            'level' => static::getLevel(),
+            'status' => CategoryTypeStatus::Normal,
+        ];
     }
 
     public function form(Schema $schema): Schema
@@ -185,13 +187,7 @@ abstract class Base extends NestedsetPage
 
         if (! $this->categoryType) {
             $this->categoryType = new (Utils::getCategoryTypeModel());
-
-            if (($tenantId = current_tenant()?->getKey()) !== null) {
-                $this->categoryType->team_id = $tenantId;
-            }
-
-            $this->categoryType->scope_type = static::getScopeType();
-            $this->categoryType->scope_id = static::getScopeId();
+            $this->categoryType->fill($this->panelScopedAttributes());
         }
 
         $this->categoryType->fill($data);
