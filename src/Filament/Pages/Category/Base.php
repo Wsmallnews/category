@@ -4,7 +4,6 @@ namespace Wsmallnews\Category\Filament\Pages\Category;
 
 use BackedEnum;
 use Filament\Actions;
-use Filament\Facades\Filament;
 use Filament\Notifications\Notification;
 use Filament\Schemas;
 use Filament\Schemas\Schema;
@@ -13,6 +12,7 @@ use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
+use Livewire\Attributes\Locked;
 use UnitEnum;
 use Wsmallnews\Category\Enums\CategoryTypeStatus;
 use Wsmallnews\Category\Filament\Pages\Category\Schemas\CategoryForm;
@@ -21,17 +21,21 @@ use Wsmallnews\Category\Filament\Resources\CategoryTypes\Schemas\CategoryTypeFor
 use Wsmallnews\Category\Models\CategoryType;
 use Wsmallnews\Category\Support\Utils;
 use Wsmallnews\FilamentNestedset\Filament\Pages\NestedsetPage;
-use Wsmallnews\Support\Filament\Pages\Concerns\Scopeable;
+use Wsmallnews\Support\Filament\Concerns\RequiresConfiguration;
+use Wsmallnews\Support\Filament\Pages\PageConfiguration;
 
 abstract class Base extends NestedsetPage
 {
-    use Scopeable;
+    use RequiresConfiguration;
+
+    protected static ?string $configurationClass = PageConfiguration::class;
 
     /**
      * @var array<string, mixed> | null
      */
     public ?array $data = [];
 
+    #[Locked]
     public ?CategoryType $categoryType = null;
 
     protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedBars3BottomLeft;
@@ -130,23 +134,22 @@ abstract class Base extends NestedsetPage
     public static function getCategoryType(): ?CategoryType
     {
         $categoryType = Utils::getCategoryTypeModel()::query()
-            ->snScope(static::getScopeType(), static::getScopeId())
+            ->panelContext(static::getScopeable())
             ->first();
 
         if (! $categoryType && ! static::getCanManage()) {
-            // 自动创建分类类型
-            $categoryType = Utils::getCategoryTypeModel()::create([
+            $categoryType = Utils::getCategoryTypeModel()::query()->create([
+                'team_id' => current_tenant()?->getKey(),
+                'scope_type' => static::getScopeType(),
+                'scope_id' => static::getScopeId(),
                 'name' => Str::title(static::getScopeType()),
                 'level' => static::getLevel(),
                 'status' => CategoryTypeStatus::Normal,
-                ...static::getScopeable(),
-                'team_id' => Filament::getTenant()?->id,
             ]);
         }
 
-        // 不可管理模式，自动更新自定义设置的层级
-        if ($categoryType && ! static::getCanManage()) {
-            // 固定层级
+        // 不可管理模式，自动更新自定义设置的层级（仅在与库中值不同时写库）
+        if ($categoryType && ! static::getCanManage() && (int) $categoryType->level !== (int) static::getLevel()) {
             $categoryType->level = static::getLevel();
             $categoryType->save();
         }
@@ -182,9 +185,11 @@ abstract class Base extends NestedsetPage
 
         if (! $this->categoryType) {
             $this->categoryType = new (Utils::getCategoryTypeModel());
-            if (static::isScopedToTenant() && ($tenant = Filament::getTenant())) {
-                $this->categoryType->team_id = $tenant->id;
+
+            if (($tenantId = current_tenant()?->getKey()) !== null) {
+                $this->categoryType->team_id = $tenantId;
             }
+
             $this->categoryType->scope_type = static::getScopeType();
             $this->categoryType->scope_id = static::getScopeId();
         }

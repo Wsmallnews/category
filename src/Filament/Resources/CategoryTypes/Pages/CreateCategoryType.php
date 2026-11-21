@@ -4,11 +4,11 @@ namespace Wsmallnews\Category\Filament\Resources\CategoryTypes\Pages;
 
 use Filament\Resources\Pages\CreateRecord;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
-use Wsmallnews\Support\Filament\Resources\Concerns\Pages\Scopeable;
+use Wsmallnews\Support\Filament\Resources\Concerns\Pages\ForwardsResourceScope;
 
 class CreateCategoryType extends CreateRecord
 {
-    use Scopeable;
+    use ForwardsResourceScope;
 
     protected static string $resource = CategoryTypeResource::class;
 

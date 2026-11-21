@@ -8,11 +8,11 @@ use Filament\Actions\RestoreAction;
 use Filament\Resources\Pages\EditRecord;
 use Wsmallnews\Category\Filament\Pages\Category\Widgets\Category as CategoryWidget;
 use Wsmallnews\Category\Filament\Resources\CategoryTypes\CategoryTypeResource;
-use Wsmallnews\Support\Filament\Resources\Concerns\Pages\Scopeable;
+use Wsmallnews\Support\Filament\Resources\Concerns\Pages\ForwardsResourceScope;
 
 class EditCategoryType extends EditRecord
 {
-    use Scopeable;
+    use ForwardsResourceScope;
 
     protected static string $resource = CategoryTypeResource::class;
 

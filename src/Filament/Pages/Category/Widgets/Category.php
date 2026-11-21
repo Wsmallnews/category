@@ -13,12 +13,20 @@ use Wsmallnews\FilamentNestedset\Filament\Pages\Widgets\Nestedset;
 
 class Category extends Nestedset
 {
+    // Reactive: synced from the parent page, so it cannot be #[Locked] (the
+    // reactive update path triggers the update hook). Tenant isolation comes
+    // from the record's type_id.
     #[Reactive]
     public ?CategoryType $record = null;
 
-    public function boot()
+    public function mount(?CategoryType $record = null): void
     {
-        static::$level = $this->record?->level ?? null;
+        static::$level = $record?->level;
+    }
+
+    public function boot(): void
+    {
+        static::$level = $this->record?->level;
     }
 
     public static function getModel(): ?string
